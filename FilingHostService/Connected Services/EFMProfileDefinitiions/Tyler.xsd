@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:core="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns="urn:tyler:ecf:extensions:Common" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" targetNamespace="urn:tyler:ecf:extensions:Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="../common/ECF-4.0-CommonTypes.xsd" namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" />
+  <xsd:import schemaLocation="../constraint/niem/structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0" />
+  <xsd:import schemaLocation="../message/ECF-4.0-CoreFilingMessage.xsd" namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CoreFilingMessage-4.0" />
+  <xsd:import schemaLocation="../message/UBL-CommonAggregateComponents-2.1.xsd" namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" />
+  <xsd:complexType name="FilingAssociationType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="nc:AssociationType">
+        <xsd:sequence>
+          <xsd:element ref="PartyReference" />
+          <xsd:element ref="FilingReference" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="PartyServiceType">
+    <xsd:sequence>
+      <xsd:element ref="PartyReference" />
+      <xsd:element maxOccurs="unbounded" ref="nc:ItemOtherIdentification" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="FilerInformationType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" ref="FilerName" />
+      <xsd:element minOccurs="0" ref="FirmName" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="RecipientInformationType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" ref="RecipientName" />
+      <xsd:element minOccurs="0" ref="RecipientFirmName" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="SubmitterInformationType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" ref="SubmitterName" />
+      <xsd:element minOccurs="0" ref="SubmitterFirmName" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="PartyService" type="PartyServiceType" />
+  <xsd:element name="FilingAssociation" type="FilingAssociationType" />
+  <xsd:element name="PartyReference" type="s:ReferenceType" />
+  <xsd:element name="FilingReference" type="s:ReferenceType" />
+  <xsd:element name="ServiceDate" type="nc:DateType" />
+  <xsd:element name="FilerInformation" type="FilerInformationType" />
+  <xsd:element name="RecipientInformation" type="RecipientInformationType" />
+  <xsd:element name="SubmitterInformation" type="SubmitterInformationType" />
+  <xsd:element name="FilerName" type="nc:TextType" />
+  <xsd:element name="FirmName" type="nc:TextType" />
+  <xsd:element name="RecipientName" type="nc:TextType" />
+  <xsd:element name="RecipientFirmName" type="nc:TextType" />
+  <xsd:element name="SubmitterName" type="nc:TextType" />
+  <xsd:element name="SubmitterFirmName" type="nc:TextType" />
+  <xsd:complexType name="CaseAugmentationType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="ecf:CaseAugmentationType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" ref="CaseTypeText" />
+          <xsd:element minOccurs="0" ref="FilerTypeText" />
+          <xsd:element minOccurs="0" ref="LowerCourtText" />
+          <xsd:element minOccurs="0" ref="LowerCourtJudgeText" />
+          <xsd:element minOccurs="0" ref="AttachServiceContactIndicator" />
+          <xsd:element minOccurs="0" ref="ProcedureRemedy" />
+          <xsd:element minOccurs="0" ref="ProviderCharge" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" ref="PropertyAccountNumber" />
+          <xsd:element minOccurs="0" ref="CivilClaimAmount" />
+          <xsd:element minOccurs="0" ref="ProbateEstateAmount" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" ref="FilingAssociation" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" ref="PartyService" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" ref="ExtendedData" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ExtendedDataType" />
+  <xsd:element name="ExtendedData" type="ExtendedDataType" />
+  <xsd:complexType name="CaseAbstractorType">
+    <xsd:annotation>
+      <xsd:documentation>Additional information about an abstractor.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="ecf:CaseParticipantType">
+        <xsd:sequence>
+          <xsd:element ref="AbstractorName" />
+          <xsd:element ref="Fees" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ProviderChargeType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" ref="cac:AllowanceCharge" />
+      <xsd:element minOccurs="0" ref="cac:Address" />
+      <xsd:element minOccurs="0" ref="cac:Payment" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="ProviderCharge" type="ProviderChargeType" />
+  <xsd:complexType name="DocumentType">
+    <xsd:annotation>
+      <xsd:documentation>Extended DocumentType</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="ecf:DocumentType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" ref="FilingCommentsText" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" ref="DocumentOptionalService" />
+          <xsd:element minOccurs="0" ref="CourtesyCopiesText" />
+          <xsd:element minOccurs="0" ref="PreliminaryCopiesText" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ReviewedDocumentType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="ecf:ReviewedDocumentType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" ref="DocumentReviewer" />
+          <xsd:element minOccurs="0" ref="DocumentReviewDate" />
+          <xsd:element minOccurs="0" ref="FilingReviewCommentsText" />
+          <xsd:element minOccurs="0" ref="RejectReasonText" />
+          <xsd:element minOccurs="0" ref="WaiverIndicator" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="DocumentOptionalServiceType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="nc:IdentificationType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" ref="Multiplier" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ProcedureRemedyType">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" ref="RemedyCode" />
+      <xsd:element minOccurs="0" ref="DamageAmountCode" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="PersonFilerType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="ecf:PersonType">
+        <xsd:sequence>
+          <xsd:element ref="FirmName" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="EntityFiler" substitutionGroup="nc:EntityRepresentation" type="PersonFilerType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="EntityRepresentation" xmlns:i="http://niem.gov/niem/appinfo/2.0" />
+      </xsd:appinfo>
+      <xsd:documentation>A person who submitted a filing.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="CaseAbstractor" substitutionGroup="ecf:CaseParticipant" type="CaseAbstractorType">
+    <xsd:annotation>
+      <xsd:appinfo>
+        <i:Base i:namespace="http://niem.gov/niem/niem-core/2.0" i:name="EntityRepresentation" />
+      </xsd:appinfo>
+      <xsd:documentation />
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="AbstractorName" type="nc:TextType" />
+  <xsd:element name="Fees" type="nc:AmountType" />
+  <xsd:element name="CaseTypeText" type="nc:TextType" />
+  <xsd:element name="FilerTypeText" type="nc:TextType" />
+  <xsd:complexType name="OrganizationIdentificationType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="nc:IdentificationType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" ref="Identification" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="Identification" type="nc:IdentificationType" />
+  <xsd:element name="OrganizationOtherIdentification" substitutionGroup="nc:OrganizationIdentification" type="OrganizationIdentificationType" />
+  <xsd:element name="AttachServiceContactIndicator" type="niem-xsd:boolean">
+    <xsd:annotation>
+      <xsd:documentation>Indicates if service contacts should be attached to case.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LowerCourtText" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:documentation>The lower court location identifier</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="LowerCourtJudgeText" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:documentation>The lower court case judge</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PropertyAccountNumber" type="nc:TextType" />
+  <xsd:element name="AccountNumber" type="nc:TextType" />
+  <xsd:element name="CaseAugmentation" substitutionGroup="ecf:CaseAugmentation" type="CaseAugmentationType" />
+  <xsd:element name="FilingLeadDocument" substitutionGroup="core:FilingLeadDocument" type="DocumentType" />
+  <xsd:element name="FilingConnectedDocument" substitutionGroup="core:FilingConnectedDocument" type="DocumentType" />
+  <xsd:element name="ReviewedLeadDocument" substitutionGroup="ecf:ReviewedLeadDocument" type="ReviewedDocumentType" />
+  <xsd:element name="ReviewedConnectedDocument" substitutionGroup="ecf:ReviewedConnectedDocument" type="ReviewedDocumentType" />
+  <xsd:element name="DocumentReviewer" type="nc:EntityType" />
+  <xsd:element name="DocumentReviewDate" type="nc:DateType" />
+  <xsd:element name="FilingReviewCommentsText" type="nc:TextType" />
+  <xsd:element name="RejectReasonText" type="nc:TextType" />
+  <xsd:element name="WaiverIndicator" type="niem-xsd:boolean" />
+  <xsd:element name="CourtesyCopiesText" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:documentation>Email addresses, comma separated which are sent service notification after review.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="PreliminaryCopiesText" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:documentation>Email addresses, comma separated which are sent service notification before review.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Multiplier" type="niem-xsd:decimal">
+    <xsd:annotation>
+      <xsd:documentation>Instruction from the clerk to the court record to indicate multiplier for optional service."</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="DocumentOptionalService" type="DocumentOptionalServiceType" />
+  <xsd:element name="FilingCommentsText" type="nc:TextType" />
+  <xsd:element name="RemedyCode" type="nc:TextType" />
+  <xsd:element name="DamageAmountCode" type="nc:TextType" />
+  <xsd:element name="ProcedureRemedy" type="ProcedureRemedyType" />
+  <xsd:element name="CivilClaimAmount" type="nc:AmountType" />
+  <xsd:element name="ProbateEstateAmount" type="nc:AmountType" />
+  <xsd:element name="CaseTitle" substitutionGroup="nc:DocumentCategoryText" type="nc:TextType" />
+  <xsd:element name="CaseNumber" substitutionGroup="nc:DocumentCategoryText" type="nc:TextType" />
+  <xsd:element name="FilingType" substitutionGroup="nc:DocumentCategoryText" type="nc:TextType" />
+  <xsd:element name="FilingAttorney" substitutionGroup="nc:DocumentCategoryText" type="nc:TextType" />
+  <xsd:element name="FilingCode" substitutionGroup="nc:DocumentCategoryText" type="nc:TextType" />
+  <xsd:complexType name="PaymentType">
+    <xsd:sequence>
+      <xsd:element ref="AccountName" />
+      <xsd:element ref="WaiverIndicator" />
+      <xsd:element ref="CardType" />
+      <xsd:element ref="Last4Digits" />
+      <xsd:element ref="ExpirationMonth" />
+      <xsd:element ref="ExpirationYear" />
+      <xsd:element ref="TransactionAmount" />
+      <xsd:element ref="TransactionResponse" />
+      <xsd:element ref="TransactionID" />
+      <xsd:element ref="OrderID" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Payment" type="PaymentType" />
+  <xsd:element name="AccountName" type="xsd:string" />
+  <xsd:element name="CardType" type="xsd:string" />
+  <xsd:element name="Last4Digits" type="xsd:string" />
+  <xsd:element name="ExpirationMonth" type="xsd:int" />
+  <xsd:element name="ExpirationYear" type="xsd:int" />
+  <xsd:element name="TransactionAmount" type="nc:AmountType" />
+  <xsd:element name="TransactionResponse" type="xsd:string" />
+  <xsd:element name="TransactionID" type="xsd:string" />
+  <xsd:element name="OrderID" type="xsd:string" />
+  <xsd:complexType name="ServiceContactIdentificationType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="nc:IdentificationType" />
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="ServiceContactIdentification" type="ServiceContactIdentificationType" />
+</xsd:schema>

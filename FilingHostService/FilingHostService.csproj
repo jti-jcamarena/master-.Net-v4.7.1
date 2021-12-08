@@ -1,0 +1,1049 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B8910AA6-2BE7-4AD6-B989-A0239A2C515E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>FilingHostService</RootNamespace>
+    <AssemblyName>FilingHostService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>bitLink.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\packages\Serilog.2.6.0\lib\net45\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Console">
+      <HintPath>..\packages\Serilog.Sinks.Console.3.0.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File">
+      <HintPath>..\packages\Serilog.Sinks.File.3.2.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.RollingFile">
+      <HintPath>..\packages\Serilog.Sinks.RollingFile.3.3.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Connected Services\CourtRecordMDEService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\EFMFilingReviewService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\EFMFirmService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\EFMProfileDefinitiions\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\EFMUserService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="EFMClient.cs" />
+    <Compile Include="FilingWindowsService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FilingWindowsService.Designer.cs">
+      <DependentUpon>FilingWindowsService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.Designer.cs">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatuteCode.cs" />
+    <Compile Include="UserInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CourtRecordMDEService\CourtRecordMdeService.wsdl" />
+    <None Include="Connected Services\CourtRecordMDEService\CourtRecordMDEService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CourtRecordMDEService\FilingHostService.CourtRecordMDEService.CreateCaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CourtRecordMDEService\FilingHostService.CourtRecordMDEService.GetCaseListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CourtRecordMDEService\FilingHostService.CourtRecordMDEService.GetCaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CourtRecordMDEService\FilingHostService.CourtRecordMDEService.GetDocumentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CourtRecordMDEService\FilingHostService.CourtRecordMDEService.GetServiceAttachCaseListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CourtRecordMDEService\FilingHostService.CourtRecordMDEService.GetServiceInformationHistoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CourtRecordMDEService\FilingHostService.CourtRecordMDEService.GetServiceInformationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CourtRecordMDEService\FilingHostService.CourtRecordMDEService.NotifyReceiptCompleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CourtRecordMDEService\FilingHostService.CourtRecordMDEService.RecordFilingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.CancelFilingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.GetFeesCalculationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.GetFilingDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.GetFilingListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.GetFilingServiceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.GetFilingStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.GetPolicyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.NotifyCaseAssignmentCompleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.NotifyDocketingCompleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.ReviewFilingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingHostService.EFMFilingReviewService.SecureCaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFilingReviewService\FilingReviewMdeService.wsdl" />
+    <None Include="Connected Services\EFMFilingReviewService\FilingReviewMDEService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EfmFirmService.wsdl" />
+    <None Include="Connected Services\EFMFirmService\EFMFirmService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService12.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService13.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService14.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService15.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService16.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService17.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService18.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService19.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService22.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService23.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService24.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService25.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService26.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService27.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService28.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService29.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService30.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService33.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService34.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService35.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService36.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService37.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService38.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService39.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService40.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService41.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService42.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService43.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService44.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService45.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService46.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService47.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService48.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService49.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService50.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService51.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService52.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService53.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService54.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService55.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\EFMFirmService9.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.AttorneyListResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.BaseResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.CreateAttorneyResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.CreatePaymentAccountResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.CreateServiceContactResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.GetAttorneyResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.GetFirmResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.GetPaymentAccountResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.GetServiceContactResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.GetUserResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.GetVitalChekPaymentAccountIdResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.NotificationPreferencesListResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.PaymentAccountListResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.PaymentAccountTypeListResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.RegistrationResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.ResetPasswordResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.ServiceContactListResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.UpdateAttorneyResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.UpdatePaymentAccountResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.UpdateServiceContactResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.UpdateUserResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMFirmService\FilingHostService.EFMFirmService.UserListResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ansi-nist.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ansi_d20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\appinfo.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\CancelFiling.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\CancelFilingResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\CCTS_CCT_SchemaModule-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\CreateCase.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\CreateCaseCallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\CriminalExtensions.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-4.wsdl" />
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-41.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-410.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-411.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-412.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-413.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-414.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-415.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-416.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-417.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-418.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-419.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-42.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-420.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-421.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-422.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-423.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-424.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-425.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-426.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-427.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-428.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-429.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-43.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-430.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-431.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-432.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-44.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-45.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-46.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-47.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-48.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ECF-49.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\EventCallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\fbi.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingDetailQuery.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingDetailResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.CancelFilingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.CancelFilingResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.CaseListResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.CaseResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.CourtPolicyResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.CreateCaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.DocumentResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.FeesCalculationResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.FilingDetailResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.FilingListResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.FilingServiceResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.FilingStatusResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetCaseListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetCaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetDocumentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetFeesCalculationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetFilingDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetFilingListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetFilingServiceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetFilingStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetPolicyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetServiceAttachCaseListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetServiceInformationHistoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.GetServiceInformationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.MessageReceiptMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.NotifyCaseAssignmentCompleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.NotifyDocketingCompleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.NotifyEventResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.NotifyFilingReviewCompleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.NotifyServiceCompleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.RecordFilingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.ReviewFilingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.SecureCaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.ServeFilingResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.ServiceAttachCaseListResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.ServiceInformationHistoryResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.ServiceInformationResponseMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingHostService.EFMProfileDefinitiions.ServiceReceiptMessageType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingServiceQuery.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\FilingServiceResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\fips_10-4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\fips_6-4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\iso_4217.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\iso_639-3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\jxdm.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\niem-core.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\nonauthoritative-code.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\screening.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\SecureCaseMessage.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ServiceAttachCaseListQuery.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ServiceAttachCaseListResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ServiceCallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ServiceInformationHistoryQuery.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\ServiceInformationHistoryResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\structures.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\Tyler.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\UBL-CommonAggregateComponents-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\UBL-CommonBasicComponents-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\UBL-QualifiedDataTypes-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\UBL-UnqualifiedDataTypes-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\unece_rec20-misc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\usps_states.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMProfileDefinitiions\xsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EfmUserService.wsdl" />
+    <None Include="Connected Services\EFMUserService\EFMUserService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService12.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService13.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService14.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService15.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService16.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService17.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService18.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService19.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService22.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService23.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService24.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService25.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService26.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService27.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService28.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService29.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService30.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService33.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService34.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService35.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService36.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService37.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService38.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService39.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService40.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService41.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService42.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService43.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService44.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService45.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService46.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService47.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService48.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService49.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService50.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService51.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService52.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService53.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService54.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService55.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\EFMUserService9.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EFMUserService\FilingHostService.EFMUserService.AuthenticateResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMUserService\FilingHostService.EFMUserService.BaseResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMUserService\FilingHostService.EFMUserService.ChangePasswordResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMUserService\FilingHostService.EFMUserService.GetUserResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMUserService\FilingHostService.EFMUserService.NotificationPreferencesResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMUserService\FilingHostService.EFMUserService.PasswordQuestionResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMUserService\FilingHostService.EFMUserService.ResetPasswordResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\EFMUserService\FilingHostService.EFMUserService.UpdateUserResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="ECF-4.0-CoreFilingMessage.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Xml.Linq.XElement.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\eRest\eRest.csproj">
+      <Project>{aaadb8ec-c9b3-4d94-bece-1e2d8c5284d1}</Project>
+      <Name>eRest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NotificationService\NotificationService.csproj">
+      <Project>{53287071-f187-4678-a122-6ed0be459530}</Project>
+      <Name>NotificationService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FilingWindowsService.resx">
+      <DependentUpon>FilingWindowsService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectInstaller.resx">
+      <DependentUpon>ProjectInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\CourtRecordMDEService\" />
+    <WCFMetadataStorage Include="Connected Services\EFMFilingReviewService\" />
+    <WCFMetadataStorage Include="Connected Services\EFMFirmService\" />
+    <WCFMetadataStorage Include="Connected Services\EFMProfileDefinitiions\" />
+    <WCFMetadataStorage Include="Connected Services\EFMUserService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMUserService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMUserService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMUserService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMFilingReviewService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMFilingReviewService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMFilingReviewService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMFirmService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMFirmService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMFirmService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMProfileDefinitiions\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMProfileDefinitiions\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EFMProfileDefinitiions\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CourtRecordMDEService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CourtRecordMDEService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CourtRecordMDEService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bitLink.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

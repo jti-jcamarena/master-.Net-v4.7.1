@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:tyler:efm:services:schema:AttachServiceContactRequest" elementFormDefault="qualified" targetNamespace="urn:tyler:efm:services:schema:AttachServiceContactRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd2" namespace="urn:tyler:efm:services:schema:BaseRequest" />
+  <xs:complexType name="AttachServiceContactRequestType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="urn:tyler:efm:services:schema:BaseRequest" base="q1:BaseRequestType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ServiceContactID" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CaseID" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CasePartyID" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns="urn:tyler:ecf:extensions:FilingServiceResponseMessage" xmlns:a="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:AppInfo-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" targetNamespace="urn:tyler:ecf:extensions:FilingServiceResponseMessage" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="../constraint/niem/niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0" />
+  <xsd:import schemaLocation="../common/ECF-4.0-CommonTypes.xsd" namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" />
+  <xsd:complexType name="FilingServiceResponseMessageType">
+    <xsd:annotation>
+      <xsd:documentation>A court's response to a FilingServiceQueryMessage.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="ecf:QueryResponseMessageType">
+        <xsd:sequence>
+          <xsd:element ref="nc:DocumentIdentification" />
+          <xsd:element ref="ServiceContactIdentification" />
+          <xsd:element ref="SmtpLog" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="FilingServiceResponseMessage" type="FilingServiceResponseMessageType" />
+  <xsd:complexType name="ServiceContactIdentificationType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="nc:IdentificationType" />
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="ServiceContactIdentification" type="ServiceContactIdentificationType" />
+  <xsd:element name="SmtpLog" type="nc:TextType">
+    <xsd:annotation>
+      <xsd:documentation>The smtp log for the service email</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

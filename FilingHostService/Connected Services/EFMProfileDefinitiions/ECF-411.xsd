@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentReceiptMessage-4.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:payment="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentMessage-4.0" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentReceiptMessage-4.0" version="4.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="../common/ECF-4.0-CommonTypes.xsd" namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" />
+  <xsd:import schemaLocation="ECF-4.0-PaymentMessage.xsd" namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:PaymentMessage-4.0" />
+  <xsd:import schemaLocation="UBL-CommonAggregateComponents-2.1.xsd" namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" />
+  <xsd:element name="PaymentReceiptMessage" type="payment:PaymentMessageType">
+    <xsd:annotation>
+      <xsd:documentation>A receipt to the payment submitted with a filing.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

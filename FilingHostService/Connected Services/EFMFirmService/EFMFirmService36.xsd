@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:tyler:efm:services:schema:Common" elementFormDefault="qualified" targetNamespace="urn:tyler:efm:services:schema:Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="User" type="tns:UserType" />
+  <xs:complexType name="UserType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FirstName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MiddleName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LastName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="LastLoginDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Role" type="tns:RoleLocationType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RestrictFiling" type="xs:boolean" />
+      <xs:element minOccurs="0" maxOccurs="1" name="RestrictFilingComment" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="UserID" type="xs:string" />
+    <xs:attribute name="FirmID" type="xs:string" />
+    <xs:attribute name="IsApproved" type="xs:boolean" use="required" />
+    <xs:attribute name="IsActive" type="xs:boolean" use="required" />
+    <xs:attribute name="IsActivated" type="xs:boolean" use="required" />
+    <xs:attribute name="IsLockedOut" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:complexType name="RoleLocationType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Location" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="RoleName" type="tns:RoleType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="RoleType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FirmAdmin" />
+      <xs:enumeration value="Filer" />
+      <xs:enumeration value="CriminalFilingFirmAdmin" />
+      <xs:enumeration value="CriminalFilingFiler" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ServiceContact" type="tns:ServiceContactType" />
+  <xs:complexType name="ServiceContactType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="FirstName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="MiddleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LastName" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="AdministrativeCopy" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Address" type="tns:AddressType" />
+      <xs:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="IsPublic" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+    <xs:attribute name="ServiceContactID" type="xs:string" />
+    <xs:attribute name="FirmID" type="xs:string" />
+    <xs:attribute name="FirmName" type="xs:string" />
+    <xs:attribute name="AddByFirmName" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="AddressType">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="AddressLine1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AddressLine2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="State" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ZipCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Country" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaymentAccount" type="tns:PaymentAccountType" />
+  <xs:complexType name="PaymentAccountType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="AccountName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AccountToken" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CardType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CardLast4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CardMonth" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CardYear" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" maxOccurs="1" name="CardHolderName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Active" nillable="true" type="xs:boolean" />
+    </xs:sequence>
+    <xs:attribute name="PaymentAccountID" type="xs:string" />
+    <xs:attribute name="FirmID" type="xs:string" />
+    <xs:attribute name="PaymentAccountTypeCode" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="Firm" type="tns:FirmType" />
+  <xs:complexType name="FirmType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="FirmName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Address" nillable="true" type="tns:AddressType" />
+      <xs:element minOccurs="1" maxOccurs="1" name="PhoneNumber" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="FirmID" type="xs:string" />
+    <xs:attribute name="IsIndividual" type="xs:boolean" use="required" />
+  </xs:complexType>
+  <xs:element name="Attorney" type="tns:AttorneyType" />
+  <xs:complexType name="AttorneyType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="BarNumber" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="FirstName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="MiddleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LastName" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="AttorneyID" type="xs:string" />
+    <xs:attribute name="FirmID" type="xs:string" />
+  </xs:complexType>
+  <xs:element name="Role" type="tns:RoleType" />
+  <xs:simpleType name="RegistrationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FirmAdministrator" />
+      <xs:enumeration value="FirmAdminNewMember" />
+      <xs:enumeration value="Individual" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ErrorType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ErrorText" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaymentAccountTypeType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Code" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NotificationListItem" type="tns:NotificationListItemType" />
+  <xs:complexType name="NotificationListItemType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Code" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

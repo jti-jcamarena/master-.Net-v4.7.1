@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:tyler:efm:services:schema:RegistrationRequest" elementFormDefault="qualified" targetNamespace="urn:tyler:efm:services:schema:RegistrationRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd2" namespace="urn:tyler:efm:services:schema:BaseRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd5" namespace="urn:tyler:efm:services:schema:Common" />
+  <xs:complexType name="RegistrationRequestType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="urn:tyler:efm:services:schema:BaseRequest" base="q1:BaseRequestType">
+        <xs:sequence>
+          <xs:element xmlns:q2="urn:tyler:efm:services:schema:Common" minOccurs="1" maxOccurs="1" name="RegistrationType" type="q2:RegistrationType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="FirstName" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="MiddleName" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="LastName" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Password" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PasswordQuestion" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PasswordAnswer" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StreetAddressLine1" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StreetAddressLine2" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="City" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StateCode" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ZipCode" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CountryCode" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="FirmName" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

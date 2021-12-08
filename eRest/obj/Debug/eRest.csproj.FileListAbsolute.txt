@@ -1,0 +1,33 @@
+C:\BitLink\C#\esl\eRest\bin\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\C#\esl\eRest\bin\Debug\eSuite.Utils.eRest.pdb
+C:\BitLink\C#\esl\eRest\obj\Debug\eRest.csprojAssemblyReference.cache
+C:\BitLink\C#\esl\eRest\obj\Debug\eRest.csproj.CoreCompileInputs.cache
+C:\BitLink\C#\esl\eRest\obj\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\C#\esl\eRest\obj\Debug\eSuite.Utils.eRest.pdb
+C:\BitLink\C#\esl\eRest\bin\Debug\Newtonsoft.Json.xml
+C:\BitLink\C#\esl\eRest\obj\Debug\eRest.csproj.CopyComplete
+C:\BitLink\C#\Jobs\Fresno\Odyssey\esl\eRest\bin\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\C#\Jobs\Fresno\Odyssey\esl\eRest\bin\Debug\eSuite.Utils.eRest.pdb
+C:\BitLink\C#\Jobs\Fresno\Odyssey\esl\eRest\obj\Debug\eRest.csproj.CoreCompileInputs.cache
+C:\BitLink\C#\Jobs\Fresno\Odyssey\esl\eRest\obj\Debug\eRest.csproj.CopyComplete
+C:\BitLink\C#\Jobs\Fresno\Odyssey\esl\eRest\obj\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\C#\Jobs\Fresno\Odyssey\esl\eRest\obj\Debug\eSuite.Utils.eRest.pdb
+C:\BitLink\C#\Jobs\Fresno\Odyssey\esl\eRest\obj\Debug\eRest.csprojAssemblyReference.cache
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\eRest\bin\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\eRest\bin\Debug\eSuite.Utils.eRest.pdb
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\eRest\obj\Debug\eRest.csproj.CoreCompileInputs.cache
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\eRest\obj\Debug\eRest.csproj.CopyComplete
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\eRest\obj\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\eRest\obj\Debug\eSuite.Utils.eRest.pdb
+C:\BitLink\Esl_OfsService\eRest\bin\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\Esl_OfsService\eRest\bin\Debug\eSuite.Utils.eRest.pdb
+C:\BitLink\Esl_OfsService\eRest\obj\Debug\eRest.csproj.CoreCompileInputs.cache
+C:\BitLink\Esl_OfsService\eRest\obj\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\Esl_OfsService\eRest\obj\Debug\eSuite.Utils.eRest.pdb
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\eRest\bin\Debug\eSuite.Utils.eRest.dll
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\eRest\bin\Debug\eSuite.Utils.eRest.pdb
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\eRest\obj\Debug\eRest.csprojAssemblyReference.cache
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\eRest\obj\Debug\eRest.csproj.CopyComplete
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\eRest\obj\Debug\eSuite.Utils.eRest.dll
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\eRest\obj\Debug\eSuite.Utils.eRest.pdb
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\eRest\obj\Debug\eRest.csproj.CoreCompileInputs.cache

@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:tyler:efm:services" elementFormDefault="qualified" targetNamespace="urn:tyler:efm:services" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd1" namespace="urn:tyler:efm:services:schema:RegistrationRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd30" namespace="urn:tyler:efm:services:schema:RegistrationResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd32" namespace="urn:tyler:efm:services:schema:UserListResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd18" namespace="urn:tyler:efm:services:schema:GetUserRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd42" namespace="urn:tyler:efm:services:schema:GetUserResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd29" namespace="urn:tyler:efm:services:schema:AddUserRoleRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd31" namespace="urn:tyler:efm:services:schema:BaseResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd13" namespace="urn:tyler:efm:services:schema:RemoveUserRoleRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd4" namespace="urn:tyler:efm:services:schema:UpdateUserRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd33" namespace="urn:tyler:efm:services:schema:UpdateUserResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd14" namespace="urn:tyler:efm:services:schema:RemoveUserRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd45" namespace="urn:tyler:efm:services:schema:GetFirmResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd8" namespace="urn:tyler:efm:services:schema:UpdateFirmRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd52" namespace="urn:tyler:efm:services:schema:AttorneyListResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd22" namespace="urn:tyler:efm:services:schema:GetAttorneyRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd46" namespace="urn:tyler:efm:services:schema:GetAttorneyResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd9" namespace="urn:tyler:efm:services:schema:UpdateAttorneyRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd36" namespace="urn:tyler:efm:services:schema:UpdateAttorneyResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd26" namespace="urn:tyler:efm:services:schema:CreateAttorneyRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd49" namespace="urn:tyler:efm:services:schema:CreateAttorneyResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd17" namespace="urn:tyler:efm:services:schema:RemoveAttorneyRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd39" namespace="urn:tyler:efm:services:schema:PaymentAccountTypeListResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd40" namespace="urn:tyler:efm:services:schema:PaymentAccountListResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd20" namespace="urn:tyler:efm:services:schema:GetPaymentAccountRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd44" namespace="urn:tyler:efm:services:schema:GetPaymentAccountResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd53" namespace="urn:tyler:efm:services:schema:GetVitalChekPaymentAccountIdResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd7" namespace="urn:tyler:efm:services:schema:UpdatePaymentAccountRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd35" namespace="urn:tyler:efm:services:schema:UpdatePaymentAccountResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd25" namespace="urn:tyler:efm:services:schema:CreatePaymentAccountRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd48" namespace="urn:tyler:efm:services:schema:CreatePaymentAccountResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd16" namespace="urn:tyler:efm:services:schema:RemovePaymentAccountRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd37" namespace="urn:tyler:efm:services:schema:ServiceContactListResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd19" namespace="urn:tyler:efm:services:schema:GetServiceContactRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd43" namespace="urn:tyler:efm:services:schema:GetServiceContactResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd6" namespace="urn:tyler:efm:services:schema:UpdateServiceContactRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd34" namespace="urn:tyler:efm:services:schema:UpdateServiceContactResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd24" namespace="urn:tyler:efm:services:schema:CreateServiceContactRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd47" namespace="urn:tyler:efm:services:schema:CreateServiceContactResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd15" namespace="urn:tyler:efm:services:schema:RemoveServiceContactRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd28" namespace="urn:tyler:efm:services:schema:AttachServiceContactRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd23" namespace="urn:tyler:efm:services:schema:DetachServiceContactRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd10" namespace="urn:tyler:efm:services:schema:ResetUserPasswordRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd38" namespace="urn:tyler:efm:services:schema:ResetPasswordResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd12" namespace="urn:tyler:efm:services:schema:ResendActivationEmailRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd54" namespace="urn:tyler:efm:services:schema:GetPublicListRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd55" namespace="urn:tyler:efm:services:schema:NotificationPreferencesListResponse" />
+  <xs:element name="RegisterUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="urn:tyler:efm:services:schema:RegistrationRequest" minOccurs="0" maxOccurs="1" name="RegisterUserRequest" type="q1:RegistrationRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="urn:tyler:efm:services:schema:RegistrationResponse" minOccurs="0" maxOccurs="1" name="RegisterUserResponse" type="q2:RegistrationResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserList">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetUserListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="urn:tyler:efm:services:schema:UserListResponse" minOccurs="0" maxOccurs="1" name="UserListResponse" type="q3:UserListResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="urn:tyler:efm:services:schema:GetUserRequest" minOccurs="0" maxOccurs="1" name="GetUserRequest" type="q4:GetUserRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="urn:tyler:efm:services:schema:GetUserResponse" minOccurs="0" maxOccurs="1" name="GetUserResponse" type="q5:GetUserResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddUserRole">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="urn:tyler:efm:services:schema:AddUserRoleRequest" minOccurs="0" maxOccurs="1" name="AddUserRoleRequest" type="q6:AddUserRoleRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddUserRoleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="AddUserRoleResponse" type="q7:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveUserRole">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="urn:tyler:efm:services:schema:RemoveUserRoleRequest" minOccurs="0" maxOccurs="1" name="RemoveUserRoleRequest" type="q8:RemoveUserRoleRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveUserRoleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="RemoveUserRoleResponse" type="q9:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="urn:tyler:efm:services:schema:UpdateUserRequest" minOccurs="0" maxOccurs="1" name="UpdateUserRequest" type="q10:UpdateUserRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="urn:tyler:efm:services:schema:UpdateUserResponse" minOccurs="0" maxOccurs="1" name="UpdateUserResponse" type="q11:UpdateUserResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="urn:tyler:efm:services:schema:RemoveUserRequest" minOccurs="0" maxOccurs="1" name="RemoveUserRequest" type="q12:RemoveUserRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="RemoveUserResponse" type="q13:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFirm">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetFirmResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="urn:tyler:efm:services:schema:GetFirmResponse" minOccurs="0" maxOccurs="1" name="GetFirmResponse" type="q14:GetFirmResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateFirm">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="urn:tyler:efm:services:schema:UpdateFirmRequest" minOccurs="0" maxOccurs="1" name="UpdateFirmRequest" type="q15:UpdateFirmRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateFirmResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="UpdateFirmResponse" type="q16:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAttorneyList">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetAttorneyListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="urn:tyler:efm:services:schema:AttorneyListResponse" minOccurs="0" maxOccurs="1" name="AttorneyListResponse" type="q17:AttorneyListResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAttorney">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="urn:tyler:efm:services:schema:GetAttorneyRequest" minOccurs="0" maxOccurs="1" name="GetAttorneyRequest" type="q18:GetAttorneyRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAttorneyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="urn:tyler:efm:services:schema:GetAttorneyResponse" minOccurs="0" maxOccurs="1" name="GetAttorneyResponse" type="q19:GetAttorneyResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateAttorney">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="urn:tyler:efm:services:schema:UpdateAttorneyRequest" minOccurs="0" maxOccurs="1" name="UpdateAttorneyRequest" type="q20:UpdateAttorneyRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateAttorneyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="urn:tyler:efm:services:schema:UpdateAttorneyResponse" minOccurs="0" maxOccurs="1" name="UpdateAttorneyResponse" type="q21:UpdateAttorneyResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateAttorney">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="urn:tyler:efm:services:schema:CreateAttorneyRequest" minOccurs="0" maxOccurs="1" name="CreateAttorneyRequest" type="q22:CreateAttorneyRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateAttorneyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="urn:tyler:efm:services:schema:CreateAttorneyResponse" minOccurs="0" maxOccurs="1" name="CreateAttorneyResponse" type="q23:CreateAttorneyResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveAttorney">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="urn:tyler:efm:services:schema:RemoveAttorneyRequest" minOccurs="0" maxOccurs="1" name="RemoveAttorneyRequest" type="q24:RemoveAttorneyRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveAttorneyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="RemoveAttorneyResponse" type="q25:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentAccountTypeList">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetPaymentAccountTypeListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="urn:tyler:efm:services:schema:PaymentAccountTypeListResponse" minOccurs="0" maxOccurs="1" name="PaymentAccountTypeListResponse" type="q26:PaymentAccountTypeListResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentAccountList">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetPaymentAccountListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="urn:tyler:efm:services:schema:PaymentAccountListResponse" minOccurs="0" maxOccurs="1" name="PaymentAccountListResponse" type="q27:PaymentAccountListResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="urn:tyler:efm:services:schema:GetPaymentAccountRequest" minOccurs="0" maxOccurs="1" name="GetPaymentAccountRequest" type="q28:GetPaymentAccountRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaymentAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="urn:tyler:efm:services:schema:GetPaymentAccountResponse" minOccurs="0" maxOccurs="1" name="GetPaymentAccountResponse" type="q29:GetPaymentAccountResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVitalChekPaymentAccountId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="urn:tyler:efm:services:schema:GetPaymentAccountRequest" minOccurs="0" maxOccurs="1" name="GetPaymentAccountRequest" type="q30:GetPaymentAccountRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetVitalChekPaymentAccountIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="urn:tyler:efm:services:schema:GetVitalChekPaymentAccountIdResponse" minOccurs="0" maxOccurs="1" name="GetVitalChekPaymentAccountIdResponse" type="q31:GetVitalChekPaymentAccountIdResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePaymentAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="urn:tyler:efm:services:schema:UpdatePaymentAccountRequest" minOccurs="0" maxOccurs="1" name="UpdatePaymentAccountRequest" type="q32:UpdatePaymentAccountRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePaymentAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="urn:tyler:efm:services:schema:UpdatePaymentAccountResponse" minOccurs="0" maxOccurs="1" name="UpdatePaymentAccountResponse" type="q33:UpdatePaymentAccountResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateInactivePaymentAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="urn:tyler:efm:services:schema:CreatePaymentAccountRequest" minOccurs="0" maxOccurs="1" name="CreatePaymentAccountRequest" type="q34:CreatePaymentAccountRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateInactivePaymentAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="urn:tyler:efm:services:schema:CreatePaymentAccountResponse" minOccurs="0" maxOccurs="1" name="CreatePaymentAccountResponse" type="q35:CreatePaymentAccountResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreatePaymentAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="urn:tyler:efm:services:schema:CreatePaymentAccountRequest" minOccurs="0" maxOccurs="1" name="CreatePaymentAccountRequest" type="q36:CreatePaymentAccountRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreatePaymentAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="urn:tyler:efm:services:schema:CreatePaymentAccountResponse" minOccurs="0" maxOccurs="1" name="CreatePaymentAccountResponse" type="q37:CreatePaymentAccountResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemovePaymentAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="urn:tyler:efm:services:schema:RemovePaymentAccountRequest" minOccurs="0" maxOccurs="1" name="RemovePaymentAccountRequest" type="q38:RemovePaymentAccountRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemovePaymentAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="RemovePaymentAccountResponse" type="q39:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetServiceContactList">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetServiceContactListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="urn:tyler:efm:services:schema:ServiceContactListResponse" minOccurs="0" maxOccurs="1" name="ServiceContactListResponse" type="q40:ServiceContactListResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetServiceContact">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="urn:tyler:efm:services:schema:GetServiceContactRequest" minOccurs="0" maxOccurs="1" name="GetServiceContactRequest" type="q41:GetServiceContactRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetServiceContactResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q42="urn:tyler:efm:services:schema:GetServiceContactResponse" minOccurs="0" maxOccurs="1" name="GetServiceContactResponse" type="q42:GetServiceContactResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateServiceContact">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="urn:tyler:efm:services:schema:UpdateServiceContactRequest" minOccurs="0" maxOccurs="1" name="UpdateServiceContactRequest" type="q43:UpdateServiceContactRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateServiceContactResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q44="urn:tyler:efm:services:schema:UpdateServiceContactResponse" minOccurs="0" maxOccurs="1" name="UpdateServiceContactResponse" type="q44:UpdateServiceContactResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateServiceContact">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q45="urn:tyler:efm:services:schema:CreateServiceContactRequest" minOccurs="0" maxOccurs="1" name="CreateServiceContactRequest" type="q45:CreateServiceContactRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateServiceContactResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="urn:tyler:efm:services:schema:CreateServiceContactResponse" minOccurs="0" maxOccurs="1" name="CreateServiceContactResponse" type="q46:CreateServiceContactResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveServiceContact">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q47="urn:tyler:efm:services:schema:RemoveServiceContactRequest" minOccurs="0" maxOccurs="1" name="RemoveServiceContactRequest" type="q47:RemoveServiceContactRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveServiceContactResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="RemoveServiceContactResponse" type="q48:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AttachServiceContact">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q49="urn:tyler:efm:services:schema:AttachServiceContactRequest" minOccurs="0" maxOccurs="1" name="AttachServiceContactRequest" type="q49:AttachServiceContactRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AttachServiceContactResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q50="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="AttachServiceContactResponse" type="q50:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DetachServiceContact">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q51="urn:tyler:efm:services:schema:DetachServiceContactRequest" minOccurs="0" maxOccurs="1" name="DetachServiceContactRequest" type="q51:DetachServiceContactRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DetachServiceContactResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="DetachServiceContactResponse" type="q52:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetUserPassword">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q53="urn:tyler:efm:services:schema:ResetUserPasswordRequest" minOccurs="0" maxOccurs="1" name="ResetUserPasswordRequest" type="q53:ResetUserPasswordRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetUserPasswordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q54="urn:tyler:efm:services:schema:ResetPasswordResponse" minOccurs="0" maxOccurs="1" name="ResetPasswordResponse" type="q54:ResetPasswordResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResendActivationEmail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q55="urn:tyler:efm:services:schema:ResendActivationEmailRequest" minOccurs="0" maxOccurs="1" name="ResendActivationEmailRequest" type="q55:ResendActivationEmailRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResendActivationEmailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q56="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="ResendActivationEmailResponse" type="q56:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGlobalPaymentAccountList">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetGlobalPaymentAccountListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q57="urn:tyler:efm:services:schema:PaymentAccountListResponse" minOccurs="0" maxOccurs="1" name="PaymentAccountListResponse" type="q57:PaymentAccountListResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGlobalPaymentAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q58="urn:tyler:efm:services:schema:GetPaymentAccountRequest" minOccurs="0" maxOccurs="1" name="GetGlobalPaymentAccountRequest" type="q58:GetPaymentAccountRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGlobalPaymentAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q59="urn:tyler:efm:services:schema:GetPaymentAccountResponse" minOccurs="0" maxOccurs="1" name="GetGlobalPaymentAccountResponse" type="q59:GetPaymentAccountResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateGlobalPaymentAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q60="urn:tyler:efm:services:schema:UpdatePaymentAccountRequest" minOccurs="0" maxOccurs="1" name="UpdateGlobalPaymentAccountRequest" type="q60:UpdatePaymentAccountRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateGlobalPaymentAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q61="urn:tyler:efm:services:schema:UpdatePaymentAccountResponse" minOccurs="0" maxOccurs="1" name="UpdateGlobalPaymentAccountResponse" type="q61:UpdatePaymentAccountResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateGlobalPaymentAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q62="urn:tyler:efm:services:schema:CreatePaymentAccountRequest" minOccurs="0" maxOccurs="1" name="CreateGlobalPaymentAccountRequest" type="q62:CreatePaymentAccountRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateGlobalPaymentAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q63="urn:tyler:efm:services:schema:CreatePaymentAccountResponse" minOccurs="0" maxOccurs="1" name="CreateGlobalPaymentAccount" type="q63:CreatePaymentAccountResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveGlobalPaymentAccount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q64="urn:tyler:efm:services:schema:RemovePaymentAccountRequest" minOccurs="0" maxOccurs="1" name="RemoveGlobalPaymentAccountRequest" type="q64:RemovePaymentAccountRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveGlobalPaymentAccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q65="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="RemoveGlobalPaymentAccountResponse" type="q65:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPublicList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q66="urn:tyler:efm:services:schema:GetPublicListRequest" minOccurs="0" maxOccurs="1" name="GetPublicListRequest" type="q66:GetPublicListRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPublicListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q67="urn:tyler:efm:services:schema:ServiceContactListResponse" minOccurs="0" maxOccurs="1" name="ServiceContactListResponse" type="q67:ServiceContactListResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNotificationPreferencesList">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetNotificationPreferencesListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q68="urn:tyler:efm:services:schema:NotificationPreferencesListResponse" minOccurs="0" maxOccurs="1" name="GetNotificationPreferencesListResponse" type="q68:NotificationPreferencesListResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

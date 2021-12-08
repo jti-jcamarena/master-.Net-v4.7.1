@@ -1,0 +1,10 @@
+2018-10-11 17:00:16.097 -06:00 [Fatal] Exception::RunSetup - Setup parameter error
+System.Security.Cryptography.CryptographicException: The system cannot find the path specified.
+
+   at System.Security.Cryptography.CryptographicException.ThrowCryptographicException(Int32 hr)
+   at System.Security.Cryptography.X509Certificates.X509Utils._QueryCertFileType(String fileName)
+   at System.Security.Cryptography.X509Certificates.X509Certificate.LoadCertificateFromFile(String fileName, Object password, X509KeyStorageFlags keyStorageFlags)
+   at System.Security.Cryptography.X509Certificates.X509Certificate2..ctor(String fileName, String password)
+   at ESLService.EFMClient.LoadCertificateFromFile(String pfxFilePath, String privateKeyPassword) in C:\BitLink\C#\Jobs\Fresno\Odyssey\esl\ESLService\EFMClient.cs:line 400
+   at ESLService.EFMClient..ctor(String pfxFilePath, String privateKeyPassword) in C:\BitLink\C#\Jobs\Fresno\Odyssey\esl\ESLService\EFMClient.cs:line 39
+   at ESLService.ESLWindowsService.RunSetup() in C:\BitLink\C#\Jobs\Fresno\Odyssey\esl\ESLService\ESLWindowsService.cs:line 564

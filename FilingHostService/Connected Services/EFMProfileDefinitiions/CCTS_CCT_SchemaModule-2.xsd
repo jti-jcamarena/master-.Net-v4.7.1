@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:cct="urn:un:unece:uncefact:data:specification:CoreComponentTypeSchemaModule:2" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:un:unece:uncefact:data:specification:CoreComponentTypeSchemaModule:2" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="AmountType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000001</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">CCT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Amount. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A number of monetary units specified in a currency where the unit of the currency is explicit or implied.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Amount</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">decimal</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:decimal">
+        <xsd:attribute name="currencyID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000001-SC2</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Amount Currency. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The currency of the amount.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Amount Currency</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+              <ccts:UsageRule xmlns:ccts="urn:un:unece:uncefact:documentation:2">Reference UNECE Rec 9, using 3-letter alphabetic codes.</ccts:UsageRule>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="currencyCodeListVersionID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000001-SC3</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Amount Currency. Code List Version. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The VersionID of the UN/ECE Rec9 code list.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Amount Currency</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List Version</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="BinaryObjectType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000002</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">CCT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A set of finite-length sequences of binary octets.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">binary</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:base64Binary">
+        <xsd:attribute name="format" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000002-SC2</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object. Format. Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The format of the binary content.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Format</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="mimeCode" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000002-SC3</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object. Mime. Code</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The mime type of the binary object.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Mime</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="encodingCode" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000002-SC4</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object. Encoding. Code</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">Specifies the decoding algorithm of the binary object.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Encoding</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="characterSetCode" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000002-SC5</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object. Character Set. Code</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The character set of the binary object if the mime type is text.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Character Set</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="uri" type="xsd:anyURI" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000002-SC6</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object. Uniform Resource. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The Uniform Resource Identifier that identifies where the binary object is located.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Uniform Resource Identifier</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="filename" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000002-SC7</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object. Filename.Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The filename of the binary object.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Filename</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="CodeType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000007</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">CCT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A character string (letters, figures, or symbols) that for brevity and/or languange independence may be used to represent or replace a definitive value or text of an attribute together with relevant supplementary information.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+        <ccts:UsageRule xmlns:ccts="urn:un:unece:uncefact:documentation:2">Should not be used if the character string identifies an instance of an object class or an object in the real world, in which case the Identifier. Type should be used.</ccts:UsageRule>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:normalizedString">
+        <xsd:attribute name="listID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000007-SC2</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The identification of a list of codes.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="listAgencyID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000007-SC3</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List. Agency. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">An agency that maintains one or more lists of codes.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Agency</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+              <ccts:UsageRule xmlns:ccts="urn:un:unece:uncefact:documentation:2">Defaults to the UN/EDIFACT data element 3055 code list.</ccts:UsageRule>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="listAgencyName" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000007-SC4</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List. Agency Name. Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The name of the agency that maintains the list of codes.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Agency Name</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="listName" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000007-SC5</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List. Name. Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The name of a list of codes.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Name</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="listVersionID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000007-SC6</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List. Version. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The version of the list of codes.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Version</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="name" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000007-SC7</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code. Name. Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The textual equivalent of the code content component.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Name</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="languageID" type="xsd:language" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000007-SC8</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Language. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The identifier of the language used in the code name.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Language</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="listURI" type="xsd:anyURI" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000007-SC9</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List. Uniform Resource. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The Uniform Resource Identifier that identifies where the code list is located.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Uniform Resource Identifier</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="listSchemeURI" type="xsd:anyURI" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000007-SC10</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List Scheme. Uniform Resource. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The Uniform Resource Identifier that identifies where the code list scheme is located.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List Scheme</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Uniform Resource Identifier</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="DateTimeType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000008</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">CCT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Date Time. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A particular point in the progression of time together with the relevant supplementary information.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Date Time</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+        <ccts:UsageRule xmlns:ccts="urn:un:unece:uncefact:documentation:2">Can be used for a date and/or time.</ccts:UsageRule>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="format" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000008-SC1</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Date Time. Format. Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The format of the date time content</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Date Time</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Format</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="IdentifierType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000011</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">CCT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A character string to identify and distinguish uniquely, one instance of an object in an identification scheme from all other objects in the same scheme together with relevant supplementary information.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:normalizedString">
+        <xsd:attribute name="schemeID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000011-SC2</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The identification of the identification scheme.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="schemeName" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000011-SC3</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme. Name. Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The name of the identification scheme.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Name</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="schemeAgencyID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000011-SC4</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme Agency. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The identification of the agency that maintains the identification scheme.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme Agency</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+              <ccts:UsageRule xmlns:ccts="urn:un:unece:uncefact:documentation:2">Defaults to the UN/EDIFACT data element 3055 code list.</ccts:UsageRule>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="schemeAgencyName" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000011-SC5</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme Agency. Name. Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The name of the agency that maintains the identification scheme.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme Agency</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Agency Name</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="schemeVersionID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000011-SC6</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme. Version. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The version of the identification scheme.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Version</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="schemeDataURI" type="xsd:anyURI" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000011-SC7</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme Data. Uniform Resource. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The Uniform Resource Identifier that identifies where the identification scheme data is located.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme Data</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Uniform Resource Identifier</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="schemeURI" type="xsd:anyURI" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000011-SC8</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme. Uniform Resource. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The Uniform Resource Identifier that identifies where the identification scheme is located.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification Scheme</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Uniform Resource Identifier</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="IndicatorType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000012</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">CCT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Indicator. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A list of two mutually exclusive Boolean values that express the only possible states of a Property.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Indicator</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="format" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000012-SC2</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Indicator. Format. Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">Whether the indicator is numeric, textual or binary.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Indicator</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Format</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="MeasureType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000013</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">CCT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Measure. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A numeric value determined by measuring an object along with the specified unit of measure.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Measure</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">decimal</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:decimal">
+        <xsd:attribute name="unitCode" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000013-SC2</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Measure Unit. Code</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The type of unit of measure.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Measure Unit</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+              <ccts:UsageRule xmlns:ccts="urn:un:unece:uncefact:documentation:2">Reference UNECE Rec. 20 and X12 355</ccts:UsageRule>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="unitCodeListVersionID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000013-SC3</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Measure Unit. Code List Version. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The version of the measure unit code list.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Measure Unit</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List Version</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="NumericType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000014</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">CCT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric information that is assigned or is determined by calculation, counting, or sequencing. It does not require a unit of quantity or unit of measure.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:decimal">
+        <xsd:attribute name="format" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000014-SC2</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric. Format. Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">Whether the number is an integer, decimal, real number or percentage.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Format</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="QuantityType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000018</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">CCT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A counted number of non-monetary units possibly including fractions.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">decimal</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:decimal">
+        <xsd:attribute name="unitCode" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000018-SC2</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity. Unit. Code</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The unit of the quantity</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Unit Code</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="unitCodeListID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000018-SC3</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity Unit. Code List. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The quantity unit code list.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity Unit</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="unitCodeListAgencyID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000018-SC4</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity Unit. Code List Agency. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The identification of the agency that maintains the quantity unit code list</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity Unit</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List Agency</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+              <ccts:UsageRule xmlns:ccts="urn:un:unece:uncefact:documentation:2">Defaults to the UN/EDIFACT data element 3055 code list.</ccts:UsageRule>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="unitCodeListAgencyName" type="xsd:string" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000018-SC5</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity Unit. Code List Agency Name. Text</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The name of the agency which maintains the quantity unit code list.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity Unit</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code List Agency Name</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="TextType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000019</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">CCT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A character string (i.e. a finite set of characters) generally in the form of words of a language.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="languageID" type="xsd:language" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000019-SC2</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Language. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The identifier of the language used in the content component.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Language</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identification</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="languageLocaleID" type="xsd:normalizedString" use="optional">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UNDT000019-SC3</ccts:UniqueID>
+              <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">SC</ccts:CategoryCode>
+              <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2"> Language. Locale. Identifier</ccts:DictionaryEntryName>
+              <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The identification of the locale of the language.</ccts:Definition>
+              <ccts:ObjectClass xmlns:ccts="urn:un:unece:uncefact:documentation:2">Language</ccts:ObjectClass>
+              <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Locale</ccts:PropertyTermName>
+              <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+              <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns="urn:tyler:ecf:extensions:Criminal" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:criminal="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" targetNamespace="urn:tyler:ecf:extensions:Criminal" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="../common/ECF-4.0-CommonTypes.xsd" namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" />
+  <xsd:import schemaLocation="../constraint/niem/structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/domains/jxdm/4.0/jxdm.xsd" namespace="http://niem.gov/niem/domains/jxdm/4.0" />
+  <xsd:import schemaLocation="../constraint/niem/appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0" />
+  <xsd:import schemaLocation="../casetype/ECF-4.0-CriminalCase.xsd" namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0" />
+  <xsd:complexType name="ChargeType">
+    <xsd:annotation>
+      <xsd:documentation>The crime or violation a defendant is alleged or found to have committed. </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="criminal:ChargeType">
+        <xsd:sequence>
+          <xsd:element ref="DateOnOrAboutIndicator" />
+          <xsd:element ref="TimeOnOrAboutIndicator" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" ref="AdditionalStatute" />
+          <xsd:element minOccurs="0" ref="Bond" />
+          <xsd:element minOccurs="0" ref="FineAmount" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" ref="ChargeComponent" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="BondType">
+    <xsd:sequence>
+      <xsd:element ref="BondTypeText" />
+      <xsd:element ref="BondAmount" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ChargeComponentType">
+    <xsd:sequence>
+      <xsd:any maxOccurs="unbounded" processContents="skip" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="StatuteType">
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="j:StatuteType">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" ref="GeneralOffenseText" />
+          <xsd:element minOccurs="0" ref="StatuteTypeText" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="BondTypeText" type="nc:TextType" />
+  <xsd:element name="BondAmount" type="nc:AmountType" />
+  <xsd:element name="FineAmount" type="nc:AmountType" />
+  <xsd:element name="Bond" type="BondType" />
+  <xsd:element name="Charge" substitutionGroup="criminal:CaseCharge" type="ChargeType" />
+  <xsd:element name="ChargeStatute" substitutionGroup="j:ChargeStatute" type="StatuteType" />
+  <xsd:element name="AdditionalStatute" type="StatuteType" />
+  <xsd:element name="DateOnOrAboutIndicator" type="niem-xsd:boolean" />
+  <xsd:element name="TimeOnOrAboutIndicator" type="niem-xsd:boolean" />
+  <xsd:element name="ChargeComponent" type="ChargeComponentType" />
+  <xsd:element name="GeneralOffenseText" type="nc:TextType" />
+  <xsd:element name="StatuteTypeText" type="nc:TextType" />
+</xsd:schema>

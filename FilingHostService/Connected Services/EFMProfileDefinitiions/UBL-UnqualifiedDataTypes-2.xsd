@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ccts-cct="urn:un:unece:uncefact:data:specification:CoreComponentTypeSchemaModule:2" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:specification:ubl:schema:xsd:UnqualifiedDataTypes-2" version="2.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="CCTS_CCT_SchemaModule-2.1.xsd" namespace="urn:un:unece:uncefact:data:specification:CoreComponentTypeSchemaModule:2" />
+  <xsd:complexType name="AmountType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT000001</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Amount. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A number of monetary units specified in a currency where the unit of the currency is explicit or implied.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Amount</ccts:RepresentationTermName>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:AmountType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="BinaryObjectType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT000002</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A set of finite-length sequences of binary octets.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Binary Object</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">binary</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:BinaryObjectType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="GraphicType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT000003</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Graphic. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A diagram, graph, mathematical curves, or similar representation.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Graphic</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">binary</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:BinaryObjectType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="PictureType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT000004</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Picture. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A diagram, graph, mathematical curves, or similar representation.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Picture</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">binary</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:BinaryObjectType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="SoundType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT000005</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Sound. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A diagram, graph, mathematical curves, or similar representation.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Sound</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">binary</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:BinaryObjectType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="VideoType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT000006</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Video. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A diagram, graph, mathematical curves, or similar representation.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Graphic</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">binary</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:BinaryObjectType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="CodeType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT000007</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A character string (letters, figures, or symbols) that for brevity and/or languange independence may be used to represent or replace a definitive value or text of an attribute together with relevant supplementary information.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Code</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+        <ccts:UsageRule xmlns:ccts="urn:un:unece:uncefact:documentation:2">Other supplementary components in the CCT are captured as part of the token and name for the schema module containing the code list and thus, are not declared as attributes. </ccts:UsageRule>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:CodeType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="DateTimeType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT000008</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Date Time. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A particular point in the progression of time together with the relevant supplementary information.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Date Time</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+        <ccts:UsageRule xmlns:ccts="urn:un:unece:uncefact:documentation:2">Can be used for a date and/or time.</ccts:UsageRule>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:dateTime" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="DateType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT000009</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Date. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">One calendar day according the Gregorian calendar.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Date</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:date" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="TimeType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000010</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Time. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">The instance of time that occurs every day.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Time</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:time" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="IdentifierType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000011</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A character string to identify and distinguish uniquely, one instance of an object in an identification scheme from all other objects in the same scheme together with relevant supplementary information.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Identifier</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+        <ccts:UsageRule xmlns:ccts="urn:un:unece:uncefact:documentation:2">Other supplementary components in the CCT are captured as part of the token and name for the schema module containing the identifer list and thus, are not declared as attributes. </ccts:UsageRule>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:IdentifierType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="IndicatorType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000012</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Indicator. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A list of two mutually exclusive Boolean values that express the only possible states of a property.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Indicator</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:boolean" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="MeasureType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000013</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Measure. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A numeric value determined by measuring an object along with the specified unit of measure.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Measure</ccts:RepresentationTermName>
+        <ccts:PropertyTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Type</ccts:PropertyTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">decimal</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:MeasureType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="NumericType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000014</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric information that is assigned or is determined by calculation, counting, or sequencing. It does not require a unit of quantity or unit of measure.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:NumericType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="ValueType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000015</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Value. Type</ccts:DictionaryEntryName>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric information that is assigned or is determined by calculation, counting, or sequencing. It does not require a unit of quantity or unit of measure.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Value</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:NumericType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="PercentType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000016</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Percent. Type</ccts:DictionaryEntryName>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric information that is assigned or is determined by calculation, counting, or sequencing. It does not require a unit of quantity or unit of measure.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Percent</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:NumericType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="RateType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000017</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Rate. Type</ccts:DictionaryEntryName>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">Numeric information that is assigned or is determined by calculation, counting, or sequencing. It does not require a unit of quantity or unit of measuret.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Rate</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:NumericType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="QuantityType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000018</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A counted number of non-monetary units possibly including fractions.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Quantity</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">decimal</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:QuantityType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="TextType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000019</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A character string (i.e. a finite set of characters) generally in the form of words of a language.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Text</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:TextType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:complexType name="NameType">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="en">
+        <ccts:UniqueID xmlns:ccts="urn:un:unece:uncefact:documentation:2">UBLUDT0000020</ccts:UniqueID>
+        <ccts:CategoryCode xmlns:ccts="urn:un:unece:uncefact:documentation:2">UDT</ccts:CategoryCode>
+        <ccts:DictionaryEntryName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Name. Type</ccts:DictionaryEntryName>
+        <ccts:VersionID xmlns:ccts="urn:un:unece:uncefact:documentation:2">1.0</ccts:VersionID>
+        <ccts:Definition xmlns:ccts="urn:un:unece:uncefact:documentation:2">A character string that consititues the distinctive designation of a person, place, thing or concept.</ccts:Definition>
+        <ccts:RepresentationTermName xmlns:ccts="urn:un:unece:uncefact:documentation:2">Name</ccts:RepresentationTermName>
+        <ccts:PrimitiveType xmlns:ccts="urn:un:unece:uncefact:documentation:2">string</ccts:PrimitiveType>
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="ccts-cct:TextType" />
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:schema>

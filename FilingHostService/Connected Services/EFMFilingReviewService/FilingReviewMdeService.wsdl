@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FilingReviewMdeService" targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_FilingReviewMDEService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsoma:OptimizedMimeSerialization xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Lax />
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp />
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:EndorsingSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssX509V3Token10 />
+              </wsp:Policy>
+            </sp:X509Token>
+          </wsp:Policy>
+        </sp:EndorsingSupportingTokens>
+        <sp:Wss10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:MustSupportRefKeyIdentifier />
+            <sp:MustSupportRefIssuerSerial />
+          </wsp:Policy>
+        </sp:Wss10>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="BasicHttpBinding_FilingReviewMDEService1_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsoma:OptimizedMimeSerialization xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/Imports">
+      <xsd:import schemaLocation="https://california-stage.tylerhost.net/EFM/FilingReviewMDEService.svc?xsd=xsd0" namespace="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="FilingReviewMDEService_ReviewFiling_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReviewFiling" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_ReviewFiling_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReviewFilingResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_NotifyDocketingComplete_InputMessage">
+    <wsdl:part name="parameters" element="tns:NotifyDocketingComplete" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_NotifyDocketingComplete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NotifyDocketingCompleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_NotifyCaseAssignmentComplete_InputMessage">
+    <wsdl:part name="parameters" element="tns:NotifyCaseAssignmentComplete" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_NotifyCaseAssignmentComplete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NotifyCaseAssignmentCompleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetFeesCalculation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFeesCalculation" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetFeesCalculation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFeesCalculationResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetFilingList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilingList" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetFilingList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilingListResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetFilingStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilingStatus" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetFilingStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilingStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetPolicy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPolicy" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetPolicy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPolicyResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetFilingDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilingDetails" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetFilingDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilingDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetFilingService_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilingService" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_GetFilingService_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFilingServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_CancelFiling_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelFiling" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_CancelFiling_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelFilingResponse" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_SecureCase_InputMessage">
+    <wsdl:part name="parameters" element="tns:SecureCase" />
+  </wsdl:message>
+  <wsdl:message name="FilingReviewMDEService_SecureCase_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SecureCaseResponse" />
+  </wsdl:message>
+  <wsdl:portType name="FilingReviewMDEService">
+    <wsdl:operation name="ReviewFiling">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/ReviewFiling" message="tns:FilingReviewMDEService_ReviewFiling_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/ReviewFilingResponse" message="tns:FilingReviewMDEService_ReviewFiling_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyDocketingComplete">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/NotifyDocketingComplete" message="tns:FilingReviewMDEService_NotifyDocketingComplete_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/NotifyDocketingCompleteResponse" message="tns:FilingReviewMDEService_NotifyDocketingComplete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyCaseAssignmentComplete">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/NotifyCaseAssignmentComplete" message="tns:FilingReviewMDEService_NotifyCaseAssignmentComplete_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/NotifyCaseAssignmentCompleteResponse" message="tns:FilingReviewMDEService_NotifyCaseAssignmentComplete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeesCalculation">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFeesCalculation" message="tns:FilingReviewMDEService_GetFeesCalculation_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFeesCalculationResponse" message="tns:FilingReviewMDEService_GetFeesCalculation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingList">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingList" message="tns:FilingReviewMDEService_GetFilingList_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingListResponse" message="tns:FilingReviewMDEService_GetFilingList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingStatus">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingStatus" message="tns:FilingReviewMDEService_GetFilingStatus_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingStatusResponse" message="tns:FilingReviewMDEService_GetFilingStatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicy">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetPolicy" message="tns:FilingReviewMDEService_GetPolicy_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetPolicyResponse" message="tns:FilingReviewMDEService_GetPolicy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingDetails">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingDetails" message="tns:FilingReviewMDEService_GetFilingDetails_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingDetailsResponse" message="tns:FilingReviewMDEService_GetFilingDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingService">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingService" message="tns:FilingReviewMDEService_GetFilingService_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingServiceResponse" message="tns:FilingReviewMDEService_GetFilingService_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelFiling">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/CancelFiling" message="tns:FilingReviewMDEService_CancelFiling_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/CancelFilingResponse" message="tns:FilingReviewMDEService_CancelFiling_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SecureCase">
+      <wsdl:input wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/SecureCase" message="tns:FilingReviewMDEService_SecureCase_InputMessage" />
+      <wsdl:output wsaw:Action="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/SecureCaseResponse" message="tns:FilingReviewMDEService_SecureCase_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_FilingReviewMDEService" type="tns:FilingReviewMDEService">
+    <wsp:PolicyReference URI="#BasicHttpBinding_FilingReviewMDEService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ReviewFiling">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/ReviewFiling" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyDocketingComplete">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/NotifyDocketingComplete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyCaseAssignmentComplete">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/NotifyCaseAssignmentComplete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeesCalculation">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFeesCalculation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingList">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingStatus">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicy">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetPolicy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingDetails">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingService">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelFiling">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/CancelFiling" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureCase">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/SecureCase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_FilingReviewMDEService1" type="tns:FilingReviewMDEService">
+    <wsp:PolicyReference URI="#BasicHttpBinding_FilingReviewMDEService1_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ReviewFiling">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/ReviewFiling" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyDocketingComplete">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/NotifyDocketingComplete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyCaseAssignmentComplete">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/NotifyCaseAssignmentComplete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeesCalculation">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFeesCalculation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingList">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingStatus">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicy">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetPolicy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingDetails">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFilingService">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/GetFilingService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelFiling">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/CancelFiling" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecureCase">
+      <soap:operation soapAction="urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0/FilingReviewMDEService/SecureCase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FilingReviewMdeService">
+    <wsdl:port name="BasicHttpBinding_FilingReviewMDEService" binding="tns:BasicHttpBinding_FilingReviewMDEService">
+      <soap:address location="https://california-stage.tylerhost.net/EFM/FilingReviewMDEService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_FilingReviewMDEService1" binding="tns:BasicHttpBinding_FilingReviewMDEService1">
+      <soap:address location="https://california-stage.tylerhost.net/EFM/FilingReviewMDEService.svc/test" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

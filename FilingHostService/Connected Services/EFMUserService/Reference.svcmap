@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d7479a3a-0fdb-4121-be05-4e17101dd724" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://california-stage.tylerhost.net/efm/EFMUserService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="EFMUserService.xsd" MetadataType="Schema" ID="e23b1de6-c089-4094-8571-73067a823b6d" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd47" />
+    <MetadataFile FileName="EFMUserService1.xsd" MetadataType="Schema" ID="885fb9d1-8a38-4888-bd3e-74e7ea3b407e" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd8" />
+    <MetadataFile FileName="EFMUserService2.xsd" MetadataType="Schema" ID="34e78fd1-eff7-477e-ae52-8f7d10910fed" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd15" />
+    <MetadataFile FileName="EFMUserService3.xsd" MetadataType="Schema" ID="72caa821-ec55-4156-8ba0-b0160b5415e5" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd6" />
+    <MetadataFile FileName="EFMUserService4.xsd" MetadataType="Schema" ID="cba9f1a8-81ca-4d8d-bc71-ec3fd9a88024" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd14" />
+    <MetadataFile FileName="EFMUserService5.xsd" MetadataType="Schema" ID="161bb66e-51be-42f5-b40f-612337d20c0f" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd13" />
+    <MetadataFile FileName="EFMUserService6.xsd" MetadataType="Schema" ID="42fa21c0-8f34-4b97-b60a-3601dffdbe6e" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd26" />
+    <MetadataFile FileName="EFMUserService7.xsd" MetadataType="Schema" ID="2d959e58-e1f9-4b21-be5d-21b93645a67d" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd46" />
+    <MetadataFile FileName="EFMUserService8.xsd" MetadataType="Schema" ID="51e6269b-5073-45f8-8c07-3b5458e1e04e" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd25" />
+    <MetadataFile FileName="EFMUserService9.xsd" MetadataType="Schema" ID="158c60b2-a5a7-4c15-820c-c39a6c31ee82" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd24" />
+    <MetadataFile FileName="EFMUserService10.xsd" MetadataType="Schema" ID="9fe1b4a4-2178-42f0-ae1e-250e57fa8910" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd23" />
+    <MetadataFile FileName="EFMUserService11.xsd" MetadataType="Schema" ID="ff0f2cbd-507a-4122-a0e7-1a94db83b350" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd37" />
+    <MetadataFile FileName="EFMUserService12.xsd" MetadataType="Schema" ID="f8fa2856-7483-4dd8-8030-2fb700756083" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd17" />
+    <MetadataFile FileName="EFMUserService13.xsd" MetadataType="Schema" ID="f3c12f71-3975-4b54-9580-f06f19877508" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd3" />
+    <MetadataFile FileName="EFMUserService14.xsd" MetadataType="Schema" ID="292247be-988c-422b-86eb-d87661f7af2e" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd39" />
+    <MetadataFile FileName="EFMUserService15.xsd" MetadataType="Schema" ID="73d0d68b-5985-4261-91d2-14c195449bff" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd52" />
+    <MetadataFile FileName="EFMUserService16.xsd" MetadataType="Schema" ID="bfcdfc28-2711-45d4-8321-3fe9463032df" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd38" />
+    <MetadataFile FileName="EFMUserService17.xsd" MetadataType="Schema" ID="2faad19a-e7fe-455b-a44c-c6ffa145f083" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd51" />
+    <MetadataFile FileName="EFMUserService18.xsd" MetadataType="Schema" ID="be6f521c-af5b-4696-aee4-240a956bb732" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd4" />
+    <MetadataFile FileName="EFMUserService19.xsd" MetadataType="Schema" ID="44a7cd16-a5e7-457f-ac03-e702c3b7849f" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd50" />
+    <MetadataFile FileName="EFMUserService20.xsd" MetadataType="Schema" ID="4ea7fbf7-838a-4aa4-b605-443fd2d05cce" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd49" />
+    <MetadataFile FileName="EFMUserService21.xsd" MetadataType="Schema" ID="75747475-efb4-46ee-b874-25264759394c" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd19" />
+    <MetadataFile FileName="EFMUserService22.xsd" MetadataType="Schema" ID="16fac9f9-9db5-4b5a-89a9-59f8ad017387" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd27" />
+    <MetadataFile FileName="EFMUserService23.xsd" MetadataType="Schema" ID="613834dd-9a68-46d9-a361-86ccbabb094a" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd55" />
+    <MetadataFile FileName="EFMUserService24.xsd" MetadataType="Schema" ID="272266c6-911c-41c7-8c30-8c9df85d086d" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd44" />
+    <MetadataFile FileName="EFMUserService25.xsd" MetadataType="Schema" ID="0a293c77-a1fe-414b-b130-6ad5422e7fe5" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd54" />
+    <MetadataFile FileName="EFMUserService26.xsd" MetadataType="Schema" ID="8cf96bde-e36a-4594-8b6b-286a246a78e6" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd16" />
+    <MetadataFile FileName="EFMUserService27.xsd" MetadataType="Schema" ID="a4019b28-1d0c-40df-9cfc-e17832a80417" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd53" />
+    <MetadataFile FileName="EFMUserService28.xsd" MetadataType="Schema" ID="84d07f0e-f463-41be-91b2-ab7f9cde929e" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd1" />
+    <MetadataFile FileName="EfmUserService.wsdl" MetadataType="Wsdl" ID="26c43849-8fc9-42be-ac76-308e0b43a2c1" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/efm/EFMUserService.svc?wsdl" />
+    <MetadataFile FileName="EFMUserService29.xsd" MetadataType="Schema" ID="fe4608fa-4934-46ed-a482-8d84fe9a4350" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd32" />
+    <MetadataFile FileName="EFMUserService30.xsd" MetadataType="Schema" ID="a791a2e7-3ff5-4af0-8dff-fd1bb6418a47" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd18" />
+    <MetadataFile FileName="EFMUserService31.xsd" MetadataType="Schema" ID="076d9890-378f-48c8-b4d9-2c1333dcd857" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd31" />
+    <MetadataFile FileName="EFMUserService32.xsd" MetadataType="Schema" ID="86a5a430-8205-4210-84e9-0459dba72c72" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd2" />
+    <MetadataFile FileName="EFMUserService33.xsd" MetadataType="Schema" ID="93b0ab2f-6877-4d76-8ae6-820b9fee67d8" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd30" />
+    <MetadataFile FileName="EFMUserService34.xsd" MetadataType="Schema" ID="f7615bdd-ed74-43db-8772-e633ec290563" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd29" />
+    <MetadataFile FileName="EFMUserService35.xsd" MetadataType="Schema" ID="32212467-b4a8-47ff-8d19-e0bb1c938c56" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd9" />
+    <MetadataFile FileName="EFMUserService36.xsd" MetadataType="Schema" ID="b26a1336-c233-47b0-92af-8dc3cb0f680d" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd28" />
+    <MetadataFile FileName="EFMUserService37.xsd" MetadataType="Schema" ID="d68ef512-a47a-49ac-afc4-279068a644ac" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd41" />
+    <MetadataFile FileName="EFMUserService38.xsd" MetadataType="Schema" ID="c7ac533c-b0b4-45cf-bb90-7ab1daf58968" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd7" />
+    <MetadataFile FileName="EFMUserService39.xsd" MetadataType="Schema" ID="2d315fa5-5688-454e-9bcf-41670ce51785" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd40" />
+    <MetadataFile FileName="EFMUserService40.xsd" MetadataType="Schema" ID="09b8801a-a3f7-457d-9762-515ba5048cfa" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd48" />
+    <MetadataFile FileName="EFMUserService41.xsd" MetadataType="Schema" ID="7b14cefa-6f28-4fee-95d4-a366ebde299f" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd36" />
+    <MetadataFile FileName="EFMUserService42.xsd" MetadataType="Schema" ID="432734ad-6060-4ac2-bc8e-58cc784bcbb2" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd35" />
+    <MetadataFile FileName="EFMUserService43.xsd" MetadataType="Schema" ID="3da9db64-1628-49d9-8954-c436cb1e905d" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd43" />
+    <MetadataFile FileName="EFMUserService44.xsd" MetadataType="Schema" ID="37155e0c-3346-42b5-83e4-4bc3fea438c8" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd34" />
+    <MetadataFile FileName="EFMUserService45.xsd" MetadataType="Schema" ID="a9280f99-b3aa-418f-bcd0-6e09dc70ae76" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd33" />
+    <MetadataFile FileName="EFMUserService46.xsd" MetadataType="Schema" ID="5da0c8ba-6329-4346-b079-07ce3f48e42c" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd45" />
+    <MetadataFile FileName="EFMUserService47.xsd" MetadataType="Schema" ID="633d2885-951c-4513-879c-716d5a01151d" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd42" />
+    <MetadataFile FileName="EFMUserService48.xsd" MetadataType="Schema" ID="f83bbf74-018b-4793-9c4b-ebe4f06eb8d6" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd12" />
+    <MetadataFile FileName="EFMUserService49.xsd" MetadataType="Schema" ID="4b47e9a5-10f4-4155-9e7a-bdf8e8b4cbe6" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd11" />
+    <MetadataFile FileName="EFMUserService50.xsd" MetadataType="Schema" ID="a613adc9-6c12-4539-837d-6500acdd53c4" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd0" />
+    <MetadataFile FileName="EFMUserService51.xsd" MetadataType="Schema" ID="f7fce1bf-0be1-4cee-b740-5bd26243e124" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd10" />
+    <MetadataFile FileName="EFMUserService52.xsd" MetadataType="Schema" ID="621fad1a-4da9-4465-9f7d-f9a207e22c37" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd22" />
+    <MetadataFile FileName="EFMUserService53.xsd" MetadataType="Schema" ID="55165d20-2086-4792-94f3-6d26389762b7" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd21" />
+    <MetadataFile FileName="EFMUserService54.xsd" MetadataType="Schema" ID="11abcf0f-a8bf-4603-98fb-94dc2d8dd909" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd5" />
+    <MetadataFile FileName="EFMUserService55.xsd" MetadataType="Schema" ID="84ddd408-299c-4660-a321-6ab4700e3108" SourceId="1" SourceUrl="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd20" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

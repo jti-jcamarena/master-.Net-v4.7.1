@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:tyler:efm:services:schema:CreatePaymentAccountRequest" elementFormDefault="qualified" targetNamespace="urn:tyler:efm:services:schema:CreatePaymentAccountRequest" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd2" namespace="urn:tyler:efm:services:schema:BaseRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd5" namespace="urn:tyler:efm:services:schema:Common" />
+  <xs:complexType name="CreatePaymentAccountRequestType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="urn:tyler:efm:services:schema:BaseRequest" base="q1:BaseRequestType">
+        <xs:sequence>
+          <xs:element xmlns:q2="urn:tyler:efm:services:schema:Common" minOccurs="0" maxOccurs="1" ref="q2:PaymentAccount" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

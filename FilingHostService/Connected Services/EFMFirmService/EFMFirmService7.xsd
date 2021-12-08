@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:tyler:efm:services:schema:BaseResponse" elementFormDefault="qualified" targetNamespace="urn:tyler:efm:services:schema:BaseResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd5" namespace="urn:tyler:efm:services:schema:Common" />
+  <xs:complexType name="BaseResponseType">
+    <xs:sequence>
+      <xs:element xmlns:q1="urn:tyler:efm:services:schema:Common" minOccurs="0" maxOccurs="1" name="Error" type="q1:ErrorType" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

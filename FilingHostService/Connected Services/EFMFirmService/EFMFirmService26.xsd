@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:tyler:efm:services:schema:CreateAttorneyResponse" elementFormDefault="qualified" targetNamespace="urn:tyler:efm:services:schema:CreateAttorneyResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMFirmService.svc?xsd=xsd31" namespace="urn:tyler:efm:services:schema:BaseResponse" />
+  <xs:complexType name="CreateAttorneyResponseType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="urn:tyler:efm:services:schema:BaseResponse" base="q1:BaseResponseType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="AttorneyID" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

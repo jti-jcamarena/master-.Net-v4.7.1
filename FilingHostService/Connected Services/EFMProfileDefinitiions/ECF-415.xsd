@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:nc="http://niem.gov/niem/niem-core/2.0" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:j="http://niem.gov/niem/domains/jxdm/4.0" xmlns="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:FilingStatusQueryMessage-4.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:ecf="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" targetNamespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:FilingStatusQueryMessage-4.0" version="4.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="../constraint/niem/niem-core/2.0/niem-core.xsd" namespace="http://niem.gov/niem/niem-core/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/structures/2.0/structures.xsd" namespace="http://niem.gov/niem/structures/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/appinfo/2.0/appinfo.xsd" namespace="http://niem.gov/niem/appinfo/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/proxy/xsd/2.0/xsd.xsd" namespace="http://niem.gov/niem/proxy/xsd/2.0" />
+  <xsd:import schemaLocation="../constraint/niem/domains/jxdm/4.0/jxdm.xsd" namespace="http://niem.gov/niem/domains/jxdm/4.0" />
+  <xsd:import schemaLocation="../common/ECF-4.0-CommonTypes.xsd" namespace="urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0" />
+  <xsd:annotation>
+    <xsd:documentation>FilingStatusQueryMessage</xsd:documentation>
+    <xsd:appinfo>
+      <i:ConformantIndicator xmlns:i="http://niem.gov/niem/appinfo/2.0">true</i:ConformantIndicator>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:complexType name="FilingStatusQueryMessageType">
+    <xsd:annotation>
+      <xsd:documentation>This is query to get a filing???s status by Filing Number.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent mixed="false">
+      <xsd:extension base="ecf:QueryMessageType">
+        <xsd:sequence>
+          <xsd:element ref="nc:DocumentIdentification" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:element name="FilingStatusQueryMessage" type="FilingStatusQueryMessageType">
+    <xsd:annotation>
+      <xsd:documentation>This is query to get a filing's status by Filer Identification, Case ID, or Filing Number.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

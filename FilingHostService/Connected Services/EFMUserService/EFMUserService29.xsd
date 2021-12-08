@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:tyler:efm:services:schema:UserListResponse" elementFormDefault="qualified" targetNamespace="urn:tyler:efm:services:schema:UserListResponse" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd31" namespace="urn:tyler:efm:services:schema:BaseResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd5" namespace="urn:tyler:efm:services:schema:Common" />
+  <xs:complexType name="UserListResponseType">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="urn:tyler:efm:services:schema:BaseResponse" base="q1:BaseResponseType">
+        <xs:sequence>
+          <xs:element xmlns:q2="urn:tyler:efm:services:schema:Common" minOccurs="0" maxOccurs="unbounded" name="User" type="q2:UserType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

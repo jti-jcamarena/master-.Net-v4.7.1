@@ -1,0 +1,97 @@
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\ECF-4.0-CoreFilingMessage.xsd
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\FilingHostService.exe.config
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\FilingHostService.exe
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\FilingHostService.pdb
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\NotificationService.dll
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\Serilog.dll
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\Serilog.Sinks.Console.dll
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\Serilog.Sinks.File.dll
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\Serilog.Sinks.RollingFile.dll
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\eSuite.Utils.eRest.pdb
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\NotificationService.pdb
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\NotificationService.dll.config
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\Serilog.xml
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\Serilog.Sinks.Console.xml
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\Serilog.Sinks.File.xml
+C:\BitLink\Esl_OfsService\ESLHostService\bin\Debug\Serilog.Sinks.RollingFile.xml
+C:\BitLink\Esl_OfsService\ESLHostService\obj\Debug\FilingHostService.csprojResolveAssemblyReference.cache
+C:\BitLink\Esl_OfsService\ESLHostService\obj\Debug\FilingHostService.ESLWindowsService.resources
+C:\BitLink\Esl_OfsService\ESLHostService\obj\Debug\FilingHostService.ProjectInstaller.resources
+C:\BitLink\Esl_OfsService\ESLHostService\obj\Debug\FilingHostService.csproj.GenerateResource.Cache
+C:\BitLink\Esl_OfsService\ESLHostService\obj\Debug\FilingHostService.csproj.CoreCompileInputs.cache
+C:\BitLink\Esl_OfsService\ESLHostService\obj\Debug\FilingHostService.exe
+C:\BitLink\Esl_OfsService\ESLHostService\obj\Debug\FilingHostService.pdb
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\ECF-4.0-CoreFilingMessage.xsd
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\FilingHostService.exe.config
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\FilingHostService.exe
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\FilingHostService.pdb
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\NotificationService.dll
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\Serilog.dll
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.Console.dll
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.File.dll
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.RollingFile.dll
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\eSuite.Utils.eRest.pdb
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\NotificationService.pdb
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\NotificationService.dll.config
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\Serilog.xml
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.Console.xml
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.File.xml
+C:\BitLink\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.RollingFile.xml
+C:\BitLink\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csprojResolveAssemblyReference.cache
+C:\BitLink\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.ProjectInstaller.resources
+C:\BitLink\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csproj.GenerateResource.Cache
+C:\BitLink\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csproj.CoreCompileInputs.cache
+C:\BitLink\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.exe
+C:\BitLink\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.pdb
+C:\BitLink\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.FilingWindowsService.resources
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\ECF-4.0-CoreFilingMessage.xsd
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\FilingHostService.exe.config
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\FilingHostService.exe
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\FilingHostService.pdb
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\eSuite.Utils.eRest.dll
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\NotificationService.dll
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\Serilog.dll
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.Console.dll
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.File.dll
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.RollingFile.dll
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\eSuite.Utils.eRest.pdb
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\NotificationService.pdb
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\NotificationService.dll.config
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\Serilog.xml
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.Console.xml
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.File.xml
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.RollingFile.xml
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csprojAssemblyReference.cache
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.FilingWindowsService.resources
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.ProjectInstaller.resources
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csproj.GenerateResource.cache
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csproj.CoreCompileInputs.cache
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csproj.CopyComplete
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.exe
+C:\BitLink\C#\Jobs\Fresno\Odyssey\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.pdb
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\ECF-4.0-CoreFilingMessage.xsd
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\FilingHostService.exe.config
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\FilingHostService.exe
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\FilingHostService.pdb
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\eSuite.Utils.eRest.dll
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\NotificationService.dll
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\Serilog.dll
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.Console.dll
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.File.dll
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.RollingFile.dll
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\eSuite.Utils.eRest.pdb
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\NotificationService.pdb
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\NotificationService.dll.config
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\Serilog.xml
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.Console.xml
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.File.xml
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\bin\Debug\Serilog.Sinks.RollingFile.xml
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csprojAssemblyReference.cache
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.FilingWindowsService.resources
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.ProjectInstaller.resources
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csproj.GenerateResource.cache
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csproj.CopyComplete
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.exe
+C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.pdb

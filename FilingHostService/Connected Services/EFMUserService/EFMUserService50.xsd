@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:tyler:efm:services" elementFormDefault="qualified" targetNamespace="urn:tyler:efm:services" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd1" namespace="urn:tyler:efm:services:schema:ResetPasswordRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd30" namespace="urn:tyler:efm:services:schema:ResetPasswordResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd20" namespace="urn:tyler:efm:services:schema:GetPasswordQuestionRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd41" namespace="urn:tyler:efm:services:schema:PasswordQuestionResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd26" namespace="urn:tyler:efm:services:schema:ChangePasswordRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd50" namespace="urn:tyler:efm:services:schema:ChangePasswordResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd3" namespace="urn:tyler:efm:services:schema:AuthenticateRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd51" namespace="urn:tyler:efm:services:schema:AuthenticateResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd17" namespace="urn:tyler:efm:services:schema:GetUserRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd42" namespace="urn:tyler:efm:services:schema:GetUserResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd4" namespace="urn:tyler:efm:services:schema:UpdateUserRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd33" namespace="urn:tyler:efm:services:schema:UpdateUserResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd53" namespace="urn:tyler:efm:services:schema:NotificationPreferencesResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd54" namespace="urn:tyler:efm:services:schema:UpdateNotificationPreferencesRequest" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd31" namespace="urn:tyler:efm:services:schema:BaseResponse" />
+  <xs:import schemaLocation="https://california-stage.tylerhost.net/EFM/EFMUserService.svc?xsd=xsd55" namespace="urn:tyler:efm:services:schema:SelfResendActivationEmailRequest" />
+  <xs:element name="ResetPassword">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="urn:tyler:efm:services:schema:ResetPasswordRequest" minOccurs="0" maxOccurs="1" name="ResetPasswordRequest" type="q1:ResetPasswordRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetPasswordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="urn:tyler:efm:services:schema:ResetPasswordResponse" minOccurs="0" maxOccurs="1" name="ResetPasswordResponse" type="q2:ResetPasswordResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPasswordQuestion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="urn:tyler:efm:services:schema:GetPasswordQuestionRequest" minOccurs="0" maxOccurs="1" name="GetPasswordQuestionRequest" type="q3:GetPasswordQuestionRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPasswordQuestionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="urn:tyler:efm:services:schema:PasswordQuestionResponse" minOccurs="0" maxOccurs="1" name="GetPasswordQuestionResponse" type="q4:PasswordQuestionResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangePassword">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="urn:tyler:efm:services:schema:ChangePasswordRequest" minOccurs="0" maxOccurs="1" name="ChangePasswordRequest" type="q5:ChangePasswordRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangePasswordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="urn:tyler:efm:services:schema:ChangePasswordResponse" minOccurs="0" maxOccurs="1" name="ChangePasswordResponse" type="q6:ChangePasswordResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AuthenticateUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="urn:tyler:efm:services:schema:AuthenticateRequest" minOccurs="0" maxOccurs="1" name="AuthenticateRequest" type="q7:AuthenticateRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AuthenticateUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="urn:tyler:efm:services:schema:AuthenticateResponse" minOccurs="0" maxOccurs="1" name="AuthenticateUserResponse" type="q8:AuthenticateResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="urn:tyler:efm:services:schema:GetUserRequest" minOccurs="0" maxOccurs="1" name="GetUserRequest" type="q9:GetUserRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="urn:tyler:efm:services:schema:GetUserResponse" minOccurs="0" maxOccurs="1" name="GetUserResponse" type="q10:GetUserResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="urn:tyler:efm:services:schema:UpdateUserRequest" minOccurs="0" maxOccurs="1" name="UpdateUserRequest" type="q11:UpdateUserRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="urn:tyler:efm:services:schema:UpdateUserResponse" minOccurs="0" maxOccurs="1" name="UpdateUserResponse" type="q12:UpdateUserResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNotificationPreferences">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetNotificationPreferencesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="urn:tyler:efm:services:schema:NotificationPreferencesResponse" minOccurs="0" maxOccurs="1" name="GetNotificationPreferencesResponse" type="q13:NotificationPreferencesResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateNotificationPreferences">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="urn:tyler:efm:services:schema:UpdateNotificationPreferencesRequest" minOccurs="0" maxOccurs="1" name="UpdateNotificationPreferencesRequest" type="q14:UpdateNotificationPreferencesRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateNotificationPreferencesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="UpdateNotificationPreferencesResponse" type="q15:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelfResendActivationEmail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="urn:tyler:efm:services:schema:SelfResendActivationEmailRequest" minOccurs="0" maxOccurs="1" name="SelfResendActivationEmailRequest" type="q16:SelfResendActivationEmailRequestType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SelfResendActivationEmailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="urn:tyler:efm:services:schema:BaseResponse" minOccurs="0" maxOccurs="1" name="SelfResendActivationEmailResponse" type="q17:BaseResponseType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

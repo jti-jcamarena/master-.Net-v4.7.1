@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDataTypes-2" xmlns:udt="urn:oasis:names:specification:ubl:schema:xsd:UnqualifiedDataTypes-2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDataTypes-2" version="2.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="UBL-UnqualifiedDataTypes-2.1.xsd" namespace="urn:oasis:names:specification:ubl:schema:xsd:UnqualifiedDataTypes-2" />
+</xsd:schema>
