@@ -234,33 +234,46 @@ namespace FilingHostService
 
         public void GetTylerCodes(string courtID)
         {         
-            //TODO Create a key in the config file for each code table
             var zipFilePath = ConfigurationManager.AppSettings.Get("zipFile");
-            //TODO perhaps make this more generic to make the app.config easier
-            //var folderPath = ConfigurationManager.AppSettings.Get("CodeFolder");
+            var folderPath = ConfigurationManager.AppSettings.Get("CodeFolder");
             var fileNames = new List<string>(ConfigurationManager.AppSettings.Get("fileList").Split(new char[] { ';' }));
+            var urls = new List<string>();
+            var zips = new List<string>();
+            var xmls = new List<string>();
 
-            foreach(string fileName in fileNames) {
-                // Download and extract zip file
-                var url = ConfigurationManager.AppSettings.Get("CourtURL") + "/" + fileName + "/" + courtID;
+            foreach(string fileName in fileNames)
+            {
+                var url = ConfigurationManager.AppSettings.Get("CourtURL") + "/" + fileName.ToLower() + "/" + courtID;
+                urls.Add(url);
+                var zipPath = zipFilePath + fileName.ToLower() + ".zip";
+                zips.Add(zipPath);
+                var codeFilePath = folderPath + "\\" + fileName.ToLower() + "codes.xml";
+                xmls.Add(codeFilePath);
+            }
 
-                var _data = Encoding.UTF8.GetBytes(DateTime.Now.ToString("o"));
-                ContentInfo _info = new ContentInfo(_data);
-                SignedCms _cms = new SignedCms(_info, false);
-                CmsSigner _signer = new CmsSigner(this.MessageSigningCertificate);
-                _cms.ComputeSignature(_signer, false);
-                var _signed = _cms.Encode();
-                var _b64 = Convert.ToBase64String(_signed);
+            var _data = Encoding.UTF8.GetBytes(DateTime.Now.ToString("o"));
+            ContentInfo _info = new ContentInfo(_data);
+            SignedCms _cms = new SignedCms(_info, false);
+            CmsSigner _signer = new CmsSigner(this.MessageSigningCertificate);
+            _cms.ComputeSignature(_signer, false);
+            var _signed = _cms.Encode();
+            var _b64 = Convert.ToBase64String(_signed);
 
-                using (WebClient _client = new WebClient())
+            using (WebClient _client = new WebClient())
+            {
+                _client.Headers["tyl-efm-api"] = _b64;
+                for(int i = 0; i < urls.Count; i++)
                 {
-                    _client.Headers["tyl-efm-api"] = _b64;
-                    _client.DownloadFile(url, zipFilePath);
+                    _client.DownloadFile(urls[i], zips[i]);
                 }
-                var codeFilePath = ConfigurationManager.AppSettings.Get(fileName + "File");
-                File.Delete(codeFilePath);
-                ZipFile.ExtractToDirectory(zipFilePath, codeFilePath);
-                File.Delete(zipFilePath);
+            }
+
+            for(int i = 0; i < xmls.Count; i++) {
+                // Download and extract zip file               
+                
+                File.Delete(xmls[i]);
+                ZipFile.ExtractToDirectory(zips[i], xmls[i]);
+                File.Delete(zips[i]);
             }
         }
 
