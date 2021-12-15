@@ -243,11 +243,14 @@ namespace FilingHostService
 
             foreach(string fileName in fileNames)
             {
-                var url = ConfigurationManager.AppSettings.Get("CourtURL") + "/" + fileName.ToLower() + "/" + courtID;
+                var url = ConfigurationManager.AppSettings.Get("CourtURL").Trim('\r', '\n') + fileName.ToLower().Trim('\r', '\n') + "/" + courtID;
+                url.TrimEnd('\r', '\n');
                 urls.Add(url);
-                var zipPath = zipFilePath + fileName.ToLower() + ".zip";
+                var zipPath = zipFilePath.Trim('\r', '\n') + fileName.ToLower().Trim('\r', '\n') + ".zip";
+                zipPath.TrimEnd('\r', '\n');
                 zips.Add(zipPath);
-                var codeFilePath = folderPath + "\\" + fileName.ToLower() + "codes.xml";
+                var codeFilePath = folderPath.Trim('\r', '\n') + "\\" + fileName.ToLower().Trim('\r', '\n') + "codes.xml";
+                codeFilePath.TrimEnd('\r', '\n');
                 xmls.Add(codeFilePath);
             }
 
@@ -264,6 +267,8 @@ namespace FilingHostService
                 _client.Headers["tyl-efm-api"] = _b64;
                 for(int i = 0; i < urls.Count; i++)
                 {
+                    Log.Information(urls[i]);
+                    Log.Information(zips[i]);
                     _client.DownloadFile(urls[i], zips[i]);
                 }
             }

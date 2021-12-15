@@ -90,6 +90,8 @@ namespace FilingHostService
         private string _filingFailedPath;
         private string _filingSuccessPath;
         private string _filingStatutePath;
+        private string _zipFolder;
+        private string _codeFolder;
         private string _courtID;
         private System.Timers.Timer _timer;
         private string _pfxFilePath;
@@ -733,19 +735,32 @@ namespace FilingHostService
                 _filingQueuePath = @ConfigurationManager.AppSettings.Get("filingQueueFolder");
                 _filingFailedPath = @ConfigurationManager.AppSettings.Get("filingFailedFolder");
                 _filingSuccessPath = @ConfigurationManager.AppSettings.Get("filingSuccessFolder");
-                _filingStatutePath = @ConfigurationManager.AppSettings.Get("filingStatuteFolder");
+                //_filingStatutePath = @ConfigurationManager.AppSettings.Get("filingStatuteFolder");
+                _zipFolder = @ConfigurationManager.AppSettings.Get("zipFile");
+                _codeFolder = @ConfigurationManager.AppSettings.Get("codeFolder");
+
                 _courtID = @ConfigurationManager.AppSettings.Get("courtID");
 
                 // Create OFS directory paths if needed
+                Log.Information("creating directories");
+                Log.Information("creating queue");
                 Directory.CreateDirectory(_filingQueuePath);
+                Log.Information("creating failed");
                 Directory.CreateDirectory(_filingFailedPath);
-                Directory.CreateDirectory(_filingSuccessPath);
-                Directory.CreateDirectory(_filingStatutePath);
+                Log.Information("creating success");
+                Directory.CreateDirectory(_filingSuccessPath);                
+                //Directory.CreateDirectory(_filingStatutePath);
+
+                Log.Information("creating zipFolder at: " + _zipFolder);
+                Directory.CreateDirectory(_zipFolder);
+                Log.Information("creating codeFolder at: "+ _codeFolder);
+                Directory.CreateDirectory(_codeFolder);
 
                 // Get EFMClient certificate info
                 _pfxFilePath = ConfigurationManager.AppSettings.Get("pfxFilePath");
                 _privateKeyPassword = ConfigurationManager.AppSettings.Get("privateKeyPassword");
                 _client = new EFMClient(_pfxFilePath, _privateKeyPassword);
+                _client.GetTylerCodes(_courtID);
 
                 // Get the polling interval...defaults to 10 minutes
                 var pollingInterval = int.Parse(ConfigurationManager.AppSettings.Get("pollingIntervalMinutes") ?? _defaultPollingInterval);

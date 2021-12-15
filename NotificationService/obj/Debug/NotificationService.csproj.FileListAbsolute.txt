@@ -67,3 +67,21 @@ C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsServi
 C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\NotificationService\obj\Debug\NotificationService.csproj.CopyComplete
 C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\NotificationService\obj\Debug\NotificationService.dll
 C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\NotificationService\obj\Debug\NotificationService.pdb
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\NotificationService.dll.config
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\NotificationService.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\NotificationService.pdb
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\eSuite.Utils.eRest.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\Newtonsoft.Json.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\Serilog.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\Serilog.Sinks.File.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\Serilog.Sinks.RollingFile.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\eSuite.Utils.eRest.pdb
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\Newtonsoft.Json.xml
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\Serilog.xml
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\Serilog.Sinks.File.xml
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\bin\Serilog.Sinks.RollingFile.xml
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\obj\Debug\NotificationService.csproj.AssemblyReference.cache
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\obj\Debug\NotificationService.csproj.CoreCompileInputs.cache
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\obj\Debug\NotificationService.csproj.CopyComplete
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\obj\Debug\NotificationService.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\NotificationService\obj\Debug\NotificationService.pdb

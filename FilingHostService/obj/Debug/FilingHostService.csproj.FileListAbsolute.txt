@@ -95,3 +95,29 @@ C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsServi
 C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.csproj.CopyComplete
 C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.exe
 C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\FilingHostService\obj\Debug\FilingHostService.pdb
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\ECF-4.0-CoreFilingMessage.xsd
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\FilingHostService.exe.config
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\FilingHostService.exe
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\FilingHostService.pdb
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\eSuite.Utils.eRest.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\NotificationService.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\Serilog.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\Serilog.Sinks.Console.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\Serilog.Sinks.File.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\Serilog.Sinks.RollingFile.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\eSuite.Utils.eRest.pdb
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\NotificationService.pdb
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\NotificationService.dll.config
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\Serilog.xml
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\Serilog.Sinks.Console.xml
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\Serilog.Sinks.File.xml
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\bin\Debug\Serilog.Sinks.RollingFile.xml
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\obj\Debug\FilingHostService.FilingWindowsService.resources
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\obj\Debug\FilingHostService.ProjectInstaller.resources
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\obj\Debug\FilingHostService.csproj.GenerateResource.cache
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\obj\Debug\FilingHostService.csproj.CoreCompileInputs.cache
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\obj\Debug\FilingHostService.csproj.CopyComplete
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\obj\Debug\FilingHostService.exe
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\obj\Debug\FilingHostService.pdb
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\obj\Debug\FilingHostService.csproj.AssemblyReference.cache
+C:\Users\naw79\Documents\git\esl_ofsservice\FilingHostService\obj\Debug\FilingHostService.csproj.SuggestedBindingRedirects.cache

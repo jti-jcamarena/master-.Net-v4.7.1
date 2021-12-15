@@ -31,3 +31,9 @@ C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsServi
 C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\eRest\obj\Debug\eSuite.Utils.eRest.dll
 C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\eRest\obj\Debug\eSuite.Utils.eRest.pdb
 C:\Users\jcamarena\Desktop\FresnoLive_OFS_Source\Esl_OfsService (1)\Esl_OfsService\eRest\obj\Debug\eRest.csproj.CoreCompileInputs.cache
+C:\Users\naw79\Documents\git\esl_ofsservice\eRest\bin\Debug\eSuite.Utils.eRest.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\eRest\bin\Debug\eSuite.Utils.eRest.pdb
+C:\Users\naw79\Documents\git\esl_ofsservice\eRest\obj\Debug\eRest.csproj.CoreCompileInputs.cache
+C:\Users\naw79\Documents\git\esl_ofsservice\eRest\obj\Debug\eRest.csproj.CopyComplete
+C:\Users\naw79\Documents\git\esl_ofsservice\eRest\obj\Debug\eSuite.Utils.eRest.dll
+C:\Users\naw79\Documents\git\esl_ofsservice\eRest\obj\Debug\eSuite.Utils.eRest.pdb
