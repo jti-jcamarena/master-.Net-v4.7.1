@@ -245,12 +245,15 @@ namespace FilingHostService
             {
                 var url = ConfigurationManager.AppSettings.Get("CourtURL").Trim('\r', '\n') + fileName.ToLower().Trim('\r', '\n') + "/" + courtID;
                 url.TrimEnd('\r', '\n');
+                url = String.Concat(url.Where(c => !Char.IsWhiteSpace(c)));
                 urls.Add(url);
                 var zipPath = zipFilePath.Trim('\r', '\n') + fileName.ToLower().Trim('\r', '\n') + ".zip";
                 zipPath.TrimEnd('\r', '\n');
+                zipPath = String.Concat(zipPath.Where(c => !Char.IsWhiteSpace(c)));
                 zips.Add(zipPath);
                 var codeFilePath = folderPath.Trim('\r', '\n') + "\\" + fileName.ToLower().Trim('\r', '\n') + "codes.xml";
                 codeFilePath.TrimEnd('\r', '\n');
+                codeFilePath = String.Concat(codeFilePath.Where(c => !Char.IsWhiteSpace(c)));
                 xmls.Add(codeFilePath);
             }
 
@@ -269,7 +272,13 @@ namespace FilingHostService
                 {
                     Log.Information(urls[i]);
                     Log.Information(zips[i]);
-                    _client.DownloadFile(urls[i], zips[i]);
+                    try
+                    {
+                        _client.DownloadFile(urls[i], zips[i]);
+                    } catch (Exception ex)
+                    {
+                        Log.Error("Error: " + ex.Message + " for url " + urls[i]);
+                    }
                 }
             }
 
