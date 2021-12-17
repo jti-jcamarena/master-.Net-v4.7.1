@@ -277,17 +277,22 @@ namespace FilingHostService
                         _client.DownloadFile(urls[i], zips[i]);
                     } catch (Exception ex)
                     {
-                        Log.Error("Error: " + ex.Message + " for url " + urls[i]);
+                        Log.Error(ex.Message + " for url " + urls[i]);
                     }
                 }
             }
 
             for(int i = 0; i < xmls.Count; i++) {
                 // Download and extract zip file               
-                
-                File.Delete(xmls[i]);
-                ZipFile.ExtractToDirectory(zips[i], xmls[i]);
-                File.Delete(zips[i]);
+                try
+                {
+                    File.Delete(xmls[i]);
+                    ZipFile.ExtractToDirectory(zips[i], xmls[i]);
+                    File.Delete(zips[i]);
+                } catch (Exception ex)
+                {
+                    Log.Error(ex.Message + " for zip " + zips[i]);
+                }
             }
         }
 
