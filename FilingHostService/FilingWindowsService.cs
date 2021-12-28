@@ -853,6 +853,9 @@ namespace FilingHostService
             iDayDelAge = Convert.ToInt32(ConfigurationManager.AppSettings["numDaysToKeepLogFiles"] ?? "0");
             cleanupFiles(Path.GetDirectoryName(@ConfigurationManager.AppSettings["ofsLogFile"]), iDayDelAge);
 
+            //Get new Tyler codes
+            _client.GetTylerCodes(_courtID);
+
             // Test for odyssey filings to process
             CheckForOutboundMessages();
         }

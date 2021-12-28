@@ -291,7 +291,7 @@ namespace FilingHostService
                     File.Delete(zips[i]);
                 } catch (Exception ex)
                 {
-                    Log.Error(ex.Message + " for zip " + zips[i]);
+                    Log.Error(ex.Message);
                 }
             }
         }
