@@ -15,36 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_18A6BC0FFD693CBB318128A317FCC22C"
-        "OwnerKey" = "8:_ED6E47F3FE438F8AC2C4D378B2278C4F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_18A6BC0FFD693CBB318128A317FCC22C"
-        "OwnerKey" = "8:_2D7667A3A4D716C8870929B04DBAE6C9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_18A6BC0FFD693CBB318128A317FCC22C"
-        "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_18A6BC0FFD693CBB318128A317FCC22C"
-        "OwnerKey" = "8:_855ACF7F4B051E8C6CF5666EB9C10C7C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_18A6BC0FFD693CBB318128A317FCC22C"
-        "OwnerKey" = "8:_55C1F25BC1E81D82D17A5DDCE873FB85"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_1D241EA3DCF064C3757434DE324E117E"
         "OwnerKey" = "8:_9D4128C7154929CF7D9FE79F69D4927C"
         "MsmSig" = "8:_UNDEFINED"
@@ -63,25 +33,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_2D7667A3A4D716C8870929B04DBAE6C9"
-        "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_46C8E6778BDE38A2F833990017D5C7B3"
         "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_55C1F25BC1E81D82D17A5DDCE873FB85"
-        "OwnerKey" = "8:_ED6E47F3FE438F8AC2C4D378B2278C4F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_55C1F25BC1E81D82D17A5DDCE873FB85"
+        "MsmKey" = "8:_4710B80BBF3E64A7D42133A83CAA466B"
         "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -93,31 +51,79 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_75F87E82C3E4D51C15DCCB50A4416DE7"
+        "MsmKey" = "8:_9CC4ECEAB259023564AD8792FBEEF6B0"
         "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_75F87E82C3E4D51C15DCCB50A4416DE7"
-        "OwnerKey" = "8:_ED6E47F3FE438F8AC2C4D378B2278C4F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_855ACF7F4B051E8C6CF5666EB9C10C7C"
-        "OwnerKey" = "8:_55C1F25BC1E81D82D17A5DDCE873FB85"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_855ACF7F4B051E8C6CF5666EB9C10C7C"
-        "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
+        "MsmKey" = "8:_9CC4ECEAB259023564AD8792FBEEF6B0"
+        "OwnerKey" = "8:_4710B80BBF3E64A7D42133A83CAA466B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_9D4128C7154929CF7D9FE79F69D4927C"
+        "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9D6F381404B920DFACFD58E62D69FAC4"
+        "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9D6F381404B920DFACFD58E62D69FAC4"
+        "OwnerKey" = "8:_4710B80BBF3E64A7D42133A83CAA466B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9E1E2BAAF458EB5C800D33A37F81C9CA"
+        "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C58DCD151B4CBE39F4C296705E074BAA"
+        "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C58DCD151B4CBE39F4C296705E074BAA"
+        "OwnerKey" = "8:_E73FC47A16609AC5EA0AA5C99C461B72"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D6518E71C674B243D08331349C2BBAA2"
+        "OwnerKey" = "8:_4710B80BBF3E64A7D42133A83CAA466B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D6518E71C674B243D08331349C2BBAA2"
+        "OwnerKey" = "8:_E73FC47A16609AC5EA0AA5C99C461B72"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D6518E71C674B243D08331349C2BBAA2"
+        "OwnerKey" = "8:_C58DCD151B4CBE39F4C296705E074BAA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D6518E71C674B243D08331349C2BBAA2"
+        "OwnerKey" = "8:_9E1E2BAAF458EB5C800D33A37F81C9CA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D6518E71C674B243D08331349C2BBAA2"
         "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -135,26 +141,62 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_ED6E47F3FE438F8AC2C4D378B2278C4F"
+        "MsmKey" = "8:_E73FC47A16609AC5EA0AA5C99C461B72"
         "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_FCFF500BAEBC681C4434987C9700CAB3"
-        "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FCFF500BAEBC681C4434987C9700CAB3"
-        "OwnerKey" = "8:_ED6E47F3FE438F8AC2C4D378B2278C4F"
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1D241EA3DCF064C3757434DE324E117E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E73FC47A16609AC5EA0AA5C99C461B72"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C58DCD151B4CBE39F4C296705E074BAA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9E1E2BAAF458EB5C800D33A37F81C9CA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4710B80BBF3E64A7D42133A83CAA466B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D6518E71C674B243D08331349C2BBAA2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9CC4ECEAB259023564AD8792FBEEF6B0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9D6F381404B920DFACFD58E62D69FAC4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -167,54 +209,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9D4128C7154929CF7D9FE79F69D4927C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1D241EA3DCF064C3757434DE324E117E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2D7667A3A4D716C8870929B04DBAE6C9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_ED6E47F3FE438F8AC2C4D378B2278C4F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_55C1F25BC1E81D82D17A5DDCE873FB85"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_855ACF7F4B051E8C6CF5666EB9C10C7C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_18A6BC0FFD693CBB318128A317FCC22C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FCFF500BAEBC681C4434987C9700CAB3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_75F87E82C3E4D51C15DCCB50A4416DE7"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -340,37 +334,6 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_18A6BC0FFD693CBB318128A317FCC22C"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_18A6BC0FFD693CBB318128A317FCC22C"
-                    {
-                    "Name" = "8:Serilog.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Serilog.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1D241EA3DCF064C3757434DE324E117E"
             {
             "AssemblyRegister" = "3:1"
@@ -442,37 +405,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2D7667A3A4D716C8870929B04DBAE6C9"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Serilog.Sinks.Console, Version=3.0.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_2D7667A3A4D716C8870929B04DBAE6C9"
-                    {
-                    "Name" = "8:Serilog.Sinks.Console.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Serilog.Sinks.Console.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_46C8E6778BDE38A2F833990017D5C7B3"
             {
             "AssemblyRegister" = "3:1"
@@ -504,20 +436,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_55C1F25BC1E81D82D17A5DDCE873FB85"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4710B80BBF3E64A7D42133A83CAA466B"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Serilog.Sinks.RollingFile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:NotificationService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_55C1F25BC1E81D82D17A5DDCE873FB85"
+                    "_4710B80BBF3E64A7D42133A83CAA466B"
                     {
-                    "Name" = "8:Serilog.Sinks.RollingFile.dll"
+                    "Name" = "8:NotificationService.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Serilog.Sinks.RollingFile.dll"
+            "SourcePath" = "8:NotificationService.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
@@ -535,51 +467,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_75F87E82C3E4D51C15DCCB50A4416DE7"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9CC4ECEAB259023564AD8792FBEEF6B0"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:eSuite.Utils.eRest, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_75F87E82C3E4D51C15DCCB50A4416DE7"
+                    "_9CC4ECEAB259023564AD8792FBEEF6B0"
                     {
-                    "Name" = "8:eSuite.Utils.eRest.dll"
+                    "Name" = "8:Newtonsoft.Json.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:eSuite.Utils.eRest.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_855ACF7F4B051E8C6CF5666EB9C10C7C"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_855ACF7F4B051E8C6CF5666EB9C10C7C"
-                    {
-                    "Name" = "8:Serilog.Sinks.File.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Serilog.Sinks.File.dll"
+            "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
@@ -611,6 +512,130 @@
                     }
                 }
             "SourcePath" = "8:System.IO.Compression.FileSystem.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9D6F381404B920DFACFD58E62D69FAC4"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:eSuite.Utils.eRest, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_9D6F381404B920DFACFD58E62D69FAC4"
+                    {
+                    "Name" = "8:eSuite.Utils.eRest.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:eSuite.Utils.eRest.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9E1E2BAAF458EB5C800D33A37F81C9CA"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Serilog.Sinks.Console, Version=3.0.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_9E1E2BAAF458EB5C800D33A37F81C9CA"
+                    {
+                    "Name" = "8:Serilog.Sinks.Console.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Serilog.Sinks.Console.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C58DCD151B4CBE39F4C296705E074BAA"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_C58DCD151B4CBE39F4C296705E074BAA"
+                    {
+                    "Name" = "8:Serilog.Sinks.File.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Serilog.Sinks.File.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D6518E71C674B243D08331349C2BBAA2"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D6518E71C674B243D08331349C2BBAA2"
+                    {
+                    "Name" = "8:Serilog.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Serilog.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
@@ -668,51 +693,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ED6E47F3FE438F8AC2C4D378B2278C4F"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E73FC47A16609AC5EA0AA5C99C461B72"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NotificationService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Serilog.Sinks.RollingFile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_ED6E47F3FE438F8AC2C4D378B2278C4F"
+                    "_E73FC47A16609AC5EA0AA5C99C461B72"
                     {
-                    "Name" = "8:NotificationService.dll"
+                    "Name" = "8:Serilog.Sinks.RollingFile.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:NotificationService.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FCFF500BAEBC681C4434987C9700CAB3"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_FCFF500BAEBC681C4434987C9700CAB3"
-                    {
-                    "Name" = "8:Newtonsoft.Json.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Newtonsoft.Json.dll"
+            "SourcePath" = "8:Serilog.Sinks.RollingFile.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_2CB436BFC0CF49FC932C311A0E00A086"
@@ -798,7 +792,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ESL_OdysseyRfService"
         "ProductCode" = "8:{12C90ED2-924A-4E32-A59A-0F745F222DE8}"
-        "PackageCode" = "8:{3AB3AEE8-B8C7-44A8-9E4C-DEEB2BF0C810}"
+        "PackageCode" = "8:{3E800F89-0366-4F16-84A4-82EF81EFC897}"
         "UpgradeCode" = "8:{3D803EAF-6920-4CA1-BBD3-B2483274ECDB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

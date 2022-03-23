@@ -42,11 +42,13 @@ namespace FilingHostService
             {
                 if (Environment.UserInteractive)    // undeployed mode
                 {
+                    Log.Logger.Information("undeployed mode");
                     var service = new FilingWindowsService();
                     service.TestStartupAndStop(args);
                 }
                 else // deployed mode 
                 {
+                    Log.Logger.Information("deployed mode");
                     ServiceBase[] ServicesToRun;
                     ServicesToRun = new ServiceBase[]
                     {

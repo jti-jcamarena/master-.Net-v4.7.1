@@ -37,3 +37,10 @@ C:\Users\naw79\Documents\git\esl_ofsservice\eRest\obj\Debug\eRest.csproj.CoreCom
 C:\Users\naw79\Documents\git\esl_ofsservice\eRest\obj\Debug\eRest.csproj.CopyComplete
 C:\Users\naw79\Documents\git\esl_ofsservice\eRest\obj\Debug\eSuite.Utils.eRest.dll
 C:\Users\naw79\Documents\git\esl_ofsservice\eRest\obj\Debug\eSuite.Utils.eRest.pdb
+C:\Users\jcamarena\Source\Repos\master\eRest\bin\Debug\eSuite.Utils.eRest.dll
+C:\Users\jcamarena\Source\Repos\master\eRest\bin\Debug\eSuite.Utils.eRest.pdb
+C:\Users\jcamarena\Source\Repos\master\eRest\obj\Debug\eRest.csprojAssemblyReference.cache
+C:\Users\jcamarena\Source\Repos\master\eRest\obj\Debug\eRest.csproj.CoreCompileInputs.cache
+C:\Users\jcamarena\Source\Repos\master\eRest\obj\Debug\eRest.csproj.CopyComplete
+C:\Users\jcamarena\Source\Repos\master\eRest\obj\Debug\eSuite.Utils.eRest.dll
+C:\Users\jcamarena\Source\Repos\master\eRest\obj\Debug\eSuite.Utils.eRest.pdb

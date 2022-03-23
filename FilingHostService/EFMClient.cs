@@ -78,34 +78,61 @@ namespace FilingHostService
             }
         }
 
+        public String CreateAttorney(AuthenticateResponseType user, string attorneyBar, string attorneyFirstName, string attorneyMiddleName, string attorneyLastName, string firmID)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                FilingHostService.EFMFirmService.CreateAttorneyRequestType createAttorneyRequest = new FilingHostService.EFMFirmService.CreateAttorneyRequestType();
+                EFMFirmService.AttorneyType attorney = new EFMFirmService.AttorneyType();
+                attorney.BarNumber = attorneyBar;
+                attorney.FirstName = attorneyFirstName;
+                attorney.MiddleName = attorneyMiddleName;
+                attorney.LastName = attorneyLastName;
+                attorney.FirmID = firmID;
+                createAttorneyRequest.Attorney = attorney;
+                var response = firmService.CreateAttorney(createAttorneyRequest);
+                return response.Error.ErrorCode == "0" ? $"{response.AttorneyID}" : $"errText:{response.Error.ErrorText} errCode:{response.Error.ErrorCode}";
+            }
+        }
+
         //
         // GetCaseTrackingID based on caseDocketNbr and courtID
         // @returns CaseTrackID reference or null if not found
         //
         public string GetCaseTrackingID(AuthenticateResponseType user, string courtID, string caseDocketNbr)
         {
-            String caseListReqXml = @"<CaseListQueryMessage xmlns='urn: oasis: names: tc: legalxml - courtfiling:schema: xsd: CaseListQueryMessage - 4.0' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseListQueryMessage-4.0 ..\..\..\Schema\message\ECF-4.0-CaseListQueryMessage.xsd'>
-	            <ecf:SendingMDELocationID>
-		            <nc:IdentificationID>https://filingassemblymde.com</nc:IdentificationID>
-	            </ecf:SendingMDELocationID>
-	            <ecf:SendingMDEProfileCode>
-		            urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0
-	            </ecf:SendingMDEProfileCode>
-	            <ecf:QuerySubmitter>
-		            <ecf:EntityPerson/>
-	            </ecf:QuerySubmitter>
-	            <j:CaseCourt>
-		            <nc:OrganizationIdentification>
-			            <nc:IdentificationID></nc:IdentificationID>
-		            </nc:OrganizationIdentification>
-	            </j:CaseCourt>
-	            <CaseListQueryCase>
-		            <nc:CaseTitleText/>
-		            <nc:CaseCategoryText/>
-		            <nc:CaseTrackingID/>
-		            <nc:CaseDocketID></nc:CaseDocketID>
-	            </CaseListQueryCase>
-            </CaseListQueryMessage>";
+            String caseListReqXml = @"<CaseListQueryMessage xmlns='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseListQueryMessage-4.0' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseListQueryMessage-4.0 ..\..\..\Schema\message\ECF-4.0-CaseListQueryMessage.xsd'>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://filingassemblymde.com</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<ecf:QuerySubmitter>
+		<ecf:EntityPerson />
+	</ecf:QuerySubmitter>
+	<j:CaseCourt>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID />
+		</nc:OrganizationIdentification>
+	</j:CaseCourt>
+	<CaseListQueryCase>
+		<nc:CaseTitleText />
+		<nc:CaseCategoryText />
+		<nc:CaseTrackingID />
+		<nc:CaseDocketID />
+	</CaseListQueryCase>
+    <CaseListQueryTimeRange>
+    </CaseListQueryTimeRange>
+</CaseListQueryMessage>
+";
 
             // Update xml message with the appropriate values
             XElement xml = XElement.Parse(caseListReqXml);
@@ -133,10 +160,68 @@ namespace FilingHostService
                 // Execute request and parse response
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-                var response = service.GetCaseList(xml);
+                System.Xml.Linq.XElement response = service.GetCaseList(xml);
+                Log.Information("GetCaseList Response:{0} ", response.ToString());
                 var caseTrackingId = response.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault();
-                return "29209abb-0519-45d2-a30d-76893d139bd1";
-//                return caseTrackingId?.Value ?? null;
+                Log.Information("case tracking id: {0}", caseTrackingId.Value);
+                return caseTrackingId?.Value ?? null;
+            }
+        }
+
+        public System.Xml.Linq.XElement GetCaseList(AuthenticateResponseType user, string courtID, string caseDocketNbr)
+        {
+            String caseListReqXml = @"<CaseListQueryMessage xmlns='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseListQueryMessage-4.0' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseListQueryMessage-4.0 ..\..\..\Schema\message\ECF-4.0-CaseListQueryMessage.xsd'>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://filingassemblymde.com</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<ecf:QuerySubmitter>
+		<ecf:EntityPerson />
+	</ecf:QuerySubmitter>
+	<j:CaseCourt>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID />
+		</nc:OrganizationIdentification>
+	</j:CaseCourt>
+	<CaseListQueryCase>
+		<nc:CaseTitleText />
+		<nc:CaseCategoryText />
+		<nc:CaseTrackingID />
+		<nc:CaseDocketID />
+	</CaseListQueryCase>
+    <CaseListQueryTimeRange>
+    </CaseListQueryTimeRange>
+</CaseListQueryMessage>
+";
+            Log.Information("GetCaseList 1");
+            // Update xml message with the appropriate values
+            XElement xml = XElement.Parse(caseListReqXml);
+            var ncNamespace = "http://niem.gov/niem/niem-core/2.0";
+            var jNamespace = "http://niem.gov/niem/domains/jxdm/4.0";
+            var caseCourt = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", jNamespace, "CaseCourt"))?.FirstOrDefault();
+            var caseList = xml.Elements().Where(x => x.Name.LocalName.ToLower() == "caselistquerycase")?.FirstOrDefault();
+            var courtIDElement = caseCourt.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
+            var caseNumberElement = caseList.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "CaseDocketID"))?.FirstOrDefault();
+            Log.Information("GetCaseList 2");
+            // Add search criteria fields
+            courtIDElement.Value = courtID;
+            caseNumberElement.Value = caseDocketNbr;
+            Log.Information("GetCaseList 3");
+            // Setup message header for getCaseList request
+            var service = this.CreateRecordService();
+            using (new OperationContextScope(service.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                // Execute request and parse response
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                System.Xml.Linq.XElement response = service.GetCaseList(xml);
+                return response;
             }
         }
 
@@ -164,7 +249,7 @@ namespace FilingHostService
         //
         // Request Payment Account List from EFM service
         //
-        public void GetPaymentAccountList(AuthenticateResponseType user)
+        public EFMFirmService.PaymentAccountListResponseType GetPaymentAccountList(AuthenticateResponseType user)
         {
             var service = this.CreateFirmService();
             using (new OperationContextScope(service.InnerChannel))
@@ -183,7 +268,7 @@ namespace FilingHostService
                 Log.Information("GetPaymentAccountList Results:");
                 foreach( var p in pmtType.PaymentAccount)
                 {
-                    Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
+                    /*Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
                     Log.Information(" FirmID = " + p.FirmID?.ToString());
                     Log.Information(" PaymentAccountTypeCode = " + p.PaymentAccountTypeCode?.ToString());
                     Log.Information(" AccountName = " + p.AccountName?.ToString());
@@ -192,8 +277,9 @@ namespace FilingHostService
                     Log.Information(" CardLast4 = " + p.CardLast4?.ToString());
                     Log.Information(" CardName = " + p.CardHolderName?.ToString());
                     Log.Information(" Active = " + p.Active);
-                    Log.Information("");
+                    Log.Information("");*/
                 }
+                return pmtType;
             }
         }
 
@@ -233,15 +319,15 @@ namespace FilingHostService
         }
 
         public void GetTylerCodes(string courtID)
-        {         
+        {
             var zipFilePath = ConfigurationManager.AppSettings.Get("zipFile");
-            var folderPath = ConfigurationManager.AppSettings.Get("CodeFolder");
+            var folderPath = string.Concat(ConfigurationManager.AppSettings.Get("CodeFolder"), @"\" , courtID.Replace(":", ""));
+            Log.Information("Code Folder Path: {0}", folderPath);
             var fileNames = new List<string>(ConfigurationManager.AppSettings.Get("fileList").Split(new char[] { ';' }));
             var urls = new List<string>();
             var zips = new List<string>();
             var xmls = new List<string>();
-
-            foreach(string fileName in fileNames)
+            foreach (string fileName in fileNames)
             {
                 var url = ConfigurationManager.AppSettings.Get("CourtURL").Trim('\r', '\n') + fileName.ToLower().Trim('\r', '\n') + "/" + courtID;
                 url.TrimEnd('\r', '\n');
@@ -256,7 +342,7 @@ namespace FilingHostService
                 codeFilePath = String.Concat(codeFilePath.Where(c => !Char.IsWhiteSpace(c)));
                 xmls.Add(codeFilePath);
             }
-
+            
             var _data = Encoding.UTF8.GetBytes(DateTime.Now.ToString("o"));
             ContentInfo _info = new ContentInfo(_data);
             SignedCms _cms = new SignedCms(_info, false);
@@ -264,37 +350,46 @@ namespace FilingHostService
             _cms.ComputeSignature(_signer, false);
             var _signed = _cms.Encode();
             var _b64 = Convert.ToBase64String(_signed);
-
+            
             using (WebClient _client = new WebClient())
             {
                 _client.Headers["tyl-efm-api"] = _b64;
-                for(int i = 0; i < urls.Count; i++)
+                for (int i = 0; i < urls.Count; i++)
                 {
                     Log.Information(urls[i]);
                     Log.Information(zips[i]);
                     try
                     {
                         _client.DownloadFile(urls[i], zips[i]);
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         Log.Error(ex.Message + " for url " + urls[i]);
                     }
                 }
             }
-
-            for(int i = 0; i < xmls.Count; i++) {
+            Log.Information("extracting zip files");
+            for (int i = 0; i < xmls.Count; i++)
+            {
                 // Download and extract zip file               
                 try
                 {
-                    File.Delete(xmls[i]);
-                    ZipFile.ExtractToDirectory(zips[i], xmls[i]);
-                    File.Delete(zips[i]);
-                } catch (Exception ex)
+                    if (File.Exists(xmls[i]))
+                    {
+                        Log.Information("deleting previous files from codes directory");
+                        File.Delete(xmls[i]);
+                    }
+                    Log.Information("zip found ready to extract");
+                    ZipFile.ExtractToDirectory(zips[i], folderPath);
+                    //File.Delete(zips[i]);
+                }
+                catch (Exception ex)
                 {
-                    Log.Error(ex.Message);
+                    Log.Error("exception: {0}-{1}", ex.Message, ex.InnerException);
                 }
             }
         }
+
 
         public GetUserResponseType GetUser(GetUserRequestType request, AuthenticateResponseType user)
         {
@@ -401,7 +496,6 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-
                 var response = service.ReviewFiling(xml);
                 return response;
             }
