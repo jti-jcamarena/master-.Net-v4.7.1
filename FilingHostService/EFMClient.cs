@@ -58,6 +58,26 @@ namespace FilingHostService
             return response;
         }
 
+        public EFMFirmService.ServiceContactListResponseType GetContactList(AuthenticateResponseType user)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+
+                var response = firmService.GetServiceContactList();
+
+                return response;
+            }
+        }
+
         public EFMFirmService.AttorneyListResponseType GetAttorneys(AuthenticateResponseType user)
         {
             var firmService = this.CreateFirmService();

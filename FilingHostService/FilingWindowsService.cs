@@ -120,7 +120,7 @@ namespace FilingHostService
         {
             try
             {
-                Log.Information(String.Format(@"eSeries Odyssey Review Filing Service - City of Fresno - V{0}", _VERSION));
+                Log.Information(String.Format(@"eSeries Odyssey Review Filing Service - V{0}", _VERSION));
                 _cHost = new ServiceHost(typeof(NotificationService.FilingAssemblyMDEPort));
                 _cHost.Faulted += Host_Faulted;
                 _cHost.Open();
@@ -313,6 +313,11 @@ namespace FilingHostService
                                 }
                             }
                             
+                            foreach (FilingHostService.EFMFirmService.ServiceContactType serviceContactType in _client.GetContactList(userResponse).ServiceContact)
+                            {
+                                
+                                Log.Information("Service Contact ID {0} {1} {2}", serviceContactType.ServiceContactID, serviceContactType.FirstName, serviceContactType.LastName);
+                            }
                             List<EFMFirmService.PaymentAccountType> paymentAccounts = new List<EFMFirmService.PaymentAccountType>();
                             var pmtTypes = _client.GetPaymentAccountList(userResponse);
                             
