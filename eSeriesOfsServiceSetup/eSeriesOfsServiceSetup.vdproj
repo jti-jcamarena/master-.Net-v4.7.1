@@ -148,12 +148,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1D241EA3DCF064C3757434DE324E117E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_63D2C54741C1453B917F412C06E8F37E"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -209,6 +203,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9D4128C7154929CF7D9FE79F69D4927C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1D241EA3DCF064C3757434DE324E117E"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -792,7 +792,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ESL_OdysseyRfService"
         "ProductCode" = "8:{12C90ED2-924A-4E32-A59A-0F745F222DE8}"
-        "PackageCode" = "8:{3E800F89-0366-4F16-84A4-82EF81EFC897}"
+        "PackageCode" = "8:{2D2D1267-E57F-4D54-A9B9-5C486D9914F7}"
         "UpgradeCode" = "8:{3D803EAF-6920-4CA1-BBD3-B2483274ECDB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

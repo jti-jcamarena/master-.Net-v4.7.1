@@ -78,6 +78,73 @@ namespace FilingHostService
             }
         }
 
+        public EFMFirmService.GetServiceContactResponseType GetServiceContact(AuthenticateResponseType user, String contactID)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                EFMFirmService.GetServiceContactRequestType getServiceContactRequestType = new EFMFirmService.GetServiceContactRequestType();
+                getServiceContactRequestType.ServiceContactID = contactID;
+                var response = firmService.GetServiceContact(getServiceContactRequestType);
+
+                return response;
+            }
+        }
+
+        public String CreateServiceContact(AuthenticateResponseType user, string firstName, string middleName, string lastName, string phoneNumber, string email, string address1, string address2, string city, string zipCode, string state, string isPublic, string adminCopy, string firmID)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                EFMFirmService.CreateServiceContactRequestType createServiceContactRequestType = new EFMFirmService.CreateServiceContactRequestType();
+                EFMFirmService.ServiceContactType serviceContactType = new EFMFirmService.ServiceContactType();
+                EFMFirmService.AddressType addressType = new EFMFirmService.AddressType();
+                serviceContactType.FirstName = firstName;
+                serviceContactType.MiddleName = middleName;
+                serviceContactType.LastName = lastName;
+                serviceContactType.IsPublic = true;
+                serviceContactType.IsPublicSpecified = true;
+                serviceContactType.PhoneNumber = phoneNumber;
+                serviceContactType.Email = email;
+                serviceContactType.AdministrativeCopy = adminCopy;
+                serviceContactType.FirmID = firmID;
+                addressType.AddressLine1 = address1;
+                addressType.AddressLine2 = address2;
+                addressType.City = city;
+                addressType.ZipCode = zipCode;
+                addressType.State = state;
+                addressType.Country = "US";
+                serviceContactType.Address = addressType;
+                createServiceContactRequestType.ServiceContact = serviceContactType;
+                var responseSvcContact = firmService.CreateServiceContact(createServiceContactRequestType);
+                String response;
+                if (responseSvcContact.Error.ErrorText == "No Error") {
+                    response = responseSvcContact.ServiceContactID;
+                }
+                else
+                {
+                    response = "ErrorText: " + responseSvcContact.Error.ErrorText;
+                }
+                return response;
+            }
+        }
+
         public EFMFirmService.AttorneyListResponseType GetAttorneys(AuthenticateResponseType user)
         {
             var firmService = this.CreateFirmService();
@@ -501,6 +568,43 @@ namespace FilingHostService
             }
 
             return updatedStatutes;
+        }
+
+        public XElement GetFilingDetails(AuthenticateResponseType user)
+        {
+
+            String requestString = @"<FilingDetailQueryMessage xmlns='urn: tyler: ecf: extensions: FilingDetailQueryMessage' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xsi:schemaLocation='urn:tyler:ecf:extensions:FilingDetailQueryMessage ..\..\..\Schema\Substitution\FilingDetailQuery.xsd'>
+<ecf:SendingMDELocationID>
+ <nc:IdentificationID>https://filingreviewmde.com</nc:IdentificationID>
+</ecf:SendingMDELocationID>
+ <ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+               <ecf:QuerySubmitter>
+                <ecf:EntityPerson/>
+                 </ecf:QuerySubmitter>
+                  <j:CaseCourt>
+                   <nc:OrganizationIdentification>
+                    <nc:IdentificationID>cc:4thall</nc:IdentificationID>
+                         </nc:OrganizationIdentification>
+                          </j:CaseCourt>
+                           <nc:DocumentIdentification>
+                            <nc:IdentificationID>0acbe056-2c2c-459c-b3e2-b66f4c4f097a</nc:IdentificationID>
+                                         </nc:DocumentIdentification>
+                                          </FilingDetailQueryMessage>";
+            XElement request = XElement.Parse(requestString);
+            var service = this.CreateFilingService();
+            using (new OperationContextScope(service.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                var response = service.GetFilingDetails(request);
+                return response;
+            }
         }
 
         public XElement ReviewFiling(XElement xml, AuthenticateResponseType user)
