@@ -58,6 +58,26 @@ namespace FilingHostService
             return response;
         }
 
+        public EFMFirmService.UserListResponseType GetUserList(AuthenticateResponseType user)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+
+                var response = firmService.GetUserList();
+
+                return response;
+            }
+        }
+
         public EFMFirmService.ServiceContactListResponseType GetContactList(AuthenticateResponseType user)
         {
             var firmService = this.CreateFirmService();
@@ -252,6 +272,56 @@ namespace FilingHostService
                 var caseTrackingId = response.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault();
                 Log.Information("case tracking id: {0}", caseTrackingId.Value);
                 return caseTrackingId?.Value ?? null;
+            }
+        }
+
+        public System.Xml.Linq.XElement GetCase(AuthenticateResponseType user, string courtID, string caseTrackingID, bool includeParticipantsIndicator)
+        {
+            String getCaseString = @"<CaseQueryMessage xmlns='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseQueryMessage-4.0' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseQueryMessage-4.0 ..\..\..\Schema\message\ECF-4.0-CaseQueryMessage.xsd'>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://filingassemblymde.com</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<ecf:QuerySubmitter>
+		<ecf:EntityPerson />
+	</ecf:QuerySubmitter>
+	<j:CaseCourt>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID/>
+		</nc:OrganizationIdentification>
+		<j:CourtName />
+	</j:CaseCourt>
+	<nc:CaseTrackingID/>
+	<CaseQueryCriteria>
+		<IncludeParticipantsIndicator>true</IncludeParticipantsIndicator>
+		<IncludeDocketEntryIndicator>false</IncludeDocketEntryIndicator>
+		<IncludeCalendarEventIndicator>false</IncludeCalendarEventIndicator>
+		<DocketEntryTypeCodeFilterText>false</DocketEntryTypeCodeFilterText>
+		<CalendarEventTypeCodeFilterText>false</CalendarEventTypeCodeFilterText>
+	</CaseQueryCriteria>
+</CaseQueryMessage>";
+
+            XElement xml = XElement.Parse(getCaseString);
+            var ncNamespace = "http://niem.gov/niem/niem-core/2.0";
+            var jNamespace = "http://niem.gov/niem/domains/jxdm/4.0";
+            var caseCourt = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", jNamespace, "CaseCourt"))?.FirstOrDefault();
+            var courtIDElement = caseCourt.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
+            var caseTracking = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "CaseTrackingID"))?.FirstOrDefault();
+            courtIDElement.Value = courtID;
+            caseTracking.Value = caseTrackingID;
+            var service = this.CreateRecordService();
+            using (new OperationContextScope(service.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+                
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                System.Xml.Linq.XElement response = service.GetCase(xml);
+                return response;
             }
         }
 
@@ -477,7 +547,6 @@ namespace FilingHostService
             }
         }
 
-
         public GetUserResponseType GetUser(GetUserRequestType request, AuthenticateResponseType user)
         {
             var userService = this.CreateUserService();
@@ -570,27 +639,49 @@ namespace FilingHostService
             return updatedStatutes;
         }
 
-        public XElement GetFilingDetails(AuthenticateResponseType user)
+        public XElement GetFilingList(AuthenticateResponseType user, String courtID, String userID, String fromDate, String toDate)
         {
+            String requestString = @"<FilingListQueryMessage xmlns='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:FilingListQueryMessage-4.0' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:FilingListQueryMessage-4.0 ..\..\..\Schema\message\ECF-4.0-FilingListQueryMessage.xsd'>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://filingassemblymde.com</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<ecf:QuerySubmitter>
+		<ecf:EntityPerson />
+	</ecf:QuerySubmitter>
+	<j:CaseCourt>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID/>
+		</nc:OrganizationIdentification>
+	</j:CaseCourt>
+	<nc:CaseTrackingID />
+	<nc:DocumentSubmitter>
+		<ecf:EntityPerson>
+			<nc:PersonOtherIdentification>
+				<nc:IdentificationID/>
+			</nc:PersonOtherIdentification>
+		</ecf:EntityPerson>
+	</nc:DocumentSubmitter>
+	<nc:DateRange>
+		<nc:StartDate>
+			<nc:Date>2022-04-01</nc:Date>
+		</nc:StartDate>
+		<nc:EndDate>
+			<nc:Date>2022-04-13</nc:Date>
+		</nc:EndDate>
+	</nc:DateRange>
+</FilingListQueryMessage>";
 
-            String requestString = @"<FilingDetailQueryMessage xmlns='urn: tyler: ecf: extensions: FilingDetailQueryMessage' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xsi:schemaLocation='urn:tyler:ecf:extensions:FilingDetailQueryMessage ..\..\..\Schema\Substitution\FilingDetailQuery.xsd'>
-<ecf:SendingMDELocationID>
- <nc:IdentificationID>https://filingreviewmde.com</nc:IdentificationID>
-</ecf:SendingMDELocationID>
- <ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
-               <ecf:QuerySubmitter>
-                <ecf:EntityPerson/>
-                 </ecf:QuerySubmitter>
-                  <j:CaseCourt>
-                   <nc:OrganizationIdentification>
-                    <nc:IdentificationID>cc:4thall</nc:IdentificationID>
-                         </nc:OrganizationIdentification>
-                          </j:CaseCourt>
-                           <nc:DocumentIdentification>
-                            <nc:IdentificationID>0acbe056-2c2c-459c-b3e2-b66f4c4f097a</nc:IdentificationID>
-                                         </nc:DocumentIdentification>
-                                          </FilingDetailQueryMessage>";
-            XElement request = XElement.Parse(requestString);
+            XElement xml = XElement.Parse(requestString);
+            var ncNamespace = "http://niem.gov/niem/niem-core/2.0";
+            var jNamespace = "http://niem.gov/niem/domains/jxdm/4.0";
+            var caseCourt = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", jNamespace, "CaseCourt"))?.FirstOrDefault();
+            var courtIDElement = caseCourt.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
+            var documentSubmitter = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DocumentSubmitter"))?.FirstOrDefault();
+            var identificationID = documentSubmitter.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
+            courtIDElement.Value = courtID;
+            identificationID.Value = userID;
+
             var service = this.CreateFilingService();
             using (new OperationContextScope(service.InnerChannel))
             {
@@ -602,7 +693,99 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-                var response = service.GetFilingDetails(request);
+                var response = service.GetFilingList(xml);
+                return response;
+            }
+        }
+
+        public XElement GetFilingStatus(AuthenticateResponseType user, String courtID, String documentTrackingID)
+        {
+            String requestString = @"<FilingStatusQueryMessage xmlns='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:FilingStatusQueryMessage-4.0' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:FilingStatusQueryMessage-4.0 ..\..\..\Schema\message\ECF-4.0-FilingStatusQueryMessage.xsd'>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://filingassemblymde.com</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<ecf:QuerySubmitter>
+		<ecf:EntityPerson />
+	</ecf:QuerySubmitter>
+	<j:CaseCourt>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID/>
+		</nc:OrganizationIdentification>
+	</j:CaseCourt>
+	<nc:DocumentIdentification>
+		<nc:IdentificationID/>
+	</nc:DocumentIdentification>
+</FilingStatusQueryMessage>";
+
+            XElement xml = XElement.Parse(requestString);
+            var ncNamespace = "http://niem.gov/niem/niem-core/2.0";
+            var jNamespace = "http://niem.gov/niem/domains/jxdm/4.0";
+            var caseCourt = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", jNamespace, "CaseCourt"))?.FirstOrDefault();
+            var courtIDElement = caseCourt.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
+            var documenIdentification = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DocumentIdentification"))?.FirstOrDefault();
+            var documentTracking = documenIdentification.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
+            courtIDElement.Value = courtID;
+            documentTracking.Value = documentTrackingID;
+            
+            var service = this.CreateFilingService();
+            using (new OperationContextScope(service.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                var response = service.GetFilingStatus(xml);
+                return response;
+            }
+        }
+
+        public XElement GetFilingDetails(AuthenticateResponseType user, String courtID, String documentTrackingID)
+        {
+
+            String requestString = @"<FilingDetailQueryMessage xmlns='urn: tyler: ecf: extensions: FilingDetailQueryMessage' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xsi:schemaLocation='urn:tyler:ecf:extensions:FilingDetailQueryMessage ..\..\..\Schema\Substitution\FilingDetailQuery.xsd'>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://filingreviewmde.com</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<ecf:QuerySubmitter>
+		<ecf:EntityPerson />
+	</ecf:QuerySubmitter>
+	<j:CaseCourt>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID />
+		</nc:OrganizationIdentification>
+	</j:CaseCourt>
+	<nc:DocumentIdentification>
+		<nc:IdentificationID />
+	</nc:DocumentIdentification>
+</FilingDetailQueryMessage>";
+
+            XElement xml = XElement.Parse(requestString);
+            var ncNamespace = "http://niem.gov/niem/niem-core/2.0";
+            var jNamespace = "http://niem.gov/niem/domains/jxdm/4.0";
+            var caseCourt = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", jNamespace, "CaseCourt"))?.FirstOrDefault();
+            var courtIDElement = caseCourt.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
+            var documenIdentification = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DocumentIdentification"))?.FirstOrDefault();
+            var documentTracking = documenIdentification.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
+            courtIDElement.Value = courtID;
+            documentTracking.Value = documentTrackingID;
+            var service = this.CreateFilingService();
+            using (new OperationContextScope(service.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                var response = service.GetFilingDetails(xml);
                 return response;
             }
         }

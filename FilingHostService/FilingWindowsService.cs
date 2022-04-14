@@ -167,8 +167,14 @@ namespace FilingHostService
                         return;
                     }
                     
-                    // Get EMFClient user ID
-                    var user = _client.GetUser(new GetUserRequestType()
+                    List<FilingHostService.EFMFirmService.UserType> userTypeList = new List<FilingHostService.EFMFirmService.UserType>();
+                    foreach (FilingHostService.EFMFirmService.UserType userType in _client.GetUserList(userResponse).User)
+                    {
+                        Log.Information("GetUserList User {0}", userType.UserID);
+                        userTypeList.Add(userType);
+                    }
+                        // Get EMFClient user ID
+                        var user = _client.GetUser(new GetUserRequestType()
                     {
                         UserID = userResponse.UserID
                     }, userResponse);
@@ -401,8 +407,23 @@ namespace FilingHostService
                                 
                                 //String caseTrackingId = _client.GetCaseTrackingID(userResponse, courtLocation, eProsCfg.caseDocketNumber);
                                 System.Xml.Linq.XElement getCaseListResponse = _client.GetCaseList(userResponse, courtLocation, eProsCfg.caseDocketNumber);
+                                Log.Information("GetCaseList response: {0}", getCaseListResponse);
+                                
+
                                 string caseTrackingId = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value;
-                                    
+                                System.Xml.Linq.XElement getCaseResponse = _client.GetCase(userResponse, courtLocation, caseTrackingId, true);
+                                Log.Information("GetCase response: {0}", getCaseResponse);
+                                
+                                var firmUserID = userTypeList.Find(x => x.UserID != null).UserID;
+                                String fromDate = "2022-04-01";
+                                String toDate = "2022-04-13";
+                                XElement getFilingListResponse = _client.GetFilingList(userResponse, courtLocation, firmUserID, fromDate, toDate);
+                                Log.Information("getFilingListResponse: {0}", getFilingListResponse);
+                                String documentTrackingID = "4ec13f2d-c19b-4eec-9730-e884593368ed";
+                                var getFilingDetailsResponse = _client.GetFilingDetails(userResponse, courtLocation, documentTrackingID);
+                                var getFilingStatusRestponse = _client.GetFilingStatus(userResponse, courtLocation, documentTrackingID);
+                                Log.Information("getFilingDetailsResponse: {0}", getFilingDetailsResponse);
+                                Log.Information("getFilingStatusRestponse: {0}", getFilingStatusRestponse);
                                 Log.Information("Case Tracking ID Null Check follows");
                                 Log.Information("IsNullOrWhiteSpac ? {0}", string.IsNullOrWhiteSpace(caseTrackingId));
                                 if (string.IsNullOrWhiteSpace(caseTrackingId)) // invalid?
@@ -482,7 +503,8 @@ namespace FilingHostService
                                                       select el.Element(string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID"))).FirstOrDefault();
                             callbackUrlElement.Value = @ConfigurationManager.AppSettings.Get("notifyReviewCallbackUrl") ?? "";
                             Log.Information("Callback filing notification URL = {0}", callbackUrlElement.Value);
-                            //Log.Information("Testing GetFilingDetails {0}", _client.GetFilingDetails(userResponse));
+                            
+
                             // Send review filing to Odyssey API system
                             Log.Information("Sending review file to EFMClient");
                             
