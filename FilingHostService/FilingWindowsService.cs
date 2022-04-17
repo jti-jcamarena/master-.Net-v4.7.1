@@ -510,7 +510,7 @@ namespace FilingHostService
                             
                             Log.Information("xml: {0}", xml.ToString());
                             var ofsResult = _client.ReviewFiling(xml, userResponse);
-                            Log.Information("Review filing complete");
+                            //Log.Information("Review filing complete : {0}", ofsResult);
                             // Report ofsResults and send response back to ePros interface
                             Log.Information("Complete, logging ofsResults");
                             XNamespace ecfNamespace = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0";
@@ -548,6 +548,7 @@ namespace FilingHostService
                                         MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));*/
 
                                     // Write submit filing response message to disk
+                                    Log.Information("SendEProsResponseMessage successful ofsResult {0}", ofsResult);
                                     WriteSubmitFilingResponse(eProsCfg?.filingDocID, ofsResult);
                                 }
                                 else
