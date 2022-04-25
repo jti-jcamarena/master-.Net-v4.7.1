@@ -158,7 +158,9 @@ namespace FilingHostService
                         Email = ConfigurationManager.AppSettings.Get("ofsEmail"),
                         Password = ConfigurationManager.AppSettings.Get("ofsPassword")
                     };
+                    Log.Information("Authenticating User Request");
                     var userResponse = _client.AuthenticateUser(request);
+                    Log.Information("Authenticating User Response");
                     //Log.Information("Authenticating user: {0} {1}", userResponse.FirstName, userResponse.PasswordHash);
                     // Test EMFClient request params
                     if (userResponse.Error != null && userResponse.Error.ErrorCode != "0")
@@ -166,7 +168,7 @@ namespace FilingHostService
                         Log.Error(string.Format("EFM User Response error {0}-{1}", userResponse.Error.ErrorCode, userResponse.Error.ErrorText));
                         return;
                     }
-                    
+                    Log.Information("GetUserList");
                     List<FilingHostService.EFMFirmService.UserType> userTypeList = new List<FilingHostService.EFMFirmService.UserType>();
                     foreach (FilingHostService.EFMFirmService.UserType userType in _client.GetUserList(userResponse).User)
                     {
@@ -182,8 +184,9 @@ namespace FilingHostService
 
                     // Get payment account list (Temp function and should be removed in production
                     //_client.GetPaymentAccountList(userResponse);
-                    
+
                     // Process all queued OFS review filings in the output queue
+                    Log.Information("Process Files");
                     foreach (var file in files)
                     {
                         var fileName = file.Split('\\').Last();
@@ -415,6 +418,7 @@ namespace FilingHostService
                                 Log.Information("GetCase response: {0}", getCaseResponse);
                                 
                                 var firmUserID = userTypeList.Find(x => x.UserID != null).UserID;
+                                /*
                                 String fromDate = "2022-04-01";
                                 String toDate = "2022-04-13";
                                 XElement getFilingListResponse = _client.GetFilingList(userResponse, courtLocation, firmUserID, fromDate, toDate);
@@ -424,6 +428,7 @@ namespace FilingHostService
                                 var getFilingStatusRestponse = _client.GetFilingStatus(userResponse, courtLocation, documentTrackingID);
                                 Log.Information("getFilingDetailsResponse: {0}", getFilingDetailsResponse);
                                 Log.Information("getFilingStatusRestponse: {0}", getFilingStatusRestponse);
+                                */
                                 Log.Information("Case Tracking ID Null Check follows");
                                 Log.Information("IsNullOrWhiteSpac ? {0}", string.IsNullOrWhiteSpace(caseTrackingId));
                                 if (string.IsNullOrWhiteSpace(caseTrackingId)) // invalid?
