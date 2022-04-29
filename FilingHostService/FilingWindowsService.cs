@@ -283,7 +283,7 @@ namespace FilingHostService
                                 var caseParticipant = xml.Descendants()
                                                     .Where(x => x.Name == string.Format("{{{0}}}{1}", participantNamespace, "CaseParticipant"))?.FirstOrDefault();
                                 // Case Participant 
-                                
+                                Log.Information("test:286");
                                 if (caseParticipant != null)
                                 {
                                     
@@ -293,10 +293,10 @@ namespace FilingHostService
                                     }
                                 }
                                 // Filing Attorney
-                                
+                                Log.Information("test:296");
                                 foreach (XElement xElement1 in xml.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0", "FilingAttorneyID")))
                                 {
-                                    
+                                    Log.Information("test:299");
                                     XElement attorneyIdentificationID = xElement1.Elements().Where(e => e.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID"))?.FirstOrDefault();
                                     attorneyIdentificationID.Value = attorneyID;
                                 }
@@ -304,7 +304,7 @@ namespace FilingHostService
                             {
                                 var defaultAttorneyID = systemAttorneyList.Find(x => x.BarNumber != null).AttorneyID;
                                 var participantNamespace = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0";
-
+                                Log.Information("test:307");
                                 var caseParticipant = xml.Descendants()
                                                     .Where(x => x.Name == string.Format("{{{0}}}{1}", participantNamespace, "CaseParticipant"))?.FirstOrDefault();
                                 // Case Participant 
@@ -317,14 +317,17 @@ namespace FilingHostService
                                 // Filing Attorney
                                 foreach (XElement xElement1 in xml.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0", "FilingAttorneyID")))
                                 {
-
+                                    Log.Information("test:320");
                                     XElement attorneyIdentificationID = xElement1.Elements().Where(e => e.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID"))?.FirstOrDefault();
                                     attorneyIdentificationID.Value = defaultAttorneyID;
                                 }
                             }
+                            Log.Information("test:325");
                             List<EFMFirmService.ServiceContactType> serviceContacts = new List<EFMFirmService.ServiceContactType>();
+                            Log.Information("test:327");
                             foreach (FilingHostService.EFMFirmService.ServiceContactType serviceContactType in _client.GetContactList(userResponse).ServiceContact)
                             {
+                                Log.Information("test:329");
                                 serviceContacts.Add(serviceContactType);
                                 //Log.Information("Service Contact ID {0} {1} {2} FirmID:{3} IsPublic:{4} IsPublicSpecified:{5} AddByFirmName:{6}", serviceContactType.ServiceContactID, serviceContactType.FirstName, serviceContactType.LastName, serviceContactType.FirmID, serviceContactType.IsPublic, serviceContactType.IsPublicSpecified, serviceContactType.AddByFirmName);
                             }
@@ -333,6 +336,7 @@ namespace FilingHostService
                             //Log.Information("filedContacts {0}", filedContacts);
                             var svcContacts = filedContacts.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "svcContact"));
                             //Log.Information("svcContacts {0} {1} {2}", svcContacts, svcContacts.GetType(), svcContacts.Count());
+                            Log.Information("test:337");
                             foreach (XElement contact in svcContacts)
                             {
                                 //Log.Information("Contact : {0}", contact);
@@ -349,7 +353,7 @@ namespace FilingHostService
                                 var svcIsPublic = contact.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "svcIsPublic"))?.FirstOrDefault()?.Value;
                                 var svcAdminCopy = contact.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "svcAdminCopy"))?.FirstOrDefault()?.Value;
                                 var firmID = systemAttorneyList.Find(x => x.BarNumber != null).FirmID;
-                                
+                                Log.Information("test:354");
                                 Log.Information("Contact FML: {0} {1} {2} Address1: {3} Email: {4}", svcFirstName, svcMiddleName, svcLastName, svcAddress1, svcEmail);
                                 var findContact = serviceContacts.Find( sc => sc.FirstName == svcFirstName && sc.LastName == svcLastName && sc.Email == svcEmail && sc.Address.AddressLine1 == svcAddress1 && sc.Address.ZipCode == svcZip );
                                 String svcContactID;
@@ -399,9 +403,29 @@ namespace FilingHostService
                                 eProsCfg.element.Remove();
                             }
 
+                            var filingQueryParams = filedContacts.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "filingQueryParams"))?.FirstOrDefault();
+                            var fromDateParam = filingQueryParams.Elements()
+                                                        .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "fromDate"))?.FirstOrDefault()?.Value ?? "";
+                            var toDateParam = filingQueryParams.Elements()
+                                                        .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "toDate"))?.FirstOrDefault()?.Value ?? "";
+                            var documentTrackingParam = filingQueryParams.Elements()
+                                                        .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "documentTrackingID"))?.FirstOrDefault()?.Value ?? "";
+                            var firmUserID = userTypeList.Find(x => x.UserID != null).UserID;
+                            Log.Information("fromDateParam: {0} toDateParam: {1} documentTrackingParam: {2}", fromDateParam, toDateParam, documentTrackingParam);
+                            String fromDate = string.IsNullOrEmpty(fromDateParam) ? "2022-04-01" : fromDateParam;
+                            String toDate = string.IsNullOrEmpty(toDateParam) ? "2022-04-26" : toDateParam;
+                            XElement getFilingListResponse = _client.GetFilingList(userResponse, courtLocation, firmUserID, fromDate, toDate);
+                            Log.Information("getFilingListResponse: {0}", getFilingListResponse);
+                            String documentTrackingID = string.IsNullOrEmpty(documentTrackingParam) ? "cf699d6b-8200-4409-8892-da507d4c2f31" : documentTrackingParam;
+                            var getFilingDetailsResponse = _client.GetFilingDetails(userResponse, courtLocation, documentTrackingID);
+                            var getFilingStatusRestponse = _client.GetFilingStatus(userResponse, courtLocation, documentTrackingID);
+                            Log.Information("getFilingDetailsResponse: {0}", getFilingDetailsResponse);
+                            Log.Information("getFilingStatusRestponse: {0}", getFilingStatusRestponse);
+
+
                             // If CaseDocketId reported in the eProsCfg attempt to locate caseTrackingID based on caseDocketID from ofs system. If
                             // caseTrackingId is found then update XML filing with the ofs caseTrackingId. 
-                            
+
                             if (!string.IsNullOrWhiteSpace(eProsCfg?.caseDocketNumber)) // valid CaseDocketNumber?
                             {
                                 Log.Information(string.Format(@"test-CaseDocketNbr({0}) found in xml- quering caseTrackingID from OFS",eProsCfg.caseDocketNumber));
@@ -413,22 +437,12 @@ namespace FilingHostService
                                 Log.Information("GetCaseList response: {0}", getCaseListResponse);
                                 
 
-                                string caseTrackingId = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value;
+                                string caseTrackingId = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value ?? "";
+                                Log.Information("caseTrackingId {0} isNullOrEmpty: {1}", caseTrackingId, string.IsNullOrWhiteSpace(caseTrackingId));
                                 System.Xml.Linq.XElement getCaseResponse = _client.GetCase(userResponse, courtLocation, caseTrackingId, true);
                                 Log.Information("GetCase response: {0}", getCaseResponse);
-                                
-                                var firmUserID = userTypeList.Find(x => x.UserID != null).UserID;
-                                /*
-                                String fromDate = "2022-04-01";
-                                String toDate = "2022-04-13";
-                                XElement getFilingListResponse = _client.GetFilingList(userResponse, courtLocation, firmUserID, fromDate, toDate);
-                                Log.Information("getFilingListResponse: {0}", getFilingListResponse);
-                                String documentTrackingID = "4ec13f2d-c19b-4eec-9730-e884593368ed";
-                                var getFilingDetailsResponse = _client.GetFilingDetails(userResponse, courtLocation, documentTrackingID);
-                                var getFilingStatusRestponse = _client.GetFilingStatus(userResponse, courtLocation, documentTrackingID);
-                                Log.Information("getFilingDetailsResponse: {0}", getFilingDetailsResponse);
-                                Log.Information("getFilingStatusRestponse: {0}", getFilingStatusRestponse);
-                                */
+
+
                                 Log.Information("Case Tracking ID Null Check follows");
                                 Log.Information("IsNullOrWhiteSpac ? {0}", string.IsNullOrWhiteSpace(caseTrackingId));
                                 if (string.IsNullOrWhiteSpace(caseTrackingId)) // invalid?

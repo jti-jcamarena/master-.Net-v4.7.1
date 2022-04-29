@@ -93,7 +93,7 @@ namespace FilingHostService
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
 
                 var response = firmService.GetServiceContactList();
-
+                Log.Information("firmService.GetServiceContactList: response {0}", response);
                 return response;
             }
         }
