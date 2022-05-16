@@ -22,7 +22,7 @@ namespace NotificationService
         private XName Body = MessageInspector.NsEnvelope + nameof(Body);
         private XName Envelope = MessageInspector.NsEnvelope + nameof(Envelope);
         private const int BUFFER_SIZE = 2147483647;
-
+        
         public object AfterReceiveRequest(ref Message request, IClientChannel channel, InstanceContext instanceContext)
         {
             if (!request.IsEmpty && !request.IsFault)

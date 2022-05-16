@@ -78,6 +78,27 @@ namespace FilingHostService
             }
         }
 
+        public EFMFirmService.GetUserResponseType GetFirmUser(AuthenticateResponseType user)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                EFMFirmService.GetUserRequestType getUserRequestType = new EFMFirmService.GetUserRequestType();
+                getUserRequestType.UserID = user.UserID;
+                var response = firmService.GetUser(getUserRequestType);
+
+                return response;
+            }
+        }
+
         public EFMFirmService.ServiceContactListResponseType GetContactList(AuthenticateResponseType user)
         {
             var firmService = this.CreateFirmService();
@@ -382,10 +403,46 @@ namespace FilingHostService
             }
         }
 
-        public XElement GetPolicy(AuthenticateResponseType user)
+        public XElement GetPolicy(AuthenticateResponseType user, string courtLocation)
         {
-            var xml = System.IO.File.ReadAllText(@"C:\Bitlink\jobs\fresno\xml\policy_request.xml");
-            var request = XElement.Parse(xml);
+            DateTime timestamp = DateTime.Now;
+            
+            //var xml = System.IO.File.ReadAllText(@"C:\Bitlink\jobs\fresno\xml\policy_request.xml");
+            var xmlRequest = @"<policyrequest:GetPolicyRequestMessage xmlns='http://release.niem.gov/niem/niem-core/4.0/' xmlns:nc='http://release.niem.gov/niem/niem-core/4.0/' xmlns:j='http://release.niem.gov/niem/domains/jxdm/6.1/' xmlns:ecf='https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0/ecf' xmlns:policyrequest='https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0/policyrequest' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0/policyrequest ../../../schema/policyrequest.xsd'>
+<!--  The nc:DocumentIdentification element below is a Message Identifier (see section 6.2.5), in this circumstance, assigned by the FAMDE.  -->
+<nc:DocumentIdentification>
+<nc:IdentificationID>1</nc:IdentificationID>
+<nc:IdentificationCategoryDescriptionText>messageID</nc:IdentificationCategoryDescriptionText>
+<!--  The originating MDE that provided the message identifier  -->
+<nc:IdentificationSourceText>FilingAssembly</nc:IdentificationSourceText>
+</nc:DocumentIdentification>
+<ecf:SendingMDELocationID>
+<IdentificationID>https://eserviceprovider.com:8000</IdentificationID>
+</ecf:SendingMDELocationID>
+<ecf:ServiceInteractionProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-5.0</ecf:ServiceInteractionProfileCode>
+<j:CaseCourt>
+<nc:OrganizationIdentification>
+<!--  Identifier that maps to a node  -->
+<nc:IdentificationID/>
+</nc:OrganizationIdentification>
+</j:CaseCourt>
+<!--  DocumentPostDate is required and is the datetime for the request  -->
+<nc:DocumentPostDate>
+<nc:DateTime>2021-05-24T14:20:47.0Z</nc:DateTime>
+</nc:DocumentPostDate>
+<!--  PolicyQueryCriteria is required by schema but unused  -->
+<policyrequest:PolicyQueryCriteria/>
+</policyrequest:GetPolicyRequestMessage>";
+            var xml = XElement.Parse(xmlRequest);
+            var ncNamespace = "http://release.niem.gov/niem/niem-core/4.0/";
+            var jNamespace = "http://release.niem.gov/niem/domains/jxdm/6.1/";
+            var caseCourt = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", jNamespace, "CaseCourt"))?.FirstOrDefault();
+            var courtIDElement = caseCourt.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
+            var documentPostDate = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DocumentPostDate"))?.FirstOrDefault();
+            var dateTime = documentPostDate.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DateTime"))?.FirstOrDefault();
+            courtIDElement.Value = courtLocation;
+            dateTime.Value = timestamp.ToString("yyyyMMddTHH:mm:ssZ");
+            Log.Information("GetPolicy: {0}", xml);
             var service = this.CreateFilingService();
             using (new OperationContextScope(service.InnerChannel))
             {
@@ -397,8 +454,8 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-
-                var response = service.GetPolicy(request);
+                
+                var response = service.GetPolicy(xml);
                 return response;
             }
         }
@@ -425,7 +482,7 @@ namespace FilingHostService
                 Log.Information("GetPaymentAccountList Results:");
                 foreach( var p in pmtType.PaymentAccount)
                 {
-                    /*Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
+                    Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
                     Log.Information(" FirmID = " + p.FirmID?.ToString());
                     Log.Information(" PaymentAccountTypeCode = " + p.PaymentAccountTypeCode?.ToString());
                     Log.Information(" AccountName = " + p.AccountName?.ToString());
@@ -434,12 +491,56 @@ namespace FilingHostService
                     Log.Information(" CardLast4 = " + p.CardLast4?.ToString());
                     Log.Information(" CardName = " + p.CardHolderName?.ToString());
                     Log.Information(" Active = " + p.Active);
-                    Log.Information("");*/
+                    Log.Information("");
                 }
                 return pmtType;
             }
         }
 
+        public void GetPaymentAccountTypeList(AuthenticateResponseType user)
+        {
+            var service = this.CreateFirmService();
+            using (new OperationContextScope(service.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                
+                EFMFirmService.PaymentAccountTypeListResponseType response = service.GetPaymentAccountTypeList();
+                Log.Information("PaymentAccountType: {0}", response.PaymentAccountType);
+                //return response;
+            }
+        }
+
+        /*
+        public EFMFirmService.PaymentAccountListResponseType CreatePaymentAccount(AuthenticateResponseType user)
+        {
+            var service = this.CreateFirmService();
+            using (new OperationContextScope(service.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                EFMFirmService.CreatePaymentAccountRequestType createPaymentAccountRequestType = new EFMFirmService.CreatePaymentAccountRequestType();
+                EFMFirmService.PaymentAccountType paymentAccountType = new EFMFirmService.PaymentAccountType();
+                paymentAccountType.
+                createPaymentAccountRequestType.PaymentAccount = 
+                EFMFirmService.PaymentAccountResponseType pmtType = service.CreatePaymentAccount();
+
+                return pmtType;
+            }
+        }
+        */
         public List<StatuteCode> GetStatuteCodes(string fileName, string courtID, List<StatuteCode> statutes)
         {
             if (StatuteFileExists())

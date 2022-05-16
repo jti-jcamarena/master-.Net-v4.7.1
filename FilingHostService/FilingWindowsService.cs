@@ -122,6 +122,7 @@ namespace FilingHostService
             {
                 Log.Information(String.Format(@"eSeries Odyssey Review Filing Service - V{0}", _VERSION));
                 _cHost = new ServiceHost(typeof(NotificationService.FilingAssemblyMDEPort));
+                Log.Information("_cHost.Description {0}", _cHost.Description);
                 _cHost.Faulted += Host_Faulted;
                 _cHost.Open();
                 RunSetup();
@@ -175,12 +176,16 @@ namespace FilingHostService
                         Log.Information("GetUserList User {0}", userType.UserID);
                         userTypeList.Add(userType);
                     }
+                    
+                    var firmUser = _client.GetFirmUser(userResponse);
+                    Log.Information("Firm User LastName: {0} ID: {1}", firmUser.User.LastName, firmUser.User.UserID);
+
                         // Get EMFClient user ID
                         var user = _client.GetUser(new GetUserRequestType()
                     {
                         UserID = userResponse.UserID
                     }, userResponse);
-
+                    Log.Information("User LastName: {0} ID: {1}", user.User.LastName, user.User.UserID);
 
                     // Get payment account list (Temp function and should be removed in production
                     //_client.GetPaymentAccountList(userResponse);
@@ -252,6 +257,10 @@ namespace FilingHostService
                                                     }).ToList()
                                             }).FirstOrDefault();
                             courtLocation = eProsCfg.caseCourtLocation;
+
+                            var getPolicyResponse = _client.GetPolicy(userResponse, courtLocation);
+                            Log.Information("GetPolicyResponse: {0}", getPolicyResponse);
+
                             Log.Information("Filing Attorney: Bar:{0} First:{1} Last:{2}", eProsCfg.barNumber, eProsCfg.attorneyFirstName, eProsCfg.attorneyLastName);
 
                             var attorneylist = _client.GetAttorneys(userResponse);
@@ -378,6 +387,8 @@ namespace FilingHostService
                                 }
                             }
 
+                            _client.GetPaymentAccountTypeList(userResponse);
+                            
                             List<EFMFirmService.PaymentAccountType> paymentAccounts = new List<EFMFirmService.PaymentAccountType>();
                             var pmtTypes = _client.GetPaymentAccountList(userResponse);
                             
@@ -404,24 +415,25 @@ namespace FilingHostService
                             }
 
                             var filingQueryParams = filedContacts.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "filingQueryParams"))?.FirstOrDefault();
-                            var fromDateParam = filingQueryParams.Elements()
-                                                        .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "fromDate"))?.FirstOrDefault()?.Value ?? "";
-                            var toDateParam = filingQueryParams.Elements()
-                                                        .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "toDate"))?.FirstOrDefault()?.Value ?? "";
-                            var documentTrackingParam = filingQueryParams.Elements()
-                                                        .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "documentTrackingID"))?.FirstOrDefault()?.Value ?? "";
-                            var firmUserID = userTypeList.Find(x => x.UserID != null).UserID;
-                            Log.Information("fromDateParam: {0} toDateParam: {1} documentTrackingParam: {2}", fromDateParam, toDateParam, documentTrackingParam);
-                            String fromDate = string.IsNullOrEmpty(fromDateParam) ? "2022-04-01" : fromDateParam;
-                            String toDate = string.IsNullOrEmpty(toDateParam) ? "2022-04-26" : toDateParam;
-                            XElement getFilingListResponse = _client.GetFilingList(userResponse, courtLocation, firmUserID, fromDate, toDate);
-                            Log.Information("getFilingListResponse: {0}", getFilingListResponse);
-                            String documentTrackingID = string.IsNullOrEmpty(documentTrackingParam) ? "cf699d6b-8200-4409-8892-da507d4c2f31" : documentTrackingParam;
-                            var getFilingDetailsResponse = _client.GetFilingDetails(userResponse, courtLocation, documentTrackingID);
-                            var getFilingStatusRestponse = _client.GetFilingStatus(userResponse, courtLocation, documentTrackingID);
-                            Log.Information("getFilingDetailsResponse: {0}", getFilingDetailsResponse);
-                            Log.Information("getFilingStatusRestponse: {0}", getFilingStatusRestponse);
-
+                            if (filingQueryParams != null) {
+                                var fromDateParam = filingQueryParams.Elements()
+                                                            .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "fromDate"))?.FirstOrDefault()?.Value ?? "";
+                                var toDateParam = filingQueryParams.Elements()
+                                                            .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "toDate"))?.FirstOrDefault()?.Value ?? "";
+                                var documentTrackingParam = filingQueryParams.Elements()
+                                                            .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "documentTrackingID"))?.FirstOrDefault()?.Value ?? "";
+                                var firmUserID = userTypeList.Find(x => x.UserID != null).UserID;
+                                Log.Information("fromDateParam: {0} toDateParam: {1} documentTrackingParam: {2}", fromDateParam, toDateParam, documentTrackingParam);
+                                String fromDate = string.IsNullOrEmpty(fromDateParam) ? "2022-04-01" : fromDateParam;
+                                String toDate = string.IsNullOrEmpty(toDateParam) ? "2022-04-26" : toDateParam;
+                                XElement getFilingListResponse = _client.GetFilingList(userResponse, courtLocation, firmUserID, fromDate, toDate);
+                                Log.Information("getFilingListResponse: {0}", getFilingListResponse);
+                                String documentTrackingID = string.IsNullOrEmpty(documentTrackingParam) ? "cf699d6b-8200-4409-8892-da507d4c2f31" : documentTrackingParam;
+                                var getFilingDetailsResponse = _client.GetFilingDetails(userResponse, courtLocation, documentTrackingID);
+                                var getFilingStatusRestponse = _client.GetFilingStatus(userResponse, courtLocation, documentTrackingID);
+                                Log.Information("getFilingDetailsResponse: {0}", getFilingDetailsResponse);
+                                Log.Information("getFilingStatusRestponse: {0}", getFilingStatusRestponse);
+                            }
 
                             // If CaseDocketId reported in the eProsCfg attempt to locate caseTrackingID based on caseDocketID from ofs system. If
                             // caseTrackingId is found then update XML filing with the ofs caseTrackingId. 
@@ -768,7 +780,10 @@ namespace FilingHostService
                 var token = eRest.GetUserAuthToken(@ConfigurationManager.AppSettings.Get("eSuiteRestAPI_login"),
                                                    @ConfigurationManager.AppSettings.Get("eSuiteRestAPI_pwd"));
                 var healthStatus = new eRestRequest(@ConfigurationManager.AppSettings.Get("eSuiteRestAPI_status"), token, eRestRequestTypes.Get);
-                Log.Information("Health Status: {0}", eRest.SubmitRequest(healthStatus));
+                if (@ConfigurationManager.AppSettings.Get("checkHealthStatus") == "true")
+                {
+                    Log.Information("Health Status: {0}", eRest.SubmitRequest(healthStatus));
+                }
                 Log.Information("Sending response to ePros Rest Services");
                 Log.Information(eProsjson);
                 var request = new eRestRequest(@ConfigurationManager.AppSettings.Get("eSuiteRestAPI_url"), token, eRestRequestTypes.Post, eProsjson);
@@ -776,7 +791,7 @@ namespace FilingHostService
                 Log.Information("Complete");
                 
                 // Deserialize eSuite rule REST structure response json
-                /*var eRespRule = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(sResults, eSuiteRuleDef);
+                var eRespRule = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(sResults, eSuiteRuleDef);
                 if (eRespRule.@params != null)   // valid rule param containing interface rest message?
                 {
                     // Deserialize eSuite REST interface response json
@@ -786,7 +801,7 @@ namespace FilingHostService
                         Log.Error(cIntResp.ToString());
                     else
                         Log.Information(cIntResp.ToString());
-                }*/
+                }
 
                 return true; // indicate success
             }
