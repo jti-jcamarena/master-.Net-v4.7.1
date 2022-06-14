@@ -99,6 +99,30 @@ namespace FilingHostService
             }
         }
 
+        public EFMFirmService.ServiceContactListResponseType GetPublicList(AuthenticateResponseType user, string svcEmail, string svcFirstName, string svcLastName, string svcFirmName)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                EFMFirmService.GetPublicListRequestType getPublicListRequestType = new EFMFirmService.GetPublicListRequestType();
+                getPublicListRequestType.Email = "svcEmail";
+                getPublicListRequestType.FirstName = "svcFirstName";
+                getPublicListRequestType.LastName = "svcLastName";
+                getPublicListRequestType.FirmName = "svcFirmName";
+                var response = firmService.GetPublicList(getPublicListRequestType);
+                Log.Information("firmService.GetPublicList: response {0}", response);
+                return response;
+            }
+        }
+ 
         public EFMFirmService.ServiceContactListResponseType GetContactList(AuthenticateResponseType user)
         {
             var firmService = this.CreateFirmService();
@@ -408,7 +432,7 @@ namespace FilingHostService
             DateTime timestamp = DateTime.Now;
             
             //var xml = System.IO.File.ReadAllText(@"C:\Bitlink\jobs\fresno\xml\policy_request.xml");
-            var xmlRequest = @"<policyrequest:GetPolicyRequestMessage xmlns='http://release.niem.gov/niem/niem-core/4.0/' xmlns:nc='http://release.niem.gov/niem/niem-core/4.0/' xmlns:j='http://release.niem.gov/niem/domains/jxdm/6.1/' xmlns:ecf='https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0/ecf' xmlns:policyrequest='https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0/policyrequest' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0/policyrequest ../../../schema/policyrequest.xsd'>
+           /* var xmlRequest = @"<policyrequest:GetPolicyRequestMessage xmlns='http://release.niem.gov/niem/niem-core/4.0/' xmlns:nc='http://release.niem.gov/niem/niem-core/4.0/' xmlns:j='http://release.niem.gov/niem/domains/jxdm/6.1/' xmlns:ecf='https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0/ecf' xmlns:policyrequest='https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0/policyrequest' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0/policyrequest ../../../schema/policyrequest.xsd'>
 <!--  The nc:DocumentIdentification element below is a Message Identifier (see section 6.2.5), in this circumstance, assigned by the FAMDE.  -->
 <nc:DocumentIdentification>
 <nc:IdentificationID>1</nc:IdentificationID>
@@ -432,16 +456,31 @@ namespace FilingHostService
 </nc:DocumentPostDate>
 <!--  PolicyQueryCriteria is required by schema but unused  -->
 <policyrequest:PolicyQueryCriteria/>
-</policyrequest:GetPolicyRequestMessage>";
+</policyrequest:GetPolicyRequestMessage>";*/
+          var xmlRequest = @"<CourtPolicyQueryMessage xmlns='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CourtPolicyQueryMessage-4.0' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CourtPolicyQueryMessage-4.0 ..\..\..\Schema\message\ECF-4.0-CourtPolicyQueryMessage.xsd'>
+	<ecf:SendingMDELocationID>
+		<nc:IdentificationID>https://filingassemblymde.com</nc:IdentificationID>
+	</ecf:SendingMDELocationID>
+	<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+	<ecf:QuerySubmitter>
+		<ecf:EntityPerson />
+	</ecf:QuerySubmitter>
+	<j:CaseCourt>
+		<nc:OrganizationIdentification>
+			<nc:IdentificationID></nc:IdentificationID>
+		</nc:OrganizationIdentification>
+	</j:CaseCourt>
+</CourtPolicyQueryMessage>";
             var xml = XElement.Parse(xmlRequest);
             var ncNamespace = "http://release.niem.gov/niem/niem-core/4.0/";
-            var jNamespace = "http://release.niem.gov/niem/domains/jxdm/6.1/";
+            var jNamespace = "http://niem.gov/niem/domains/jxdm/4.0";
             var caseCourt = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", jNamespace, "CaseCourt"))?.FirstOrDefault();
+            //Log.Information("caseCourt {0}", caseCourt);
             var courtIDElement = caseCourt.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
-            var documentPostDate = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DocumentPostDate"))?.FirstOrDefault();
-            var dateTime = documentPostDate.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DateTime"))?.FirstOrDefault();
+            //var documentPostDate = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DocumentPostDate"))?.FirstOrDefault();
+            //var dateTime = documentPostDate.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DateTime"))?.FirstOrDefault();
             courtIDElement.Value = courtLocation;
-            dateTime.Value = timestamp.ToString("yyyyMMddTHH:mm:ssZ");
+            //dateTime.Value = timestamp.ToString("yyyyMMddTHH:mm:ssZ");
             Log.Information("GetPolicy: {0}", xml);
             var service = this.CreateFilingService();
             using (new OperationContextScope(service.InnerChannel))
@@ -585,8 +624,10 @@ namespace FilingHostService
             var urls = new List<string>();
             var zips = new List<string>();
             var xmls = new List<string>();
+            Log.Information("For Loop: fileNames size {0} ", fileNames.Count);
             foreach (string fileName in fileNames)
             {
+                //Log.Information("Start Loop");
                 var url = ConfigurationManager.AppSettings.Get("CourtURL").Trim('\r', '\n') + fileName.ToLower().Trim('\r', '\n') + "/" + courtID;
                 url.TrimEnd('\r', '\n');
                 url = String.Concat(url.Where(c => !Char.IsWhiteSpace(c)));
@@ -599,16 +640,29 @@ namespace FilingHostService
                 codeFilePath.TrimEnd('\r', '\n');
                 codeFilePath = String.Concat(codeFilePath.Where(c => !Char.IsWhiteSpace(c)));
                 xmls.Add(codeFilePath);
+                //Log.Information("End Loop");
             }
-            
+            Log.Information("Encoding data");
             var _data = Encoding.UTF8.GetBytes(DateTime.Now.ToString("o"));
+            Log.Information("ContentInfo");
             ContentInfo _info = new ContentInfo(_data);
+            Log.Information("SignedCms");
             SignedCms _cms = new SignedCms(_info, false);
             CmsSigner _signer = new CmsSigner(this.MessageSigningCertificate);
-            _cms.ComputeSignature(_signer, false);
+            Log.Information("CmsSigner {0}", _signer);
+            Log.Information("ComputeSignature");
+            try
+            {
+                _cms.ComputeSignature(_signer, false);
+            }catch(Exception exsig)
+            {
+                Log.Information("Exception signing: {0}", exsig.Message);
+            }
+            Log.Information("Signed");
             var _signed = _cms.Encode();
+            Log.Information("Convert b64String");
             var _b64 = Convert.ToBase64String(_signed);
-            
+            Log.Information("Web Client call");
             using (WebClient _client = new WebClient())
             {
                 _client.Headers["tyl-efm-api"] = _b64;
@@ -618,10 +672,12 @@ namespace FilingHostService
                     Log.Information(zips[i]);
                     try
                     {
+                        Log.Information("Try block: downloading");
                         _client.DownloadFile(urls[i], zips[i]);
                     }
                     catch (Exception ex)
                     {
+                        Log.Information("execption: {0}", ex.Message);
                         Log.Error(ex.Message + " for url " + urls[i]);
                     }
                 }
@@ -908,7 +964,7 @@ namespace FilingHostService
                 return response;
             }
         }
-
+        
         private bool StatuteFileExists()
         {
             var statuteFilePath = ConfigurationManager.AppSettings.Get("statuteFile");

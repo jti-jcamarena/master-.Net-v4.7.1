@@ -334,6 +334,7 @@ namespace FilingHostService
                             Log.Information("test:325");
                             List<EFMFirmService.ServiceContactType> serviceContacts = new List<EFMFirmService.ServiceContactType>();
                             Log.Information("test:327");
+                            
                             foreach (FilingHostService.EFMFirmService.ServiceContactType serviceContactType in _client.GetContactList(userResponse).ServiceContact)
                             {
                                 Log.Information("test:329");
@@ -366,6 +367,8 @@ namespace FilingHostService
                                 Log.Information("Contact FML: {0} {1} {2} Address1: {3} Email: {4}", svcFirstName, svcMiddleName, svcLastName, svcAddress1, svcEmail);
                                 var findContact = serviceContacts.Find( sc => sc.FirstName == svcFirstName && sc.LastName == svcLastName && sc.Email == svcEmail && sc.Address.AddressLine1 == svcAddress1 && sc.Address.ZipCode == svcZip );
                                 String svcContactID;
+                                var getPublicListResponse = _client.GetPublicList(userResponse, svcEmail, svcFirstName, svcLastName, "");
+                                Log.Information("PublicListResponse: {0}", getPublicListResponse);
                                 if (findContact == null)
                                 {
                                     svcContactID = _client.CreateServiceContact(userResponse, svcFirstName, svcMiddleName, svcLastName, svcPhoneNumber, svcEmail, svcAddress1, svcAddress2, svcCity,svcZip, svcState, svcIsPublic, svcAdminCopy, firmID);
@@ -1128,8 +1131,9 @@ namespace FilingHostService
                     }
                     if (Directory.Exists(path) == true)
                     {
+                        Log.Information("Downloading Tyler Court Codes for: courtLocation: {0}", courtId);
                         _client.GetTylerCodes(courtId);
-                        Log.Information("Test: _courtID: {0}; courtLocation: {1}", _courtID, courtId);
+                        Log.Information("Downloading Tyler Court Codes for: courtLocation: {0} complete", courtId);
                     }
                 }
             }
