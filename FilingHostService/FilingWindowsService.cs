@@ -347,6 +347,8 @@ namespace FilingHostService
                             var svcContacts = filedContacts.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "svcContact"));
                             //Log.Information("svcContacts {0} {1} {2}", svcContacts, svcContacts.GetType(), svcContacts.Count());
                             Log.Information("test:337");
+                            List<EFMFirmService.ServiceContactType> publicServiceContacts = new List<EFMFirmService.ServiceContactType>();
+                            List<EFMFirmService.ServiceContactType> attachServiceContacts = new List<EFMFirmService.ServiceContactType>();
                             foreach (XElement contact in svcContacts)
                             {
                                 //Log.Information("Contact : {0}", contact);
@@ -368,7 +370,19 @@ namespace FilingHostService
                                 var findContact = serviceContacts.Find( sc => sc.FirstName == svcFirstName && sc.LastName == svcLastName && sc.Email == svcEmail && sc.Address.AddressLine1 == svcAddress1 && sc.Address.ZipCode == svcZip );
                                 String svcContactID;
                                 var getPublicListResponse = _client.GetPublicList(userResponse, svcEmail, svcFirstName, svcLastName, "");
-                                Log.Information("PublicListResponse: {0}", getPublicListResponse);
+                                
+                                Log.Information("PublicListResponse size: {0}", getPublicListResponse.ServiceContact.Length);
+                                //List<EFMFirmService.ServiceContactType> publicServiceContacts = new List<EFMFirmService.ServiceContactType>();
+                                foreach (EFMFirmService.ServiceContactType serviceContactType in getPublicListResponse.ServiceContact)
+                                {
+                                    Log.Information("serviceContactType: email:{0}", serviceContactType.Email);
+                                    publicServiceContacts.Add(serviceContactType);
+                                }
+                                if (publicServiceContacts.Count > 0)
+                                {
+                                    findContact = publicServiceContacts.Find(sc => sc.Email == svcEmail);
+                                }
+                                Log.Information("Contact Found ? {0}", findContact.Email);
                                 if (findContact == null)
                                 {
                                     svcContactID = _client.CreateServiceContact(userResponse, svcFirstName, svcMiddleName, svcLastName, svcPhoneNumber, svcEmail, svcAddress1, svcAddress2, svcCity,svcZip, svcState, svcIsPublic, svcAdminCopy, firmID);
@@ -378,6 +392,7 @@ namespace FilingHostService
                                 }
                                 else
                                 {
+                                    attachServiceContacts.Add(findContact);
                                     Log.Information("Contact Found: {}", findContact.ServiceContactID);
                                     svcContactID = findContact.ServiceContactID;
                                 }
@@ -456,7 +471,7 @@ namespace FilingHostService
                                 Log.Information("caseTrackingId {0} isNullOrEmpty: {1}", caseTrackingId, string.IsNullOrWhiteSpace(caseTrackingId));
                                 System.Xml.Linq.XElement getCaseResponse = _client.GetCase(userResponse, courtLocation, caseTrackingId, true);
                                 Log.Information("GetCase response: {0}", getCaseResponse);
-
+                                
 
                                 Log.Information("Case Tracking ID Null Check follows");
                                 Log.Information("IsNullOrWhiteSpac ? {0}", string.IsNullOrWhiteSpace(caseTrackingId));
@@ -473,7 +488,11 @@ namespace FilingHostService
                                 else // caseTrackingId found, insert it
                                 {
                                     Log.Information(string.Format(@"CaseTrackingId({0}) ref found for CaseDocketNbr({1}) - updating filing xml", caseTrackingId, eProsCfg.caseDocketNumber));
-
+                                    Log.Information("publicServiceContacts: {0}, attach to caseID {1}", attachServiceContacts, caseTrackingId);
+                                    foreach (EFMFirmService.ServiceContactType serviceContactType in attachServiceContacts)
+                                    {
+                                        _client.AttachServiceContact(userResponse, caseTrackingId, "", serviceContactType.ServiceContactID);
+                                    }
                                     // Update xml file w/ new CaseTrackingId
                                     var ncNamespace = "http://niem.gov/niem/niem-core/2.0";
                                     var jNamespace = "http://niem.gov/niem/domains/jxdm/4.0";
@@ -1162,6 +1181,7 @@ namespace FilingHostService
         public Boolean reviewFilingResponse { get; set; }
         public String caseDocketId { get; set; }
         public String caseTrackingId { get; set; }
+        public String publicServiceContacts { get; set; }
         public String caseFilingId { get; set; }
         public String caseFilingIdText { get; set; }
         public String caseFilingDate { get; set; }

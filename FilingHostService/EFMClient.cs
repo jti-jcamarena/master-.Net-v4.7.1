@@ -113,16 +113,60 @@ namespace FilingHostService
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
                 EFMFirmService.GetPublicListRequestType getPublicListRequestType = new EFMFirmService.GetPublicListRequestType();
-                getPublicListRequestType.Email = "svcEmail";
-                getPublicListRequestType.FirstName = "svcFirstName";
-                getPublicListRequestType.LastName = "svcLastName";
-                getPublicListRequestType.FirmName = "svcFirmName";
+                getPublicListRequestType.Email = svcEmail;
+                getPublicListRequestType.FirstName = svcFirstName;
+                getPublicListRequestType.LastName = svcLastName;
+                getPublicListRequestType.FirmName = svcFirmName;
                 var response = firmService.GetPublicList(getPublicListRequestType);
                 Log.Information("firmService.GetPublicList: response {0}", response);
                 return response;
             }
         }
- 
+
+        public void AttachServiceContact(AuthenticateResponseType user, string caseID, string casePartyID, string svcContactID)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                EFMFirmService.AttachServiceContactRequestType attachServiceContactRequestType = new EFMFirmService.AttachServiceContactRequestType();
+                attachServiceContactRequestType.CaseID = caseID;
+                attachServiceContactRequestType.CasePartyID = casePartyID;
+                attachServiceContactRequestType.ServiceContactID = svcContactID;
+                var response = firmService.AttachServiceContact(attachServiceContactRequestType);
+                Log.Information("AttachServiceContact {0} to {1}", svcContactID, caseID);
+            }
+        }
+
+        public void DetachServiceContact(AuthenticateResponseType user, string caseID, string casePartyID, string svcContactID)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                EFMFirmService.DetachServiceContactRequestType detachServiceContactRequestType = new EFMFirmService.DetachServiceContactRequestType();
+                detachServiceContactRequestType.CaseID = caseID;
+                detachServiceContactRequestType.CasePartyID = casePartyID;
+                detachServiceContactRequestType.ServiceContactID = svcContactID;
+                var response = firmService.DetachServiceContact(detachServiceContactRequestType);
+                Log.Information("DetachServiceContact {0} to {1}", svcContactID, caseID);
+            }
+        }
+
         public EFMFirmService.ServiceContactListResponseType GetContactList(AuthenticateResponseType user)
         {
             var firmService = this.CreateFirmService();
@@ -521,14 +565,14 @@ namespace FilingHostService
                 Log.Information("GetPaymentAccountList Results:");
                 foreach( var p in pmtType.PaymentAccount)
                 {
-                    Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
-                    Log.Information(" FirmID = " + p.FirmID?.ToString());
+                    //Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
+                    //Log.Information(" FirmID = " + p.FirmID?.ToString());
                     Log.Information(" PaymentAccountTypeCode = " + p.PaymentAccountTypeCode?.ToString());
                     Log.Information(" AccountName = " + p.AccountName?.ToString());
-                    Log.Information(" AccountToken = " + p.AccountToken?.ToString());
+                    //Log.Information(" AccountToken = " + p.AccountToken?.ToString());
                     Log.Information(" CardType = " + p.CardType?.ToString());
-                    Log.Information(" CardLast4 = " + p.CardLast4?.ToString());
-                    Log.Information(" CardName = " + p.CardHolderName?.ToString());
+                    //Log.Information(" CardLast4 = " + p.CardLast4?.ToString());
+                    //Log.Information(" CardName = " + p.CardHolderName?.ToString());
                     Log.Information(" Active = " + p.Active);
                     Log.Information("");
                 }
@@ -551,7 +595,11 @@ namespace FilingHostService
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
                 
                 EFMFirmService.PaymentAccountTypeListResponseType response = service.GetPaymentAccountTypeList();
-                Log.Information("PaymentAccountType: {0}", response.PaymentAccountType);
+                //Log.Information("PaymentAccountType: {0}", response.PaymentAccountType);
+                foreach(var paymentAccountType in response.PaymentAccountType)
+                {
+                    Log.Information("paymentAccountType {0} - {1}", paymentAccountType.Code, paymentAccountType.Description);
+                }
                 //return response;
             }
         }
