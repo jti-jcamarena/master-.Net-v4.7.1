@@ -118,7 +118,7 @@ namespace FilingHostService
                 getPublicListRequestType.LastName = svcLastName;
                 getPublicListRequestType.FirmName = svcFirmName;
                 var response = firmService.GetPublicList(getPublicListRequestType);
-                Log.Information("firmService.GetPublicList: response {0}", response);
+                //Log.Information("firmService.GetPublicList: response {0}", response);
                 return response;
             }
         }
@@ -567,14 +567,14 @@ namespace FilingHostService
                 {
                     //Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
                     //Log.Information(" FirmID = " + p.FirmID?.ToString());
-                    Log.Information(" PaymentAccountTypeCode = " + p.PaymentAccountTypeCode?.ToString());
+                    //Log.Information(" PaymentAccountTypeCode = " + p.PaymentAccountTypeCode?.ToString());
                     Log.Information(" AccountName = " + p.AccountName?.ToString());
                     //Log.Information(" AccountToken = " + p.AccountToken?.ToString());
-                    Log.Information(" CardType = " + p.CardType?.ToString());
+                    //Log.Information(" CardType = " + p.CardType?.ToString());
                     //Log.Information(" CardLast4 = " + p.CardLast4?.ToString());
                     //Log.Information(" CardName = " + p.CardHolderName?.ToString());
                     Log.Information(" Active = " + p.Active);
-                    Log.Information("");
+                    //Log.Information("");
                 }
                 return pmtType;
             }

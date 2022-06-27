@@ -28,7 +28,7 @@ namespace eSuite.Utils
             // fill out request
             request.Method = eRequest.RequestType.ToString();
             request.Headers.Add("Authorization", eRequest.AuthToken);
-            request.Timeout = 10000;
+            request.Timeout = 30000;
 
             // upload any files if applicable
             if (eRequest.FilePathToUpload != null && !string.IsNullOrEmpty(eRequest.FilePathToUpload) && File.Exists(eRequest.FilePathToUpload))
