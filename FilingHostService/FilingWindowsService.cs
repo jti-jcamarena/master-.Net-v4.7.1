@@ -479,20 +479,45 @@ namespace FilingHostService
                                 //Log.Information("CaseResponseParticipants: {0}", caseResponseParticipants.Select(p => p.Descendants().Where(p1 => p1.Value == "3358")));
                                 XElement defParticipant;
                                 String defParticipantIDTest = "";
+                                Log.Information("for loop: participants");
                                 foreach (XElement par in caseResponseParticipants)
                                 {
-                                    if (par.Descendants().Where(p1 => (p1.Name.LocalName == "PersonGivenName" && !string.IsNullOrWhiteSpace(p1.Value))).Count() > 0  && string.IsNullOrEmpty(defParticipantIDTest) )
+                                    String participantAttribute = par?.Element(string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0", "EntityPerson"))?.Attribute("{http://niem.gov/niem/structures/2.0}id")?.Value ?? "";
+                                    /*foreach ( var el in par.Elements())
                                     {
+                                        //Log.Information("each: {0}", el.Name);
+                                        foreach (var attr in el.Attributes())
+                                        {
+                                            Log.Information("attr: {0}", attr.Name);
+                                        }
+                                    }*/
+
+                                    //if (par.Descendants().Where(p1 => (p1.Name.LocalName == "PersonGivenName" && !string.IsNullOrWhiteSpace(p1.Value)) ).Count() > 0  && string.IsNullOrEmpty(defParticipantIDTest) )
+                                    if (!string.IsNullOrEmpty(participantAttribute) && participantAttribute.StartsWith("Party") && par.Descendants().Where(p1 => (p1.Name.LocalName == "PersonGivenName" && !string.IsNullOrWhiteSpace(p1.Value))).Count() > 0 && string.IsNullOrEmpty(defParticipantIDTest))
+                                    {
+                                        
+                                         //p1.FirstAttribute.Value.ToString()
                                         // p1.Value == "3358" -> 3358=Defendnat code
                                         defParticipant = par;
                                         Log.Information("DefParticipant: {0}", defParticipant);
                                         var defParticipantID = defParticipant.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault()?.Value ?? "";
                                         XElement filingParty =  xml.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0", "FilingPartyID")).FirstOrDefault();
                                         XElement filingPartyID = filingParty.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID")).FirstOrDefault();
+
+
+
                                         //Log.Information("filingParty {0}", filingPartyID);
                                         if (!string.IsNullOrEmpty(defParticipantID)) {
                                             defParticipantIDTest = defParticipantID;
-                                            filingPartyID.Value = defParticipantID;
+                                            //filingPartyID.Value = defParticipantID;
+                                            foreach (XElement xElement1 in xml.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0", "FilingPartyID")))
+                                            {
+                                                //Log.Information("test:299");
+                                                XElement partyIdentificationID = xElement1.Elements().Where(e => e.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID"))?.FirstOrDefault();
+                                                XElement partyIdentificationCategoryText = xElement1.Elements().Where(e => e.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationCategoryText"))?.FirstOrDefault();
+                                                partyIdentificationID.Value = defParticipantID;
+                                                partyIdentificationCategoryText.Value = "IDENTIFICATION";
+                                            }
                                             //Log.Information("xml: {0}", xml);
                                         }
                                     }
