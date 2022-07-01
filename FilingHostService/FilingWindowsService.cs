@@ -478,10 +478,12 @@ namespace FilingHostService
                                 //Log.Information("CaseResponseParticipants: {0}", caseResponseParticipants.Select(p => p.Descendants().Where(p1 => p1.Value == "PEDRO")));
                                 //Log.Information("CaseResponseParticipants: {0}", caseResponseParticipants.Select(p => p.Descendants().Where(p1 => p1.Value == "3358")));
                                 XElement defParticipant;
+                                String defParticipantIDTest = "";
                                 foreach (XElement par in caseResponseParticipants)
                                 {
-                                    if (par.Descendants().Where(p1 => p1.Value == "3358").Count() > 0)
+                                    if (par.Descendants().Where(p1 => (p1.Name.LocalName == "PersonGivenName" && !string.IsNullOrWhiteSpace(p1.Value))).Count() > 0  && string.IsNullOrEmpty(defParticipantIDTest) )
                                     {
+                                        // p1.Value == "3358" -> 3358=Defendnat code
                                         defParticipant = par;
                                         Log.Information("DefParticipant: {0}", defParticipant);
                                         var defParticipantID = defParticipant.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault()?.Value ?? "";
@@ -489,6 +491,7 @@ namespace FilingHostService
                                         XElement filingPartyID = filingParty.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID")).FirstOrDefault();
                                         //Log.Information("filingParty {0}", filingPartyID);
                                         if (!string.IsNullOrEmpty(defParticipantID)) {
+                                            defParticipantIDTest = defParticipantID;
                                             filingPartyID.Value = defParticipantID;
                                             //Log.Information("xml: {0}", xml);
                                         }
