@@ -160,7 +160,7 @@ namespace NotificationService
                 // Load all response xml fields into responseLog
                 String sExceptionFault = null;
                 Log.Information("Building responseObj from ReviewCallbackMessage");
-                //Log.Information("XML {0}", xml);
+                //Log.Information("NFRC: XML {0}", xml);
                 var responseObj = (from el in xml.Descendants(reviewFilingNamespace + "ReviewFilingCallbackMessage")
                                    select new FilingResponseObj
                                    {
