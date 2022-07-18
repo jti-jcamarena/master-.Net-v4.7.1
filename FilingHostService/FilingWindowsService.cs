@@ -528,13 +528,14 @@ namespace FilingHostService
 
                                 Log.Information("Case Tracking ID Null Check follows");
                                 Log.Information("IsNullOrWhiteSpac ? {0}", string.IsNullOrWhiteSpace(caseTrackingId));
+                                List<String> filingDocuments = new List<String>();
                                 if (string.IsNullOrWhiteSpace(caseTrackingId)) // invalid?
                                 {
                                     String errMsg = string.Format(@"OFS GetCaseList error - could not find matching caseTrackingID for caseDocketNbr({0})", eProsCfg.caseDocketNumber);
                                     Log.Error(errMsg);
-
+                                    
                                     // Send ePros exception fault response message and move file to failed folder
-                                    SendEProsResponseMessage(eProsCfg?.filingDocID, null, errMsg, "");
+                                    SendEProsResponseMessage(eProsCfg?.filingDocID, null, errMsg, filingDocuments, "");
                                     MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
                                     continue;
                                 }
@@ -621,7 +622,14 @@ namespace FilingHostService
                             
                             Log.Information("xml: {0}", xml.ToString());
                             var ofsResult = _client.ReviewFiling(xml, userResponse);
-                            //Log.Information("Review filing complete : {0}", ofsResult);
+                            Log.Information("Review filing complete : {0}", ofsResult);
+                            //Log.Information("Filed Documents {0}", xml.Descendants().Where(x => x.Name.LocalName == "DocumentFileControlID"));
+                            List<String> filedDocuments = new List<string>();
+                            foreach (var filedDocument in xml.Descendants().Where(x => x.Name.LocalName == "DocumentFileControlID"))
+                            {
+                                Log.Information("Doc {0}", filedDocument.Value);
+                                filedDocuments.Add(filedDocument.Value);
+                            }
                             // Report ofsResults and send response back to ePros interface
                             Log.Information("Complete, logging ofsResults");
                             XNamespace ecfNamespace = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0";
@@ -651,7 +659,7 @@ namespace FilingHostService
                                 }
 
                                 // Send ePros response information, if response fails keep file in queue
-                                if (SendEProsResponseMessage(eProsCfg?.filingDocID, ofsResult, caseTitleText)) // valid response?
+                                if (SendEProsResponseMessage(eProsCfg?.filingDocID, ofsResult, caseTitleText, filedDocuments)) // valid response?
                                 {
                                     /*if (resultSuccess != null) // success, move to 'success' folder
                                         MoveFile(file, string.Format(@"{0}\{1}", _filingSuccessPath, fileName));
@@ -670,7 +678,7 @@ namespace FilingHostService
                             else
                             {
                                 // Send response w/ exception back to ePros indicating invalid Ofs response message
-                                SendEProsResponseMessage(eProsCfg?.filingDocID, ofsResult, caseTitleText, "Invalid Ofs MessageReceipt xml, no <Error> section found");
+                                SendEProsResponseMessage(eProsCfg?.filingDocID, ofsResult, caseTitleText, filedDocuments, "Invalid Ofs MessageReceipt xml, no <Error> section found");
                                 MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
 
                                 // Write submit filing response message to disk
@@ -680,9 +688,9 @@ namespace FilingHostService
                         catch (Exception ex)
                         {
                             Log.Fatal(ex, "Exception::CheckForOutboundMessages - review file processing error");
-
+                            List<String> filedDocuments = new List<String>();
                             // Send ePros exception fault reponse message
-                            SendEProsResponseMessage(eProsCfg?.filingDocID, null, caseTitleText, ex.Message);
+                            SendEProsResponseMessage(eProsCfg?.filingDocID, null, caseTitleText, filedDocuments, ex.Message);
                                 
                             // On failure, move to 'failed' folder
                             MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
@@ -705,7 +713,7 @@ namespace FilingHostService
         // @param sExceptionFault = Exception response message
         // @return true if successful, else false if error
         //
-        private Boolean SendEProsResponseMessage(String sSubDocRefID, XElement xOfsResponse, String caseTitleText,  String sExceptionFault = "" ) {
+        private Boolean SendEProsResponseMessage(String sSubDocRefID, XElement xOfsResponse, String caseTitleText, List<String> filedDocuments, String sExceptionFault = "" ) {
 
             try
             {
@@ -760,6 +768,7 @@ namespace FilingHostService
                                                                    el?.Element(ncNamespace + "DocumentIdentification")?.Element(ncNamespace + "IdentificationID")?.Value ?? "",
                                        filingEnvelopeId = el?.Elements(ncNamespace + "DocumentIdentification")?.Where(x => (string)x?.Element(ncNamespace + "IdentificationCategoryText") == "ENVELOPEID")?.Select(x => (string)x?.Element(ncNamespace + "IdentificationID"))?.FirstOrDefault() ?? "",
                                        filingCaseTitleText = caseTitleText,
+                                       filingDocuments = filedDocuments,
                                        // Load response error list
                                        statusErrorList = el?.Elements(ecfNamespace + "Error")
                                            .Select(er => new FilingRespError
@@ -1247,6 +1256,7 @@ namespace FilingHostService
         public String filingStatusCode { get; set; }
         public String filingCaseTitleText { get; set; }
         public String filingEnvelopeId { get; set; }
+        public List<String> filingDocuments { get; set; }
         public List<FilingRespError> statusErrorList { get; set; }
         public String exception { get; set; }
 
@@ -1269,7 +1279,7 @@ namespace FilingHostService
             filingCaseTitleText = "";
             filingEnvelopeId = "";
             exception = "";
-
+            filingDocuments = new List<String>();
             statusErrorList = new List<FilingRespError>();
             FilingRespError statusError = new FilingRespError
             {

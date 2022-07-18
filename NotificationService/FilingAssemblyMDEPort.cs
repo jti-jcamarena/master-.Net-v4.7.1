@@ -172,7 +172,8 @@ namespace NotificationService
                                        caseFilingId = el?.Elements(ncNamespace + "DocumentIdentification")?.Where(x => (string)x?.Element(ncNamespace + "IdentificationCategoryText") == "FILINGID")?.
                                                                    Select(x => (string)x.Element(ncNamespace + "IdentificationID"))?.FirstOrDefault() ??
                                                                    el?.Element(ncNamespace + "DocumentIdentification")?.Element(ncNamespace + "IdentificationID")?.Value ?? "",
-
+                                       filingEnvelopeId = el?.Elements(ncNamespace + "DocumentIdentification")?.Where(x => (string)x?.Element(ncNamespace + "IdentificationCategoryText") == "ENVELOPEID")?.Select(x => (string)x?.Element(ncNamespace + "IdentificationID"))?.FirstOrDefault() ?? "",
+                                       filingCaseTitleText = el?.Element(@"{urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0}CriminalCase")?.Element(@"{http://niem.gov/niem/niem-core/2.0}CaseTitleText")?.Value ?? "",
                                        organizationId = el?.Element(crimNamespace + "CriminalCase")?.Element(jNamespace + "CaseAugmentation")?.Element(jNamespace + "CaseCourt")
                                                           ?.Element(ncNamespace + "OrganizationIdentification")?.Element(ncNamespace + "IdentificationID")?.Value ?? "",
                                        caseTrackingId = el?.Element(crimNamespace + "CriminalCase")?.Element(ncNamespace + "CaseTrackingID")?.Value ?? "",
@@ -367,6 +368,8 @@ namespace NotificationService
         public String organizationId { get; set; }
         public String filingStatusText { get; set; }
         public String filingStatusCode { get; set; }
+        public String filingCaseTitleText { get; set; }
+        public String filingEnvelopeId { get; set; }
         public List<FilingRespError> statusErrorList { get; set; }
         public String exception { get; set; }
 
@@ -386,6 +389,8 @@ namespace NotificationService
             organizationId = "";
             filingStatusText = "";
             filingStatusCode = "";
+            filingCaseTitleText = "";
+            filingEnvelopeId = "";
             exception = "";
 
             statusErrorList = new List<FilingRespError>();
