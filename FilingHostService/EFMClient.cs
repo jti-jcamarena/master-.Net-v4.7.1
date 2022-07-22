@@ -51,10 +51,15 @@ namespace FilingHostService
 
         public AuthenticateResponseType AuthenticateUser(AuthenticateRequestType request)
         {
+            Log.Information("AuthenticateUser 1");
             EfmUserServiceClient userService = this.CreateUserService();
+            Log.Information("AuthenticateUser 2");
             userService.Open();
+            Log.Information("AuthenticateUser 3");
             AuthenticateResponseType response = userService.AuthenticateUser(request);
+            Log.Information("AuthenticateUser 4");
             userService.Close();
+            Log.Information("AuthenticateUser 5");
             return response;
         }
 
