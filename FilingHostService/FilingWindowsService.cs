@@ -173,7 +173,7 @@ namespace FilingHostService
                     List<FilingHostService.EFMFirmService.UserType> userTypeList = new List<FilingHostService.EFMFirmService.UserType>();
                     foreach (var userType in _client.GetUserList(userResponse).User)
                     {
-                        Log.Information("176: GetUserList User {0}", userType.UserID);
+                        Log.Information("176: Certification: GetUserList User {0}", userType.UserID);
                         userTypeList.Add(userType);
                     }
                     
@@ -199,6 +199,7 @@ namespace FilingHostService
                         Log.Information(string.Format("199: Processing reviewFiling {0}",fileName));
                         String caseTitleText = "";
                         String defendantFullName = "";
+                        List<String> filedDocuments = new List<string>();
                         // Submit data to Odyssey soap service
                         try
                         {
@@ -266,7 +267,7 @@ namespace FilingHostService
                             Log.Information("265: Filing Attorney: Bar:{0} First:{1} Last:{2}", eProsCfg.barNumber, eProsCfg.attorneyFirstName, eProsCfg.attorneyLastName);
                             
                             var attorneylist = _client.GetAttorneys(userResponse);
-                            Log.Information("268: GetAttorneys: {0}", attorneylist);
+                            Log.Information("268: Certification: GetAttorneys: {0}", attorneylist);
                             Log.Information("269: GetAttorneys: {0}", attorneylist?.Attorney?.Length);
                             String attorneyID = "";
                             List<FilingHostService.EFMFirmService.AttorneyType> systemAttorneyList = new List<FilingHostService.EFMFirmService.AttorneyType>();
@@ -375,7 +376,7 @@ namespace FilingHostService
                                 String svcContactID;
                                 var getPublicListResponse = _client.GetPublicList(userResponse, svcEmail, svcFirstName, svcLastName, "");
                                 
-                                Log.Information("PublicListResponse size: {0}", getPublicListResponse.ServiceContact.Length);
+                                Log.Information("378: Certification: PublicListResponse size: {0}", getPublicListResponse.ServiceContact.Length);
                                 //List<EFMFirmService.ServiceContactType> publicServiceContacts = new List<EFMFirmService.ServiceContactType>();
                                 foreach (EFMFirmService.ServiceContactType serviceContactType in getPublicListResponse.ServiceContact)
                                 {
@@ -413,7 +414,7 @@ namespace FilingHostService
                             
                             List<EFMFirmService.PaymentAccountType> paymentAccounts = new List<EFMFirmService.PaymentAccountType>();
                             var pmtTypes = _client.GetPaymentAccountList(userResponse);
-                            
+                            Log.Information("416: Certification : GetPaymentAccountList {0}", pmtTypes);
                             foreach (EFMFirmService.PaymentAccountType paymentAccountType in pmtTypes.PaymentAccount)
                             {
                                 //Log.Information("Payment Account: {0}", paymentAccountType.PaymentAccountID);
@@ -532,14 +533,14 @@ namespace FilingHostService
 
                                 Log.Information("Case Tracking ID Null Check follows");
                                 Log.Information("IsNullOrWhiteSpac ? {0}", string.IsNullOrWhiteSpace(caseTrackingId));
-                                List<String> filingDocuments = new List<String>();
+                                
                                 if (string.IsNullOrWhiteSpace(caseTrackingId)) // invalid?
                                 {
                                     String errMsg = string.Format(@"OFS GetCaseList error - could not find matching caseTrackingID for caseDocketNbr({0})", eProsCfg.caseDocketNumber);
                                     Log.Error(errMsg);
                                     
                                     // Send ePros exception fault response message and move file to failed folder
-                                    SendEProsResponseMessage(eProsCfg?.filingDocID, null, errMsg, filingDocuments, "");
+                                    SendEProsResponseMessage(eProsCfg?.filingDocID, null, errMsg, filedDocuments, "");
                                     MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
                                     continue;
                                 }
@@ -638,7 +639,7 @@ namespace FilingHostService
                             var ofsResult = _client.ReviewFiling(xml, userResponse);
                             Log.Information("Review filing complete : {0}", ofsResult);
                             //Log.Information("Filed Documents {0}", xml.Descendants().Where(x => x.Name.LocalName == "DocumentFileControlID"));
-                            List<String> filedDocuments = new List<string>();
+                            
                             foreach (var filedDocument in xml.Descendants().Where(x => x.Name.LocalName == "DocumentFileControlID"))
                             {
                                 Log.Information("Doc {0}", filedDocument.Value);
@@ -702,7 +703,7 @@ namespace FilingHostService
                         catch (Exception ex)
                         {
                             Log.Fatal(ex, "Exception::CheckForOutboundMessages - review file processing error");
-                            List<String> filedDocuments = new List<String>();
+                            
                             // Send ePros exception fault reponse message
                             SendEProsResponseMessage(eProsCfg?.filingDocID, null, caseTitleText, filedDocuments, defendantFullName, ex.Message);
                                 
