@@ -76,9 +76,9 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-
+                Log.Information("79: GetUserList 1");
                 var response = firmService.GetUserList();
-
+                Log.Information("79: GetUserList 2");
                 return response;
             }
         }
@@ -570,7 +570,7 @@ namespace FilingHostService
                 Log.Information("GetPaymentAccountList Results:");
                 foreach( var p in pmtType.PaymentAccount)
                 {
-                    //Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
+                    Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
                     //Log.Information(" FirmID = " + p.FirmID?.ToString());
                     //Log.Information(" PaymentAccountTypeCode = " + p.PaymentAccountTypeCode?.ToString());
                     Log.Information(" AccountName = " + p.AccountName?.ToString());
@@ -601,10 +601,10 @@ namespace FilingHostService
                 
                 EFMFirmService.PaymentAccountTypeListResponseType response = service.GetPaymentAccountTypeList();
                 //Log.Information("PaymentAccountType: {0}", response.PaymentAccountType);
-                foreach(var paymentAccountType in response.PaymentAccountType)
+                /*foreach(var paymentAccountType in response.PaymentAccountType)
                 {
                     Log.Information("paymentAccountType {0} - {1}", paymentAccountType.Code, paymentAccountType.Description);
-                }
+                }*/
                 //return response;
             }
         }
