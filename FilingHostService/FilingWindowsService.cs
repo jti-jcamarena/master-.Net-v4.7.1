@@ -492,13 +492,18 @@ namespace FilingHostService
                                 System.Xml.Linq.XElement getCaseListResponse = _client.GetCaseList(userResponse, courtLocation, eProsCfg.caseDocketNumber);
                                 Log.Information("GetCaseList: location: {0}; courtNumber: {1}", courtLocation, eProsCfg.caseDocketNumber);
                                 Log.Information("GetCaseList response: {0}", getCaseListResponse);
-                                var criminalCaseResponse = getCaseListResponse.Elements().Where(x => x.Name.LocalName.ToLower() == "criminalcase");
+                                var caseResponse = getCaseListResponse.Elements().Where(x => x.Name.LocalName.ToLower() == "criminalcase" || x.Name == "{urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CivilCase-4.0}CivilCase");
 
-                                //Log.Information("criminalCaseResponse {0}", criminalCaseResponse.Descendants().Where((x, idx) => x.Value.EndsWith(defendantFullName)));
-                                var filteredCriminalCaseResponse = criminalCaseResponse.Descendants().Where((x, idx) => x.Value.EndsWith(defendantFullName)).FirstOrDefault().Parent;
+                                Log.Information("caseResponse {0}", caseResponse);
+                                var filteredCriminalCaseResponse = caseResponse.Descendants().Where((x, idx) => x.Value.EndsWith(defendantFullName))?.FirstOrDefault()?.Parent;
+                                if (filteredCriminalCaseResponse == null)
+                                {
+                                    Log.Information("filteredCriminalCaseResponse null try again");
+                                    filteredCriminalCaseResponse = getCaseListResponse.Descendants().Where((x, idx) => x.Name.LocalName.ToLower() == "criminalcase" || x.Name == "{urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CivilCase-4.0}CivilCase")?.FirstOrDefault()?.Parent;
+                                }
                                 Log.Information("filteredCriminalCaseResponse: {0}", filteredCriminalCaseResponse);
                                 //caseTitleText = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetitletext" && x.Value.EndsWith(defendantFullName))?.FirstOrDefault()?.Value ?? "";
-                                caseTitleText = filteredCriminalCaseResponse.Elements().Where(x => x.Name.LocalName.ToLower() == "casetitletext" && x.Value.EndsWith(defendantFullName))?.FirstOrDefault()?.Value ?? "";
+                                caseTitleText = filteredCriminalCaseResponse.Elements().Where(x => x.Name.LocalName.ToLower() == "casetitletext")?.FirstOrDefault()?.Value ?? "";
                                 Log.Information("Case Title Text {0}", caseTitleText);
                                 //string caseTrackingId = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value ?? "";
                                 string caseTrackingId = filteredCriminalCaseResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value ?? "";
