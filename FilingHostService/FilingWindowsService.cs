@@ -283,6 +283,7 @@ namespace FilingHostService
                             {
                                 var firmID = systemAttorneyList.Find(x => x.BarNumber != null).FirmID;
                                 var createAttyResponse = _client.CreateAttorney(userResponse, eProsCfg.barNumber, eProsCfg.attorneyFirstName, eProsCfg.attorneyMiddleName, eProsCfg.attorneyLastName, firmID);
+                                //var createAttyResponse = _client.CreateAttorney(userResponse, "2012170141", "Rachel", "", "Eldringhoff	", firmID);
                                 Log.Information("283: createAttyResponse: {0}", createAttyResponse);
                                 attorneyID = createAttyResponse.StartsWith("err") ? "error" : createAttyResponse;
                             } else
