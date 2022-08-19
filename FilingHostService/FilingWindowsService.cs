@@ -309,6 +309,7 @@ namespace FilingHostService
                                             xElement.Value = attorneyID;
                                         }
                                     }
+                                    Log.Information("xElement {0}", xElement);
                                 }
                                 // Filing Attorney
                                 Log.Information("test:310");
@@ -407,11 +408,11 @@ namespace FilingHostService
                                 }
                                 else
                                 {
-                                    attachServiceContacts.Add(findContact);
+                                    attachServiceContacts.Add(findContact); 
                                     Log.Information("Contact Found: {}", findContact.ServiceContactID);
                                     svcContactID = findContact.ServiceContactID;
                                 }
-                                if (!svcContactID.StartsWith("ErrorText:"))
+                                if (!svcContactID.StartsWith("ErrorText:") && svcMiddleName != "test")
                                 {
                                     var svcInformation = xml.Descendants()
                                          .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0", "ElectronicServiceInformation"));
@@ -581,14 +582,17 @@ namespace FilingHostService
                                 else // caseTrackingId found, insert it
                                 {
                                     Log.Information(string.Format(@"CaseTrackingId({0}) ref found for CaseDocketNbr({1}) - updating filing xml", caseTrackingId, eProsCfg.caseDocketNumber));
-                                    Log.Information("publicServiceContacts: {0}, attach to caseID {1}", attachServiceContacts, caseTrackingId);
-                                    foreach (EFMFirmService.ServiceContactType serviceContactType in attachServiceContacts)
-                                    {
+                                    //Log.Information("publicServiceContacts: {0}, attach to case {1}", attachServiceContacts, caseTrackingId);
+                                    Log.Information("585: Certification: attachServiceContacts count : {0}", attachServiceContacts.Count);
+                                    foreach (EFMFirmService.ServiceContactType serviceContactType in attachServiceContacts.FindAll(x => string.IsNullOrEmpty(x.MiddleName) || x.MiddleName != "test"))
+                                    { 
                                         _client.AttachServiceContact(userResponse, caseTrackingId, "", serviceContactType.ServiceContactID);
                                         if (@ConfigurationManager.AppSettings.Get("attachDetachAttachSvcContactTest") == "true")
                                         {
+                                            Log.Information("Detach Service Contace");
                                             _client.DetachServiceContact(userResponse, caseTrackingId, "", serviceContactType.ServiceContactID);
-                                            _client.AttachServiceContact(userResponse, caseTrackingId, "", serviceContactType.ServiceContactID);
+                                            //Log.Information("Re-attach Service Contace");
+                                            //_client.AttachServiceContact(userResponse, caseTrackingId, "", serviceContactType.ServiceContactID);
                                         }
                                     }
                                     // Update xml file w/ new CaseTrackingId
