@@ -1000,6 +1000,25 @@ namespace FilingHostService
             }
         }
 
+        public XElement GetFeesCalculation(XElement xml, AuthenticateResponseType user)
+        {
+            var service = this.CreateFilingService();
+            using (new OperationContextScope(service.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                //Log.Information("1016: Review Filing header: {0}", messageHeader);
+                var response = service.GetFeesCalculation(xml);
+                return response;
+            }
+        }
+
         public XElement ReviewFiling(XElement xml, AuthenticateResponseType user)
         {
             var service = this.CreateFilingService();

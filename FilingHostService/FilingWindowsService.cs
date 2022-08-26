@@ -171,14 +171,17 @@ namespace FilingHostService
                     }
                     Log.Information("172: GetUserList");
                     List<FilingHostService.EFMFirmService.UserType> userTypeList = new List<FilingHostService.EFMFirmService.UserType>();
-                    /*foreach (var userType in _client.GetUserList(userResponse).User)
+                    /*
+                    foreach (var userType in _client.GetUserList(userResponse).User)
                     {
                         Log.Information("176: Certification: GetUserList User {0}", userType.UserID);
                         userTypeList.Add(userType);
-                    }*/
-                    
+                    }
+                    var firmUserID = userTypeList.Find(x => x.UserID != null).UserID;
+                    */
                     var firmUser = _client.GetFirmUser(userResponse);
-                    Log.Information("181: Firm User LastName: {0} ID: {1}", firmUser.User.LastName, firmUser.User.UserID);
+                    var firmUserID = firmUser.User.UserID;
+                    Log.Information("181: Firm User LastName: {0} ID: {1} firmUserID: {2}", firmUser.User.LastName, firmUser.User.UserID, firmUserID);
 
                         // Get EMFClient user ID
                         var user = _client.GetUser(new GetUserRequestType()
@@ -431,7 +434,7 @@ namespace FilingHostService
                             Log.Information("416: Certification : GetPaymentAccountList {0}", pmtTypes);
                             foreach (EFMFirmService.PaymentAccountType paymentAccountType in pmtTypes.PaymentAccount)
                             {
-                                //Log.Information("Payment Account: {0}", paymentAccountType.PaymentAccountID);
+                                //Log.Information("Payment Account: {0} {1} {2}", paymentAccountType.PaymentAccountID, paymentAccountType.AccountName, paymentAccountType.CardLast4);
                                 paymentAccounts.Add(paymentAccountType);
                             }
                             Log.Information("Filing Court: eProsCfg.caseCourtLocation: {0}", eProsCfg.caseCourtLocation);
@@ -672,12 +675,30 @@ namespace FilingHostService
 
                             // Send review filing to Odyssey API system
                             Log.Information("Sending review file to EFMClient");
-                            
+                            var feesCalculation = _client.GetFeesCalculation(xml, userResponse);
+                            Log.Information("feesCalculation {0}", feesCalculation);
                             Log.Information("xml: {0}", xml.ToString());
                             var ofsResult = _client.ReviewFiling(xml, userResponse);
                             Log.Information("Review filing complete : {0}", ofsResult);
                             //Log.Information("Filed Documents {0}", xml.Descendants().Where(x => x.Name.LocalName == "DocumentFileControlID"));
+
+                            var filingObjects = ofsResult.Elements("{http://niem.gov/niem/niem-core/2.0}DocumentIdentification")?.Where(x => (string)x?.Element("{http://niem.gov/niem/niem-core/2.0}IdentificationCategoryText") == "FILINGID");
+                            //Log.Information("filingObjects {0}", filingObjects?.Select(x => (string)x?.Element("{http://niem.gov/niem/niem-core/2.0}IdentificationID"))?.ToList());
+                            var filingGUIDS = filingObjects?.Select(x => (string)x?.Element("{http://niem.gov/niem/niem-core/2.0}IdentificationID"))?.ToList();
+                            Log.Information("filingGUIDS {0}", filingGUIDS);
+                            String fromDateQuery = DateTime.Today.ToString(); //string.IsNullOrEmpty(fromDateParam) ? "2022-04-01" : fromDateParam;
+                            String toDateQuery = DateTime.Now.ToString(); //string.IsNullOrEmpty(toDateParam) ? "2022-04-26" : toDateParam;
                             
+                            foreach (var filingGUID in filingGUIDS)
+                            {
+                                var getFilingListResponse = _client.GetFilingList(userResponse, courtLocation, firmUserID, fromDateQuery, toDateQuery);
+                                Log.Information("GetFilingList params: court:{0} firmUserId:{1} fromDate:{2} toDate:{3}", courtLocation, firmUserID, fromDateQuery, toDateQuery);
+                                var getFilingDetailsResponse = _client.GetFilingDetails(userResponse, courtLocation, filingGUID);
+                                var getFilingStatusRestponse = _client.GetFilingStatus(userResponse, courtLocation, filingGUID);
+                                Log.Information("filingGUID {0} getFilingDetailsResponse {1}", filingGUID, getFilingDetailsResponse);
+                                Log.Information("filingGUID {0} getFilingStatusRestponse {1}", filingGUID, getFilingStatusRestponse);
+                            }
+
                             foreach (var filedDocument in xml.Descendants().Where(x => x.Name.LocalName == "DocumentFileControlID"))
                             {
                                 Log.Information("Doc {0}", filedDocument.Value);
