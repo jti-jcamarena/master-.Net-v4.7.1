@@ -491,6 +491,12 @@ namespace FilingHostService
                                 defendantFullName = String.Format("{0} {1} {2}", firstName_, middleName_, lastName_) ?? "";
                                 Log.Information("487: defendantFullName: {0}", defendantFullName);
 
+                                //TetCaseListTest
+                                //var getCaseListResponseTest = _client.GetCaseList(userResponse, "dc:2nddor", "D-021-CV-22-007033");
+                                //Log.Information("getCaseListResponseTest {0}", getCaseListResponseTest);
+                                //GetCaseTest
+                                //var getCaseResponseTest = _client.GetCase(userResponse, "dc:2nddor", "8cdd17d1-f365-4dc9-96cd-bd19d0a4418e", false);
+                                //Log.Information("getCaseResponseTest {0}", getCaseResponseTest);    //8cdd17d1-f365-4dc9-96cd-bd19d0a4418e dc:2nddor or 2ndd:dordc
                                 // Get the Odyssey identifer
 
                                 //String caseTrackingId = _client.GetCaseTrackingID(userResponse, courtLocation, eProsCfg.caseDocketNumber);
@@ -697,6 +703,13 @@ namespace FilingHostService
                                 var getFilingStatusRestponse = _client.GetFilingStatus(userResponse, courtLocation, filingGUID);
                                 Log.Information("filingGUID {0} getFilingDetailsResponse {1}", filingGUID, getFilingDetailsResponse);
                                 Log.Information("filingGUID {0} getFilingStatusRestponse {1}", filingGUID, getFilingStatusRestponse);
+                                if (string.IsNullOrEmpty(caseTitleText))
+                                {
+                                    var testCaseTitleText = getFilingStatusRestponse.Descendants().Where(x => x.Name.LocalName == "CaseTitleText")?.FirstOrDefault().Value ?? "";
+                                    Log.Information("testCaseTitleText {0}", testCaseTitleText);
+                                    caseTitleText = testCaseTitleText;
+                                }
+                                Log.Information("caseTitleText is null or empty? {0} {1}", string.IsNullOrEmpty(caseTitleText), caseTitleText);
                             }
 
                             foreach (var filedDocument in xml.Descendants().Where(x => x.Name.LocalName == "DocumentFileControlID"))

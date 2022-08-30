@@ -361,6 +361,7 @@ namespace FilingHostService
                 // Execute request and parse response
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                Log.Information("GetCaseListRequest {0}", xml);
                 System.Xml.Linq.XElement response = service.GetCaseList(xml);
                 Log.Information("GetCaseList Response:{0} ", response.ToString());
                 var caseTrackingId = response.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault();
@@ -471,6 +472,7 @@ namespace FilingHostService
                 // Execute request and parse response
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                Log.Information("GetCaseListRequest {0}", xml);
                 System.Xml.Linq.XElement response = service.GetCaseList(xml);
                 return response;
             }
