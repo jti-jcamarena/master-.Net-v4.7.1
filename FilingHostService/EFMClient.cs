@@ -478,6 +478,73 @@ namespace FilingHostService
             }
         }
 
+        public System.Xml.Linq.XElement GetCaseListByParty(AuthenticateResponseType user, string courtID, string firstname, string lastname)
+        {
+            String caseListReqXml = @"<CaseListQueryMessage xmlns='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseListQueryMessage-4.0' xmlns:j='http://niem.gov/niem/domains/jxdm/4.0' xmlns:nc='http://niem.gov/niem/niem-core/2.0' xmlns:ecf='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CaseListQueryMessage-4.0 ..\..\..\Schema\message\ECF-4.0-CaseListQueryMessage.xsd'>
+<ecf:SendingMDELocationID>
+<nc:IdentificationID>https://filingassemblymde.com</nc:IdentificationID>
+</ecf:SendingMDELocationID>
+<ecf:SendingMDEProfileCode>urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:WebServicesMessaging-2.0</ecf:SendingMDEProfileCode>
+<ecf:QuerySubmitter>
+<ecf:EntityPerson/>
+</ecf:QuerySubmitter>
+<j:CaseCourt>
+<nc:OrganizationIdentification>
+<nc:IdentificationID>harris:dc</nc:IdentificationID>
+</nc:OrganizationIdentification>
+</j:CaseCourt>
+<CaseListQueryCaseParticipant>
+<ecf:CaseParticipant>
+<ecf:EntityPerson>
+<nc:PersonName>
+<nc:PersonGivenName>Jose-test</nc:PersonGivenName>
+<nc:PersonMiddleName/>
+<nc:PersonSurName>Camarena-test</nc:PersonSurName>
+</nc:PersonName>
+</ecf:EntityPerson>
+<ecf:CaseParticipantRoleCode/>
+</ecf:CaseParticipant>
+</CaseListQueryCaseParticipant>
+</CaseListQueryMessage>
+";
+            Log.Information("GetCaseList 1");
+            // Update xml message with the appropriate values
+            XElement xml = XElement.Parse(caseListReqXml);
+            var ncNamespace = "http://niem.gov/niem/niem-core/2.0";
+            var jNamespace = "http://niem.gov/niem/domains/jxdm/4.0";
+            var caseCourt = xml.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", jNamespace, "CaseCourt"))?.FirstOrDefault();
+            var caseList = xml.Elements().Where(x => x.Name.LocalName.ToLower() == "caselistquerycase")?.FirstOrDefault();
+            var courtIDElement = caseCourt.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
+            var personName = xml.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "PersonName"));
+            var personGivenName = personName.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "PersonGivenName"))?.FirstOrDefault();
+            var personSurName = personName.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "PersonSurName"))?.FirstOrDefault();
+            //Log.Information("GetCaseList 2 person {0}: {1} {2}", personName, personGivenName, personSurName);
+            // Add search criteria fields
+            courtIDElement.Value = courtID;
+            personGivenName.Value = firstname;
+            personSurName.Value = lastname;
+            Log.Information("xml request {0}", xml);
+
+            
+            // Setup message header for getCaseList request
+            var service = this.CreateRecordService();
+            using (new OperationContextScope(service.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                // Execute request and parse response
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                Log.Information("GetCaseListRequest {0}", xml);
+                System.Xml.Linq.XElement response = service.GetCaseList(xml);
+                return response;
+            }
+        }
+
         public XElement GetPolicy(AuthenticateResponseType user, string courtLocation)
         {
             DateTime timestamp = DateTime.Now;

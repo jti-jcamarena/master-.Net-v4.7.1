@@ -492,6 +492,8 @@ namespace FilingHostService
                                 Log.Information("487: defendantFullName: {0}", defendantFullName);
 
                                 //TetCaseListTest
+                                //var getCaseListByPartyResponseTest = _client.GetCaseListByParty(userResponse, "dc:2nddor", "Michael", "Jordan");
+                                //Log.Information("getCaseListByPartyResponseTest {0}", getCaseListByPartyResponseTest);
                                 //var getCaseListResponseTest = _client.GetCaseList(userResponse, "dc:2nddor", "D-021-CV-22-007033");
                                 //Log.Information("getCaseListResponseTest {0}", getCaseListResponseTest);
                                 //GetCaseTest
