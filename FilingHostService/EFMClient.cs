@@ -799,7 +799,7 @@ namespace FilingHostService
                     }
                     catch (Exception ex)
                     {
-                        Log.Information("execption: {0}", ex.Message);
+                        Log.Information("exception: message:{0}; source:{1}; stacktrace:{2}", ex.Message, ex.Source, ex.StackTrace);
                         Log.Error(ex.Message + " for url " + urls[i]);
                     }
                 }

@@ -85,7 +85,7 @@ namespace FilingHostService
     {
         // Private Attributes
         private String _VERSION = "1.17";
-
+        
         private string _filingQueuePath;
         private string _filingFailedPath;
         private string _filingSuccessPath;
@@ -517,9 +517,10 @@ namespace FilingHostService
                                 Log.Information("filteredCriminalCaseResponse: {0}", filteredCriminalCaseResponse);
                                 //caseTitleText = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetitletext" && x.Value.EndsWith(defendantFullName))?.FirstOrDefault()?.Value ?? "";
                                 caseTitleText = filteredCriminalCaseResponse.Elements().Where(x => x.Name.LocalName.ToLower() == "casetitletext")?.FirstOrDefault()?.Value ?? "";
-                                Log.Information("Case Title Text {0}", caseTitleText);
-                                //string caseTrackingId = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value ?? "";
-                                string caseTrackingId = filteredCriminalCaseResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value ?? "";
+                                //Log.Information("Case Title Text {0}", caseTitleText);
+                                string caseTrackingId = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value ?? "";
+                                Log.Information("caseTrackingId: {0}", caseTrackingId);
+                                caseTrackingId = filteredCriminalCaseResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value ?? "";
                                 Log.Information("caseTrackingId {0} isNullOrEmpty: {1}", caseTrackingId, string.IsNullOrWhiteSpace(caseTrackingId));
                                 System.Xml.Linq.XElement getCaseResponse = _client.GetCase(userResponse, courtLocation, caseTrackingId, true);
                                 Log.Information("GetCase response: {0}", getCaseResponse);
