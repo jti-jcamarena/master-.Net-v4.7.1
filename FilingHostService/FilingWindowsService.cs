@@ -515,9 +515,9 @@ namespace FilingHostService
                                     filteredCriminalCaseResponse = getCaseListResponse.Descendants().Where((x, idx) => x.Name.LocalName.ToLower() == "criminalcase" || x.Name == "{urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CivilCase-4.0}CivilCase")?.FirstOrDefault()?.Parent;
                                 }
                                 Log.Information("filteredCriminalCaseResponse: {0}", filteredCriminalCaseResponse);
-                                //caseTitleText = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetitletext" && x.Value.EndsWith(defendantFullName))?.FirstOrDefault()?.Value ?? "";
-                                caseTitleText = filteredCriminalCaseResponse.Elements().Where(x => x.Name.LocalName.ToLower() == "casetitletext")?.FirstOrDefault()?.Value ?? "";
-                                //Log.Information("Case Title Text {0}", caseTitleText);
+                                caseTitleText = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetitletext" && x.Value.EndsWith(defendantFullName))?.FirstOrDefault()?.Value ?? "";
+                                //caseTitleText = filteredCriminalCaseResponse.Elements().Where(x => x.Name.LocalName.ToLower() == "casetitletext")?.FirstOrDefault()?.Value ?? "";
+                                Log.Information("Case Title Text {0}", caseTitleText);
                                 string caseTrackingId = getCaseListResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value ?? "";
                                 Log.Information("caseTrackingId: {0}", caseTrackingId);
                                 caseTrackingId = filteredCriminalCaseResponse.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault()?.Value ?? "";
@@ -1294,8 +1294,26 @@ namespace FilingHostService
             if (System.DateTime.Now.Hour == int.Parse(_hourToCheckCodes) && System.DateTime.Now.Minute >= int.Parse(_minutesFrom) && System.DateTime.Now.Minute <= int.Parse(_minutesTo))
             {
                 //Get new Tyler codes
+                _client.GetTylerLocationCodes();
+                string locationsText = System.IO.File.ReadAllText(string.Concat(ConfigurationManager.AppSettings.Get("CodeFolder")) + @"\locations.xml");
+                var xmlData = XElement.Parse(locationsText);
+                //Log.Information("xmlData {0}", xmlData);
+                var xmlLocationRows = xmlData.Descendants().Where(x => x.Name.LocalName == "Row" );
 
-                foreach (string courtLocation in _courtLocations)
+                //Log.Information("ROW {0}", xmlLocationRows);
+                List<string> allCourtLocations = new List<string>();
+                foreach( var xmlRow in xmlLocationRows)
+                {
+                    var simpleValue = xmlRow.Elements().Where(attr => attr.Attribute("ColumnRef")?.Value == "code")?.FirstOrDefault()?.Element("SimpleValue")?.Value ?? "";
+                    Log.Information("simpleValue {0}", simpleValue);
+                    if (!string.IsNullOrEmpty(simpleValue))
+                    {
+                        allCourtLocations.Add(simpleValue);
+                    }
+
+                }
+                
+                foreach (string courtLocation in allCourtLocations)
                 {
                     var courtId = courtLocation.Replace(System.Environment.NewLine, "").Trim();
                     var location = @"\" + courtLocation.Replace(":", "").Replace(System.Environment.NewLine, "").Trim();

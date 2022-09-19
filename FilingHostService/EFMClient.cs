@@ -737,6 +737,97 @@ namespace FilingHostService
             }
         }
 
+        public void GetTylerLocationCodes()
+        {
+            var zipFilePath = ConfigurationManager.AppSettings.Get("zipFile");
+            var folderPath = string.Concat(ConfigurationManager.AppSettings.Get("CodeFolder"));
+            Log.Information("Code Folder Path: {0}", folderPath);
+            var fileNames = new List<string>();
+            fileNames.Add("location");
+            var urls = new List<string>();
+            var zips = new List<string>();
+            var xmls = new List<string>();
+            Log.Information("For Loop: fileNames size {0} ", fileNames.Count);
+            foreach (string fileName in fileNames)
+            {
+                //Log.Information("Start Loop");
+                var url = ConfigurationManager.AppSettings.Get("CourtURL").Trim('\r', '\n') + fileName.ToLower().Trim('\r', '\n');
+                url.TrimEnd('\r', '\n');
+                url = String.Concat(url.Where(c => !Char.IsWhiteSpace(c)));
+                urls.Add(url);
+                var zipPath = zipFilePath.Trim('\r', '\n') + fileName.ToLower().Trim('\r', '\n') + ".zip";
+                zipPath.TrimEnd('\r', '\n');
+                zipPath = String.Concat(zipPath.Where(c => !Char.IsWhiteSpace(c)));
+                zips.Add(zipPath);
+                var codeFilePath = folderPath.Trim('\r', '\n') + "\\" + fileName.ToLower().Trim('\r', '\n') + "codes.xml";
+                codeFilePath.TrimEnd('\r', '\n');
+                codeFilePath = String.Concat(codeFilePath.Where(c => !Char.IsWhiteSpace(c)));
+                xmls.Add(codeFilePath);
+                //Log.Information("End Loop");
+            }
+            Log.Information("Encoding data");
+            var _data = Encoding.UTF8.GetBytes(DateTime.Now.ToString("o"));
+            Log.Information("ContentInfo");
+            ContentInfo _info = new ContentInfo(_data);
+            Log.Information("SignedCms");
+            SignedCms _cms = new SignedCms(_info, false);
+            CmsSigner _signer = new CmsSigner(this.MessageSigningCertificate);
+            Log.Information("CmsSigner {0}", _signer);
+            Log.Information("ComputeSignature");
+            try
+            {
+                _cms.ComputeSignature(_signer, false);
+            }
+            catch (Exception exsig)
+            {
+                Log.Information("Exception signing: {0}", exsig.Message);
+            }
+            Log.Information("Signed");
+            var _signed = _cms.Encode();
+            Log.Information("Convert b64String");
+            var _b64 = Convert.ToBase64String(_signed);
+            Log.Information("Web Client call");
+            using (WebClient _client = new WebClient())
+            {
+                _client.Headers["tyl-efm-api"] = _b64;
+                for (int i = 0; i < urls.Count; i++)
+                {
+                    Log.Information(urls[i]);
+                    Log.Information(zips[i]);
+                    try
+                    {
+                        Log.Information("Try block: downloading");
+                        _client.DownloadFile(urls[i], zips[i]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Information("exception: message:{0}; source:{1}; stacktrace:{2}", ex.Message, ex.Source, ex.StackTrace);
+                        Log.Error(ex.Message + " for url " + urls[i]);
+                    }
+                }
+            }
+            Log.Information("extracting zip files");
+            for (int i = 0; i < xmls.Count; i++)
+            {
+                // Download and extract zip file               
+                try
+                {
+                    if (File.Exists(xmls[i]))
+                    {
+                        Log.Information("deleting previous files from codes directory");
+                        File.Delete(xmls[i]);
+                    }
+                    Log.Information("zip found ready to extract");
+                    ZipFile.ExtractToDirectory(zips[i], folderPath);
+                    //File.Delete(zips[i]);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("exception: {0}-{1}", ex.Message, ex.InnerException);
+                }
+            }
+        }
+
         public void GetTylerCodes(string courtID)
         {
             var zipFilePath = ConfigurationManager.AppSettings.Get("zipFile");
