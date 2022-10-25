@@ -792,7 +792,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ESL_OdysseyRfService"
         "ProductCode" = "8:{12C90ED2-924A-4E32-A59A-0F745F222DE8}"
-        "PackageCode" = "8:{B7D8E67E-663B-4E52-B4CF-DD5E4CF1ECEA}"
+        "PackageCode" = "8:{F01CCC19-9D49-4252-819C-327026A73C8B}"
         "UpgradeCode" = "8:{3D803EAF-6920-4CA1-BBD3-B2483274ECDB}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

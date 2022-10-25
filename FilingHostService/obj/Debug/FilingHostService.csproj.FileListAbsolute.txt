@@ -138,7 +138,6 @@ C:\Users\jcamarena\Source\Repos\master\FilingHostService\bin\Debug\Serilog.xml
 C:\Users\jcamarena\Source\Repos\master\FilingHostService\bin\Debug\Serilog.Sinks.Console.xml
 C:\Users\jcamarena\Source\Repos\master\FilingHostService\bin\Debug\Serilog.Sinks.File.xml
 C:\Users\jcamarena\Source\Repos\master\FilingHostService\bin\Debug\Serilog.Sinks.RollingFile.xml
-C:\Users\jcamarena\Source\Repos\master\FilingHostService\obj\Debug\FilingHostService.csprojAssemblyReference.cache
 C:\Users\jcamarena\Source\Repos\master\FilingHostService\obj\Debug\FilingHostService.FilingWindowsService.resources
 C:\Users\jcamarena\Source\Repos\master\FilingHostService\obj\Debug\FilingHostService.ProjectInstaller.resources
 C:\Users\jcamarena\Source\Repos\master\FilingHostService\obj\Debug\FilingHostService.csproj.GenerateResource.cache
@@ -146,3 +145,4 @@ C:\Users\jcamarena\Source\Repos\master\FilingHostService\obj\Debug\FilingHostSer
 C:\Users\jcamarena\Source\Repos\master\FilingHostService\obj\Debug\FilingHostService.csproj.CopyComplete
 C:\Users\jcamarena\Source\Repos\master\FilingHostService\obj\Debug\FilingHostService.exe
 C:\Users\jcamarena\Source\Repos\master\FilingHostService\obj\Debug\FilingHostService.pdb
+C:\Users\jcamarena\Source\Repos\master\FilingHostService\obj\Debug\FilingHostService.csproj.AssemblyReference.cache

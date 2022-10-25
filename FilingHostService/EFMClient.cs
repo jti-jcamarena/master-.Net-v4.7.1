@@ -1109,6 +1109,7 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                Log.Information("GetFilingStatus Request {0}", xml);
                 var response = service.GetFilingStatus(xml);
                 return response;
             }
