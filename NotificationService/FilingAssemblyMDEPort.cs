@@ -45,7 +45,7 @@ namespace NotificationService
         {
             Log.Information("***"); // add gap between log entries
             Log.Information("NotifyFilingReviewComplete request: {0} ; message {1}", request, request.NotifyFilingReviewCompleteRequestMessage);
-            
+
             /*
               if (request.NotifyFilingReviewCompleteRequestMessage != null)
                 Log.Information(request.NotifyFilingReviewCompleteRequestMessage?.ToString());
@@ -54,7 +54,7 @@ namespace NotificationService
             // Process client response message and forward to ePros API service
             Log.Information("ProcessResponse(request.NotifyFilingReviewCompleteRequestMessage)");
 
-           new NotifyFilingReviewCompleteResponseObj().ProcessResponse(request.NotifyFilingReviewCompleteRequestMessage);
+            new NotifyFilingReviewCompleteResponseObj().ProcessResponse(request.NotifyFilingReviewCompleteRequestMessage);
             Log.Information(String.Format("NotifyFilingReviewComplete request complete"));
 
             // Setup/Return receipt response envelope back to client
@@ -145,7 +145,7 @@ namespace NotificationService
             try
             {
                 // Test for valid inbound message                    
-                if ( xml == null )
+                if (xml == null)
                     throw new Exception("NotifyFilingReviewComplete inbound xml empty");
 
                 Log.Information("Processing NotifyFilingReviewCompleteRequestMessage");
@@ -156,6 +156,7 @@ namespace NotificationService
                 XNamespace ecfNamespace = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0";
                 XNamespace jNamespace = "http://niem.gov/niem/domains/jxdm/4.0";
                 XNamespace crimNamespace = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0";
+                XNamespace tyler = "urn:tyler:ecf:extensions:Common";
                 Log.Information("XML NotifyFilingReviewCompleteRequestMessage namespaces end");
                 // Load all response xml fields into responseLog
                 String sExceptionFault = null;
@@ -165,22 +166,31 @@ namespace NotificationService
                                    select new FilingResponseObj
                                    {
                                        // Load response class attributes
-                                       //caseFilingDate = el?.Element(ncNamespace + "DocumentFiledDate")?.Element(ncNamespace + "DateTime").Value ?? "",
-                                       caseFilingDate = el?.Element(ncNamespace + "DocumentFiledDate")?.Element(ncNamespace + "DateRepresentation")?.Value ?? "",
+                                       caseFilingDate = el?.Element(ncNamespace + "DocumentFiledDate")?.Element(ncNamespace + "DateTime").Value ?? "",
+                                       //caseFilingDate = el?.Element(ncNamespace + "DocumentFiledDate")?.Element(ncNamespace + "DateRepresentation")?.Value ?? "",
                                        // Search for caseFilingID if DocumentIdentification elements > 1 then "FILINGID" will follow else if single DocumentIdentification no "FILINGID",
                                        // so handle both conditional types.
                                        caseFilingId = el?.Elements(ncNamespace + "DocumentIdentification")?.Where(x => (string)x?.Element(ncNamespace + "IdentificationCategoryText") == "FILINGID")?.
                                                                    Select(x => (string)x.Element(ncNamespace + "IdentificationID"))?.FirstOrDefault() ??
                                                                    el?.Element(ncNamespace + "DocumentIdentification")?.Element(ncNamespace + "IdentificationID")?.Value ?? "",
                                        filingEnvelopeId = el?.Elements(ncNamespace + "DocumentIdentification")?.Where(x => (string)x?.Element(ncNamespace + "IdentificationCategoryText") == "ENVELOPEID")?.Select(x => (string)x?.Element(ncNamespace + "IdentificationID"))?.FirstOrDefault() ?? "",
-                                       filingCaseTitleText = el?.Element(@"{urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CriminalCase-4.0}CriminalCase")?.Element(@"{http://niem.gov/niem/niem-core/2.0}CaseTitleText")?.Value ?? "",
+                                       filingCaseTitleText = el?.Element(crimNamespace + "CriminalCase")?.Element(ncNamespace + "CaseTitleText")?.Value ?? "",
                                        organizationId = el?.Element(crimNamespace + "CriminalCase")?.Element(jNamespace + "CaseAugmentation")?.Element(jNamespace + "CaseCourt")
                                                           ?.Element(ncNamespace + "OrganizationIdentification")?.Element(ncNamespace + "IdentificationID")?.Value ?? "",
                                        caseTrackingId = el?.Element(crimNamespace + "CriminalCase")?.Element(ncNamespace + "CaseTrackingID")?.Value ?? "",
                                        caseDocketId = el?.Element(crimNamespace + "CriminalCase")?.Element(ncNamespace + "CaseDocketID")?.Value ?? "",
                                        filingStatusText = el?.Element(ecfNamespace + "FilingStatus")?.Element(ncNamespace + "StatusDescriptionText")?.Value ?? "",
-                                       filingStatusCode = el?.Element(ecfNamespace + "FilingStatus")?.Element(ecfNamespace + "FilingStatusCode")?.Value ?? ""
-                                       
+                                       filingStatusCode = el?.Element(ecfNamespace + "FilingStatus")?.Element(ecfNamespace + "FilingStatusCode")?.Value ?? "",
+                                       filingReviewCommentsText = el?.Element(tyler + "ReviewedLeadDocument")?.Element(tyler + "FilingReviewCommentsText")?.Value ?? "",
+                                       documentReviewDate = el?.Element(tyler + "ReviewedLeadDocument")?.Element(tyler + "DocumentReviewDate")?.Element(ncNamespace + "DateTime")?.Value ?? "",
+                                       documentReviewerGivenName = el?.Element(tyler + "ReviewedLeadDocument")?.Element(tyler + "DocumentReviewer")?.Element(ecfNamespace + "EntityPerson")?.Element(ncNamespace + "PersonName")?.Element(ncNamespace + "PersonGivenName")?.Value ?? "",
+                                       documentReviewerSurName = el?.Element(tyler + "ReviewedLeadDocument")?.Element(tyler + "DocumentReviewer")?.Element(ecfNamespace + "EntityPerson")?.Element(ncNamespace + "PersonName")?.Element(ncNamespace + "PersonSurName")?.Value ?? "",
+                                       documentDescriptionText = el?.Element(tyler + "ReviewedLeadDocument")?.Element(ncNamespace + "DocumentDescriptionText")?.Value ?? "",
+                                       documentFileControlID = el?.Element(tyler + "ReviewedLeadDocument")?.Element(ncNamespace + "DocumentFileControlID")?.Value ?? "",
+                                       caseCategoryText = el?.Element(crimNamespace + "CriminalCase")?.Element(ncNamespace + "CaseCategoryText")?.Value ?? "",
+                                       caseTrackingIdHash = el?.Element(crimNamespace + "CriminalCase")?.Element(jNamespace + "CaseAugmentation")?.Element(jNamespace + "CaseLineageCase")?.Element(ncNamespace + "CaseTrackingID")?.Value ?? "",
+                                       organizationIdentification = el?.Element(crimNamespace + "CriminalCase")?.Element(jNamespace + "CaseAugmentation")?.Element(jNamespace + "CaseCourt")?.Element(ncNamespace + "OrganizationIdentification")?.Element(ncNamespace + "IdentificationID")?.Value ?? ""
+
                                    })?.FirstOrDefault();
                 Log.Information("responseObj null check");
                 Log.Information("responseObj.caseFilingDate {0}", responseObj?.caseFilingDate);
@@ -190,6 +200,15 @@ namespace NotificationService
                 Log.Information("responseObj.caseDocketId {0}", responseObj?.caseDocketId);
                 Log.Information("responseObj.filingStatusText {0}", responseObj?.filingStatusText);
                 Log.Information("responseObj.filingStatusCode {0}", responseObj?.filingStatusCode);
+                Log.Information("responseObj.filingReviewCommentsText {0}", responseObj?.filingReviewCommentsText);
+                Log.Information("responseObj.documentReviewDate {0}", responseObj?.documentReviewDate);
+                Log.Information("responseObj.documentReviewer {0} {1}", responseObj?.documentReviewerGivenName, responseObj?.documentReviewerSurName);
+                Log.Information("responseObj.documentDescriptionText {0}", responseObj?.documentDescriptionText);
+                Log.Information("responseObj.documentFileControlID {0}", responseObj?.documentFileControlID);
+                Log.Information("responseObj.caseCategoryText {0}", responseObj?.caseCategoryText);
+                Log.Information("responseObj.filingCaseTitleText {0}", responseObj?.filingCaseTitleText);
+                Log.Information("responseObj.caseTrackingIdHash {0}", responseObj?.caseTrackingIdHash);
+                Log.Information("responseObj.organizationIdentification {0}", responseObj?.organizationIdentification);
                 if (responseObj != null) // invalid object?
                     responseObj.reviewFilingResponse = false; // indicate async/notification type response message
                 else
@@ -278,7 +297,8 @@ namespace NotificationService
                     {
                         Log.Information(cIntResp.ToString());
                         bRetVal = true;
-                    } else // error!
+                    }
+                    else // error!
                         Log.Error(cIntResp.ToString());
                     Log.Information("Complete");
                 }
@@ -302,7 +322,8 @@ namespace NotificationService
                             messageId = String.Format(@"{0}-Notify", archiveFileDocketId);
                         WriteFile(path, messageId, data.ToString(), true);
                     }
-                } else
+                }
+                else
                     Log.Error("Inbound xml message empty, notify message not saved");
             }
 
@@ -368,6 +389,15 @@ namespace NotificationService
         public String organizationId { get; set; }
         public String filingStatusText { get; set; }
         public String filingStatusCode { get; set; }
+        public String filingReviewCommentsText { get; set; }
+        public String documentReviewDate { get; set; }
+        public String documentReviewerGivenName { get; set; }
+        public String documentReviewerSurName { get; set; }
+        public String documentDescriptionText { get; set; }
+        public String documentFileControlID { get; set; }
+        public String caseCategoryText { get; set; }
+        public String caseTrackingIdHash { get; set; }
+        public String organizationIdentification { get; set; }
         public String filingCaseTitleText { get; set; }
         public String filingEnvelopeId { get; set; }
         public List<FilingRespError> statusErrorList { get; set; }
@@ -389,6 +419,15 @@ namespace NotificationService
             organizationId = "";
             filingStatusText = "";
             filingStatusCode = "";
+            filingReviewCommentsText = "";
+            documentReviewDate = "";
+            documentReviewerGivenName = "";
+            documentReviewerSurName = "";
+            documentDescriptionText = "";
+            documentFileControlID = "";
+            caseCategoryText = "";
+            caseTrackingIdHash = "";
+            organizationIdentification = "";
             filingCaseTitleText = "";
             filingEnvelopeId = "";
             exception = "";
@@ -411,6 +450,6 @@ namespace NotificationService
         public String statusCode { get; set; }
         public String statusText { get; set; }
     }
-    
+
     #endregion
 }
