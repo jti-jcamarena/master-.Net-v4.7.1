@@ -228,7 +228,7 @@ namespace FilingHostService
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
                 EFMFirmService.CreateServiceContactRequestType createServiceContactRequestType = new EFMFirmService.CreateServiceContactRequestType();
                 EFMFirmService.ServiceContactType serviceContactType = new EFMFirmService.ServiceContactType();
-                EFMFirmService.AddressType addressType = new EFMFirmService.AddressType();
+                
                 serviceContactType.FirstName = firstName;
                 serviceContactType.MiddleName = middleName;
                 serviceContactType.LastName = lastName;
@@ -238,13 +238,16 @@ namespace FilingHostService
                 serviceContactType.Email = email;
                 serviceContactType.AdministrativeCopy = adminCopy;
                 serviceContactType.FirmID = firmID;
-                addressType.AddressLine1 = address1;
-                addressType.AddressLine2 = address2;
-                addressType.City = city;
-                addressType.ZipCode = zipCode;
-                addressType.State = state;
-                addressType.Country = "US";
-                serviceContactType.Address = addressType;
+                if (!string.IsNullOrEmpty(address1) && !string.IsNullOrEmpty(city) && !string.IsNullOrEmpty(zipCode) && !string.IsNullOrEmpty(state)) {
+                    EFMFirmService.AddressType addressType = new EFMFirmService.AddressType();
+                    addressType.AddressLine1 = address1;
+                    addressType.AddressLine2 = address2;
+                    addressType.City = city;
+                    addressType.ZipCode = zipCode;
+                    addressType.State = state;
+                    addressType.Country = "US";
+                    serviceContactType.Address = addressType;
+                }
                 createServiceContactRequestType.ServiceContact = serviceContactType;
                 var responseSvcContact = firmService.CreateServiceContact(createServiceContactRequestType);
                 String response;
