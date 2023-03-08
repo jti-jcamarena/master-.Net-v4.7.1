@@ -83,6 +83,100 @@ namespace FilingHostService
             }
         }
 
+        public EFMFirmService.UpdateUserResponseType UpdateUser(AuthenticateResponseType authUser, EFMFirmService.UserType user, String firstName, String middleName, String lastName, String email)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = authUser.Email,
+                    Password = authUser.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                EFMFirmService.UpdateUserRequestType updateUserRequest = new EFMFirmService.UpdateUserRequestType();
+                updateUserRequest.User = user;
+                user.FirstName = firstName;
+                user.MiddleName = middleName;
+                user.LastName = lastName;
+                user.Email = email;
+                
+                EFMFirmService.UpdateUserResponseType response = firmService.UpdateUser(updateUserRequest);
+                
+                return response;
+            }
+        }
+
+        public EFMFirmService.ResetPasswordResponseType ResetUserPassword(AuthenticateResponseType authUser, string userId, string email, string password)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = authUser.Email,
+                    Password = authUser.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                EFMFirmService.ResetUserPasswordRequestType request = new EFMFirmService.ResetUserPasswordRequestType();
+                request.UserID = userId;
+                request.Email = email;
+                request.Password = password;
+
+                EFMFirmService.ResetPasswordResponseType response = firmService.ResetUserPassword(request);
+
+                return response;
+            }
+        }
+
+        public EFMFirmService.BaseResponseType AddUserRole(AuthenticateResponseType authUser, string userId, EFMFirmService.RoleType role, string location)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = authUser.Email,
+                    Password = authUser.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                
+                EFMFirmService.AddUserRoleRequestType request = new EFMFirmService.AddUserRoleRequestType();
+                request.UserID = userId;
+                request.Location = location;
+                request.Role = role;
+                EFMFirmService.BaseResponseType response = firmService.AddUserRole(request);
+
+                return response;
+            }
+        }
+
+        public System.Threading.Tasks.Task<EFMFirmService.UserListResponseType> GetUserListAsync(AuthenticateResponseType user)
+        {
+            var firmService = this.CreateFirmService();
+            using (new OperationContextScope(firmService.InnerChannel))
+            {
+                var userInfo = new UserInfo()
+                {
+                    UserName = user.Email,
+                    Password = user.PasswordHash
+                };
+
+                var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+                Log.Information("99: GetUserList 1");
+                var response = firmService.GetUserListAsync();
+                Log.Information("101: GetUserList 2");
+                return response;
+            }
+        }
+
         public EFMFirmService.GetUserResponseType GetFirmUser(AuthenticateResponseType user)
         {
             var firmService = this.CreateFirmService();
@@ -845,6 +939,7 @@ namespace FilingHostService
             {
                 //Log.Information("Start Loop");
                 var url = ConfigurationManager.AppSettings.Get("CourtURL").Trim('\r', '\n') + fileName.ToLower().Trim('\r', '\n') + "/" + courtID;
+                
                 url.TrimEnd('\r', '\n');
                 url = String.Concat(url.Where(c => !Char.IsWhiteSpace(c)));
                 urls.Add(url);
