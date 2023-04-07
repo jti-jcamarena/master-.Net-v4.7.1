@@ -55,7 +55,7 @@ namespace FilingHostService
             EfmUserServiceClient userService = this.CreateUserService();
             Log.Information("AuthenticateUser 2");
             userService.Open();
-            Log.Information("AuthenticateUser 3");
+            Log.Information($"AuthenticateUser 3");
             AuthenticateResponseType response = userService.AuthenticateUser(request);
             Log.Information("AuthenticateUser 4");
             userService.Close();
