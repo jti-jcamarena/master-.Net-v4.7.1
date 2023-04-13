@@ -13,12 +13,15 @@ using System.Xml.Linq;
 namespace NotificationService
 {
     // Odyssey File & Serve Mtom streaming notification contract
-    [ServiceContract(Name = "FilingAssemblyMDEPort", Namespace = "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0")]
+    //[ServiceContract(Name = "FilingAssemblyMDEPort", Namespace = "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0")]
+    [ServiceContract(Name = "FilingAssemblyMDEPort", Namespace = "https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0WSDL/FilingAssemblyMDE")]
     public interface IFilingAssemblyMDEPort
     {
         // Interface operation contract to Odyssey File & Serve Mtom streaming notification contracts
-        [OperationContract(ReplyAction = "*", Action = "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0/FilingAssemblyMDEPort/NotifyFilingReviewCompleteRequest")]
+        //[OperationContract(ReplyAction = "*", Action = "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0/FilingAssemblyMDEPort/NotifyFilingReviewCompleteRequest")]
+        /*[OperationContract(ReplyAction = "*", Action = "https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0WSDL/FilingAssemblyMDE/NotifyFilingReviewComplete")]
         NotifyFilingReviewCompleteResponse NotifyFilingReviewComplete(NotifyFilingReviewCompleteRequest request);
+        */
     }
 
 }

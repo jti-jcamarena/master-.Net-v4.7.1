@@ -22,15 +22,18 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using NotificationService.FilingAssemblyMDE5;
 
 namespace NotificationService
 {
     [ServiceBehavior(Namespace = "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServiceMessagingProfile-Definitions-4.0")]
+    //[ServiceBehavior(Namespace = "https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0WSDL/FilingAssemblyMDE")]
     public class FilingAssemblyMDEPort : IFilingAssemblyMDEPort
     {
         // 
         // Constructor
         //
+        //NotifyFilingReviewCompleteResponse
         public FilingAssemblyMDEPort()
         {
         }
@@ -43,32 +46,38 @@ namespace NotificationService
         /// <returns></returns>
         public NotifyFilingReviewCompleteResponse NotifyFilingReviewComplete(NotifyFilingReviewCompleteRequest request)
         {
-            Log.Information("***"); // add gap between log entries
-            Log.Information("NotifyFilingReviewComplete request: {0} ; message {1}", request, request.NotifyFilingReviewCompleteRequestMessage);
-
-            /*
-              if (request.NotifyFilingReviewCompleteRequestMessage != null)
-                Log.Information(request.NotifyFilingReviewCompleteRequestMessage?.ToString());
-            */
-
-            // Process client response message and forward to ePros API service
-            Log.Information("ProcessResponse(request.NotifyFilingReviewCompleteRequestMessage)");
-
-            new NotifyFilingReviewCompleteResponseObj().ProcessResponse(request.NotifyFilingReviewCompleteRequestMessage);
-            Log.Information(String.Format("NotifyFilingReviewComplete request complete"));
-
-            // Setup/Return receipt response envelope back to client
-            return new NotifyFilingReviewCompleteResponse()
-            {
-                MessageReceiptMessage = this.GetResponse()
-            };
+            return new NotifyFilingReviewCompleteResponse();
         }
+            /*
+            public NotifyFilingReviewCompleteResponse NotifyFilingReviewComplete(NotifyFilingReviewCompleteRequest request)
+            {
+                Log.Information("***ecf5.0***"); // add gap between log entries
+                Log.Information("***NotifyFilingReviewComplete request: {0} ; message {1}", request, request.NotifyFilingReviewCompleteRequest1);
+                //Log.Information("***NotifyFilingReviewComplete request: {0} ; message {1}", request, request.NotifyFilingReviewCompleteRequest1);
 
-        /// <summary>
-        /// Returns response xml
-        /// </summary>
-        /// <returns>response xml</returns>
-        private XElement GetResponse()
+                  //if (request.NotifyFilingReviewCompleteRequestMessage != null)
+                    //Log.Information(request.NotifyFilingReviewCompleteRequestMessage?.ToString());
+
+
+                // Process client response message and forward to ePros API service
+                Log.Information("ProcessResponse(request.NotifyFilingReviewCompleteRequestMessage)");
+
+                new NotifyFilingReviewCompleteResponseObj().ProcessResponse(request.NotifyFilingReviewCompleteRequestMessage);
+
+                Log.Information(String.Format("NotifyFilingReviewComplete request complete"));
+
+                // Setup/Return receipt response envelope back to client
+                return new NotifyFilingReviewCompleteResponse()
+                {
+                    MessageReceiptMessage = this.GetResponse()
+                };
+            }
+        */
+            /// <summary>
+            /// Returns response xml
+            /// </summary>
+            /// <returns>response xml</returns>
+            private XElement GetResponse()
         {
             try
             {
@@ -82,9 +91,9 @@ namespace NotificationService
             return null;
         }
     }
-
+    /*
     #region FilingAssemblyMDEPortMessageContracts
-
+    
     /// <summary>
     /// Message contract parameter for requests
     /// </summary>
@@ -93,14 +102,15 @@ namespace NotificationService
     [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
     public partial class NotifyFilingReviewCompleteRequest
     {
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", Order = 0)]
+        //[System.ServiceModel.MessageBodyMemberAttribute(Namespace = "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", Order = 0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0WSDL/FilingAssemblyMDE", Order = 0)]
         public XElement NotifyFilingReviewCompleteRequestMessage { get; set; }
 
         public NotifyFilingReviewCompleteRequest()
         {
         }
     }
-
+    
     /// <summary>
     /// Message contract parameter for responses
     /// </summary>
@@ -109,7 +119,8 @@ namespace NotificationService
     [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
     public partial class NotifyFilingReviewCompleteResponse
     {
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:MessageReceiptMessage-4.0", Order = 0)]
+        //[System.ServiceModel.MessageBodyMemberAttribute(Namespace = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:MessageReceiptMessage-4.0", Order = 0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "https://docs.oasis-open.org/legalxml-courtfiling/ns/v5.0WSDL/FilingAssemblyMDE", Order = 0)]
         public XElement MessageReceiptMessage;
 
         public NotifyFilingReviewCompleteResponse()
@@ -118,7 +129,7 @@ namespace NotificationService
     }
 
     #endregion
-
+    */
     #region FilingReviewObjects
 
     /// <summary>
@@ -139,6 +150,7 @@ namespace NotificationService
         //
         public Boolean ProcessResponse(XElement xml)
         {
+            Log.Information("***ProcessResponse(xml)***");
             Boolean bRetVal = false;
 
             String archiveFileDocketId = null;

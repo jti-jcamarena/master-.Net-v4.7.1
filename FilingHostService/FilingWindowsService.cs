@@ -121,7 +121,9 @@ namespace FilingHostService
             try
             {
                 Log.Information(String.Format(@"eSeries Odyssey Review Filing Service - V{0}", _VERSION));
-                _cHost = new ServiceHost(typeof(NotificationService.FilingAssemblyMDEPort));
+                //_cHost = new ServiceHost(typeof(NotificationService.FilingAssemblyMDEPort));
+                _cHost = new ServiceHost(typeof(NotificationService.FilingAssemblyMDE5.FilingAssemblyMDEImpl));
+                
                 //Log.Information("_cHost.Description {0}", _cHost.Description);
                 _cHost.Faulted += Host_Faulted;
                 _cHost.Open();

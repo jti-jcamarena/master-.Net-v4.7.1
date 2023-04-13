@@ -75,11 +75,35 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\FilingAssemblyMDE5\configuration91.svcinfo" />
+    <None Include="Connected Services\FilingAssemblyMDE5\configuration.svcinfo" />
+    <Content Include="Connected Services\FilingAssemblyMDE5\NotificationService.FilingAssemblyMDE5.NotifyCourtDateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FilingAssemblyMDE5\NotificationService.FilingAssemblyMDE5.NotifyCourtDateResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FilingAssemblyMDE5\NotificationService.FilingAssemblyMDE5.NotifyFilingReviewCompleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FilingAssemblyMDE5\NotificationService.FilingAssemblyMDE5.NotifyFilingReviewCompleteResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\FilingAssemblyMDE5\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="FilingAssemblyMDEService.svc" />
     <EmbeddedResource Include="MessageReceipt.xml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\FilingAssemblyMDE5\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="FilingAssemblyMDEImpl.cs" />
     <Compile Include="FilingAssemblyMDEPort.cs" />
     <Compile Include="IFilingAssemblyMDEPort.cs" />
     <Compile Include="MessageInspector.cs" />
@@ -90,6 +114,199 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\FilingAssemblyMDE5\aamva_d20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\allocatedate.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\biom.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\cancel.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\caselistrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\caselistresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\caserequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\caseresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\cbrn.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\cbrncl.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\CCTS_CCT_SchemaModule-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\datecallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\docket.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\docketcallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\documentrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\documentresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\ecf.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\fbi_ncic.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\fbi_ucr.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\feesrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\feesresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\filing.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\FilingAssemblyMDE.wsdl" />
+    <None Include="Connected Services\FilingAssemblyMDE5\filinglistrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\filinglistresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\filingstatusrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\filingstatusresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iCalendar-availability-extension.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iCalendar-bw-extensions.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iCalendar-link-extension.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iCalendar-ms-extensions.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iCalendar-params.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iCalendar-props.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iCalendar-valtypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iCalendar-wscal-extensions.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iCalendar.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iso_3166.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iso_4217.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\iso_639-3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\jxdm.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\mmucc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\niem-core.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\payment.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\policyrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\policyresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\requestdaterequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\requestdateresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\reservedate.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\reviewfilingcallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\schedulerequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\scheduleresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\serviceinformationrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\serviceinformationresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\stampinformation.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\stampinformationcallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\structures.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\UBL-CommonAggregateComponents-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\UBL-CommonBasicComponents-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\UBL-QualifiedDataTypes-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\UBL-UnqualifiedDataTypes-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\unece_rec20-misc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\usps_states.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\wrappers.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDE5\xs.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -102,6 +319,12 @@
       <Project>{aaadb8ec-c9b3-4d94-bece-1e2d8c5284d1}</Project>
       <Name>eRest</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\FilingAssemblyMDE5\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
