@@ -75,12 +75,36 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\FilingAssemblyMDESvc\configuration91.svcinfo" />
+    <None Include="Connected Services\FilingAssemblyMDESvc\configuration.svcinfo" />
+    <Content Include="Connected Services\FilingAssemblyMDESvc\NotificationService.FilingAssemblyMDESvc.NotifyCourtDateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FilingAssemblyMDESvc\NotificationService.FilingAssemblyMDESvc.NotifyCourtDateResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FilingAssemblyMDESvc\NotificationService.FilingAssemblyMDESvc.NotifyFilingReviewCompleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\FilingAssemblyMDESvc\NotificationService.FilingAssemblyMDESvc.NotifyFilingReviewCompleteResponseType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\FilingAssemblyMDESvc\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="FilingAssemblyMDEService.svc" />
     <EmbeddedResource Include="MessageReceipt.xml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\FilingAssemblyMDESvc\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="FilingAssemblyMDEPort.cs" />
+    <Compile Include="FilingAssemblyMDESvc_Impl.cs" />
     <Compile Include="IFilingAssemblyMDEPort.cs" />
     <Compile Include="MessageInspector.cs" />
     <Compile Include="MessageInspectorBehaviorExtension.cs" />
@@ -90,6 +114,224 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\FilingAssemblyMDESvc\aamva_d20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\allocatedate.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\biom.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\cancel.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\caselistrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\caselistresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\caserequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\caseresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\cbrn.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\cbrncl.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\CCTS_CCT_SchemaModule-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\CCTS_CCT_SchemaModule-21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\common.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\datecallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\docket.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\docketcallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\documentrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\documentresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\ecf.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\fbi_ncic.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\fbi_ucr.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\feesrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\feesresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\filing.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\FilingAssemblyMDE.wsdl" />
+    <None Include="Connected Services\FilingAssemblyMDESvc\FilingAssemblyMDEService.wsdl" />
+    <None Include="Connected Services\FilingAssemblyMDESvc\filinglistrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\filinglistresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\filingstatusrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\filingstatusresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iCalendar-availability-extension.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iCalendar-bw-extensions.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iCalendar-link-extension.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iCalendar-ms-extensions.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iCalendar-params.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iCalendar-props.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iCalendar-valtypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iCalendar-wscal-extensions.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iCalendar.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iso_3166.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iso_4217.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\iso_639-3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\jxdm.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\mmucc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\niem-core.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\payment.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\policyrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\policyresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\recordreceipt.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\requestdaterequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\requestdateresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\reservedate.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\returndaterequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\reviewfilingcallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\schedulerequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\scheduleresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\serviceinformationrequest.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\serviceinformationresponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\stampinformation.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\stampinformationcallback.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\structures.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\UBL-CommonAggregateComponents-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\UBL-CommonAggregateComponents-21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\UBL-CommonBasicComponents-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\UBL-CommonBasicComponents-21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\UBL-QualifiedDataTypes-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\UBL-QualifiedDataTypes-21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\UBL-UnqualifiedDataTypes-2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\UBL-UnqualifiedDataTypes-21.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\unece_rec20-misc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\usps_states.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\wrappers.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\xmldsig-core-schema.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\FilingAssemblyMDESvc\xs.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -102,6 +344,12 @@
       <Project>{aaadb8ec-c9b3-4d94-bece-1e2d8c5284d1}</Project>
       <Name>eRest</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\FilingAssemblyMDESvc\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
