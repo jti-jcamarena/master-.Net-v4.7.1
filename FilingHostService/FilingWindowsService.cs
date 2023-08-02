@@ -595,7 +595,7 @@ namespace FilingHostService
                                 {
                                     //caseResponse = getCaseListResponse.Elements().Where(x => x.Name.LocalName.ToLower() == "criminalcase" || x.Name == "{urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CivilCase-4.0}CivilCase");
                                     //filteredCriminalCaseResponse = caseResponse?.FirstOrDefault()?.Parent;
-                                    throw new InvalidOperationException("Unable to match defendant case");
+                                    throw new Exception("Unable to match defendant case");
                                 }
                                 Log.Information("caseResponse {0}; filteredCaseResponse:{1}", caseResponse, filteredCriminalCaseResponse);
                                 //filteredCriminalCaseResponse = caseResponse.Descendants().Where((x, idx) => x.Value.EndsWith(defendantFullName))?.FirstOrDefault()?.Parent;
