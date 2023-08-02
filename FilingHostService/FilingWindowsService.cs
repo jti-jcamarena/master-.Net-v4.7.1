@@ -251,6 +251,10 @@ namespace FilingHostService
                                         let filerLastName = children.Where(c => c.Name.LocalName.ToLower() == "filerlastname").FirstOrDefault()
                                         let filerEmail = children.Where(c => c.Name.LocalName.ToLower() == "fileremail").FirstOrDefault()
                                         let filerPassword = children.Where(c => c.Name.LocalName.ToLower() == "filerpassword").FirstOrDefault()
+                                        let defendantLastName = children.Where(c => c.Name.LocalName.ToLower() == "defendantlastname").FirstOrDefault()
+                                        let defendantFirstName = children.Where(c => c.Name.LocalName.ToLower() == "defendantfirstname").FirstOrDefault()
+                                        let defendantMiddleName = children.Where(c => c.Name.LocalName.ToLower() == "defendantmiddlename").FirstOrDefault()
+                                        let defendantCaseTrackingID = children.Where(c => c.Name.LocalName.ToLower() == "defendantcasetrackingid").FirstOrDefault()
                                         select new
                                         {
                                             element = el,
@@ -268,6 +272,10 @@ namespace FilingHostService
                                             filerLastName = filerLastName?.Value,
                                             filerEmail = filerEmail?.Value,
                                             filerPassword = filerPassword?.Value,
+                                            defendantLastName = defendantLastName?.Value,
+                                            defendantFirstName = defendantFirstName?.Value,
+                                            defendantMiddleName = defendantMiddleName?.Value,
+                                            defendantCaseTrackingID = defendantCaseTrackingID?.Value,
                                             missingStatutes = chargeSequences?
                                                     .Select(x => new StatuteCode()
                                                     {
@@ -574,13 +582,20 @@ namespace FilingHostService
                                 XElement filteredCriminalCaseResponse;
                                 if (!string.IsNullOrEmpty(eProsCfg.caseTitle))
                                 {
-                                    caseResponse = getCaseListResponse.Descendants().Where(x => x.Name.LocalName == "CaseTitleText" && x.Value == eProsCfg.caseTitle);
+                                    Log.Information($"defendant first:{eProsCfg.defendantFirstName} middle:{eProsCfg.defendantMiddleName} last:{eProsCfg.defendantLastName}");
+                                    Log.Information($"defendantCaseTrackingId:{eProsCfg.defendantCaseTrackingID}");
+                                    caseResponse = getCaseListResponse.Descendants().Where(x =>
+                                    x.Name.LocalName == "CaseTitleText" && x.Value == eProsCfg.caseTitle ||
+                                    x.Name.LocalName == "CaseTrackingID" && x.Value.Equals(eProsCfg.defendantCaseTrackingID) ||
+                                    x.Name.LocalName == "CaseTitleText" && x.Value.Contains(eProsCfg.defendantLastName) && x.Value.Contains(eProsCfg.defendantFirstName) 
+                                    );
                                     filteredCriminalCaseResponse = caseResponse?.FirstOrDefault()?.Parent;
                                 }
                                 else
                                 {
-                                    caseResponse = getCaseListResponse.Elements().Where(x => x.Name.LocalName.ToLower() == "criminalcase" || x.Name == "{urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CivilCase-4.0}CivilCase");
-                                    filteredCriminalCaseResponse = caseResponse?.FirstOrDefault()?.Parent;
+                                    //caseResponse = getCaseListResponse.Elements().Where(x => x.Name.LocalName.ToLower() == "criminalcase" || x.Name == "{urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CivilCase-4.0}CivilCase");
+                                    //filteredCriminalCaseResponse = caseResponse?.FirstOrDefault()?.Parent;
+                                    throw new InvalidOperationException("Unable to match defendant case");
                                 }
                                 Log.Information("caseResponse {0}; filteredCaseResponse:{1}", caseResponse, filteredCriminalCaseResponse);
                                 //filteredCriminalCaseResponse = caseResponse.Descendants().Where((x, idx) => x.Value.EndsWith(defendantFullName))?.FirstOrDefault()?.Parent;
