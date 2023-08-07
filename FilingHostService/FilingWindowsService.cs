@@ -165,6 +165,7 @@ namespace FilingHostService
                     
                     var userResponse = _client.AuthenticateUser(request);
                     AuthenticateResponseType authFilingUserResponse = new AuthenticateResponseType();
+                    AuthenticateResponseType authDefaultFilingUserResponse = new AuthenticateResponseType();
                     String authenticatedFilingUser = "";
 
                     if (userResponse.Error != null && userResponse.Error.ErrorCode != "0")
@@ -232,6 +233,8 @@ namespace FilingHostService
                                         let filerLastName = children.Where(c => c.Name.LocalName.ToLower() == "filerlastname").FirstOrDefault()
                                         let filerEmail = children.Where(c => c.Name.LocalName.ToLower() == "fileremail").FirstOrDefault()
                                         let filerPassword = children.Where(c => c.Name.LocalName.ToLower() == "filerpassword").FirstOrDefault()
+                                        let defaultFilerEmail = children.Where(c => c.Name.LocalName.ToLower() == "defaultfileremail").FirstOrDefault()
+                                        let defaultFilerPassword = children.Where(c => c.Name.LocalName.ToLower() == "defaultfilerpassword").FirstOrDefault()
                                         let defendantLastName = children.Where(c => c.Name.LocalName.ToLower() == "defendantlastname").FirstOrDefault()
                                         let defendantFirstName = children.Where(c => c.Name.LocalName.ToLower() == "defendantfirstname").FirstOrDefault()
                                         let defendantMiddleName = children.Where(c => c.Name.LocalName.ToLower() == "defendantmiddlename").FirstOrDefault()
@@ -253,6 +256,8 @@ namespace FilingHostService
                                             filerLastName = filerLastName?.Value,
                                             filerEmail = filerEmail?.Value,
                                             filerPassword = filerPassword?.Value,
+                                            defaultFilerEmail = defaultFilerEmail?.Value,
+                                            defaultFilerPassword = defaultFilerPassword?.Value,
                                             defendantLastName = defendantLastName?.Value,
                                             defendantFirstName = defendantFirstName?.Value,
                                             defendantMiddleName = defendantMiddleName?.Value,
@@ -281,9 +286,11 @@ namespace FilingHostService
                             courtLocation = eProsCfg.caseCourtLocation;
                             
                             Log.Information($"Authenticating filerFirstName:{eProsCfg.filerFirstName} filerLastName:{eProsCfg.filerLastName}");
+                            Log.Information($"Authenticating defaultFilerEmail:{eProsCfg.defaultFilerEmail}");
+                            
                             /**************************FilingUser********************************/
-                            if (true == true) {
-                                if (!string.IsNullOrEmpty(eProsCfg.filerEmail) && !string.IsNullOrEmpty(eProsCfg.filerPassword))
+
+                            if (!string.IsNullOrEmpty(eProsCfg.filerEmail) && !string.IsNullOrEmpty(eProsCfg.filerPassword))
                                 {
                                     var authRequestResponse = new AuthenticateRequestType()
                                     {
@@ -297,10 +304,26 @@ namespace FilingHostService
                                         Log.Information($"Filing User Auth: {authFilingUserResponse?.Email}");
                                     }
                                 }
+
+                            /**************************DefaultFilingUser********************************/
+                            if (!string.IsNullOrEmpty(eProsCfg.defaultFilerEmail) && !string.IsNullOrEmpty(eProsCfg.defaultFilerPassword))
+                            {
+                                var authDefaultRequestResponse = new AuthenticateRequestType()
+                                {
+                                    Email = eProsCfg.defaultFilerEmail,
+                                    Password = eProsCfg.defaultFilerPassword
+                                };
+
+                                if (authDefaultRequestResponse != null && authDefaultRequestResponse.Password != null)
+                                {
+                                    authDefaultFilingUserResponse = _client.AuthenticateUser(authDefaultRequestResponse);
+                                    Log.Information($"Default Filing User Auth: {authDefaultFilingUserResponse?.Email}");
+                                }
                             }
-                             /**************************FilingUser********************************/
 
                             
+
+
                             var getPolicyResponse = _client.GetPolicy(userResponse, courtLocation);
                             Log.Information("263: GetPolicyResponse: {0}", getPolicyResponse);
 
@@ -692,17 +715,26 @@ namespace FilingHostService
                             Log.Information("feesCalculation {0}", feesCalculation);
                             Log.Information("xml: {0}", xml.ToString());
                             XElement ofsResult;
-                            if (authFilingUserResponse != null && authFilingUserResponse.Email != null)
+                            if (authFilingUserResponse != null && !string.IsNullOrEmpty(authFilingUserResponse.Email) && !string.IsNullOrEmpty(authFilingUserResponse.UserID))
                             {
                                 Log.Information($"Authenticated User Filing Email: {authFilingUserResponse.Email}");
                                 authenticatedFilingUser += $"{authFilingUserResponse.FirstName} { authFilingUserResponse.LastName}";
                                 ofsResult = _client.ReviewFiling(xml, authFilingUserResponse);
                             }
+                            else if (authDefaultFilingUserResponse != null && !string.IsNullOrEmpty(authDefaultFilingUserResponse.Email) && !string.IsNullOrEmpty(authDefaultFilingUserResponse.UserID))
+                            {
+                                Log.Information($"Authenticated User Filing Email: {authDefaultFilingUserResponse.Email}");
+                                authenticatedFilingUser += $"{authDefaultFilingUserResponse.Email}";
+                                ofsResult = _client.ReviewFiling(xml, authDefaultFilingUserResponse);
+                            }
                             else
                             {
-                                authenticatedFilingUser += $"{userResponse.FirstName} {userResponse.LastName}";
+                                throw new Exception($"The filer {authFilingUserResponse.Email} and default filer {authDefaultFilingUserResponse.Email} could not be authenticated.");
+                                /*
+                                 * authenticatedFilingUser += $"{userResponse.FirstName} {userResponse.LastName}";
                                 Log.Information($"Authenticated User Filing Email: {userResponse.Email}");
                                 ofsResult = _client.ReviewFiling(xml, userResponse);
+                                */
                             }
                             Log.Information("Review filing complete : {0}", ofsResult);
                             //Log.Information("Filed Documents {0}", xml.Descendants().Where(x => x.Name.LocalName == "DocumentFileControlID"));
