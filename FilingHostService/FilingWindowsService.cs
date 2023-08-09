@@ -614,7 +614,7 @@ namespace FilingHostService
                                     Log.Error(errMsg);
                                     
                                     // Send ePros exception fault response message and move file to failed folder
-                                    SendEProsResponseMessage("",eProsCfg?.filingDocID, null, errMsg, "", filedDocuments, "", caseList, "");
+                                    SendEProsResponseMessage("", courtLocation,eProsCfg?.filingDocID, null, errMsg, "", filedDocuments, "", caseList, "");
                                     MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
                                     continue;
                                 }
@@ -836,7 +836,7 @@ namespace FilingHostService
                                     caseList.Add(courtCase);
                                 }
                                 // Send ePros response information, if response fails keep file in queue
-                                if (SendEProsResponseMessage(authenticatedFilingUser, eProsCfg?.filingDocID, ofsResult, caseTitleText, filingDocumentsGUIDLeadDoc, filedDocuments, defendantFullName, caseList, "")) // valid response?
+                                if (SendEProsResponseMessage(authenticatedFilingUser, courtLocation, eProsCfg?.filingDocID, ofsResult, caseTitleText, filingDocumentsGUIDLeadDoc, filedDocuments, defendantFullName, caseList, "")) // valid response?
                                 {
                                     Log.Information("SendEProsResponseMessage:2");
                                     /*if (resultSuccess != null) // success, move to 'success' folder
@@ -857,7 +857,7 @@ namespace FilingHostService
                             {
                                 Log.Information("SendEProsResponseMessage:3");
                                 // Send response w/ exception back to ePros indicating invalid Ofs response message
-                                SendEProsResponseMessage(authenticatedFilingUser, eProsCfg?.filingDocID, ofsResult, caseTitleText, filingDocumentsGUIDLeadDoc, filedDocuments, defendantFullName, caseList, "Invalid Ofs MessageReceipt xml, no <Error> section found");
+                                SendEProsResponseMessage(authenticatedFilingUser, courtLocation, eProsCfg?.filingDocID, ofsResult, caseTitleText, filingDocumentsGUIDLeadDoc, filedDocuments, defendantFullName, caseList, "Invalid Ofs MessageReceipt xml, no <Error> section found");
                                 MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
 
                                 // Write submit filing response message to disk
@@ -870,7 +870,7 @@ namespace FilingHostService
                             Log.Fatal(ex, "Exception::CheckForOutboundMessages - review file processing error");
                             
                             // Send ePros exception fault reponse message
-                            SendEProsResponseMessage(authenticatedFilingUser, eProsCfg?.filingDocID, null, caseTitleText, filingDocumentsGUIDLeadDoc, filedDocuments, defendantFullName, caseList, ex.Message);
+                            SendEProsResponseMessage(authenticatedFilingUser, courtLocation, eProsCfg?.filingDocID, null, caseTitleText, filingDocumentsGUIDLeadDoc, filedDocuments, defendantFullName, caseList, ex.Message);
                                 
                             // On failure, move to 'failed' folder
                             MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
@@ -893,7 +893,7 @@ namespace FilingHostService
         // @param sExceptionFault = Exception response message
         // @return true if successful, else false if error
         //
-        private Boolean SendEProsResponseMessage(String authenticatedFilingUser, String sSubDocRefID, XElement xOfsResponse, String caseTitleText, String filingDocumentsGUIDLeadDoc, List<String> filedDocuments, String defendantFullName, List<CourtCase> caseListQuery, String sExceptionFault = "" ) {
+        private Boolean SendEProsResponseMessage(String authenticatedFilingUser, String filingLocation, String sSubDocRefID, XElement xOfsResponse, String caseTitleText, String filingDocumentsGUIDLeadDoc, List<String> filedDocuments, String defendantFullName, List<CourtCase> caseListQuery, String sExceptionFault = "" ) {
 
             try
             {
@@ -963,16 +963,17 @@ namespace FilingHostService
                                                statusText = er?.Elements()?.Where(e => (string)e?.Name?.LocalName?.ToLower() == "errortext")?.First()?.Value ?? ""
                                            })?.ToList(),
                                    })?.FirstOrDefault();
-                    Log.Information($"TEST: responseObj.caseListResponse:{responseObj.caseListResponse}");
+                    //Log.Information($"TEST: responseObj.caseListResponse:{responseObj.caseListResponse}");
                     if ( responseObj != null ) // invalid object?
                         {
                             // The subDocRefID is the ePros document.id used by response interface as a ref to the submitting case/doc mainly for first time filing
                             responseObj.ePros.submitDocRefId = sSubDocRefID ?? "";
                             responseObj.reviewFilingResponse = true;    // indicate sync response message
                             responseObj.caseListResponse = caseListQuery;
+                            responseObj.organizationId = filingLocation;
 
-                            // Remove any '\' characters in the error description
-                            if ( responseObj.statusErrorList != null )
+                        // Remove any '\' characters in the error description
+                        if ( responseObj.statusErrorList != null )
                             {
                                 foreach (var error in responseObj.statusErrorList)
                                 {
@@ -991,7 +992,7 @@ namespace FilingHostService
                 {
                     responseObj = new FilingResponseObj();
                     responseObj.ePros.submitDocRefId = sSubDocRefID ?? "";
-                    responseObj.organizationId = ConfigurationManager.AppSettings.Get("courtID") ?? "";
+                    responseObj.organizationId = filingLocation;
                     responseObj.exception = sExceptionFault ?? "Unknown exception fault";
                     responseObj.caseListResponse = caseListQuery;
 
