@@ -1050,7 +1050,7 @@ namespace FilingHostService
                     }
                 };
 
-                // Serialize response obj into standard json and submit to eSuite REST services
+                // Serialize response obj into standard json and submit to eSuite REST services.
                 string eProsjson = Newtonsoft.Json.JsonConvert.SerializeObject(eProsRuleRespJson, Newtonsoft.Json.Formatting.None);
                 
 
