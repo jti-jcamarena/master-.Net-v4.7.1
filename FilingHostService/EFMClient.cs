@@ -369,7 +369,7 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-
+                Log.Information("GetAttorneyList Request");
                 var response = firmService.GetAttorneyList();
 
                 return response;
@@ -696,7 +696,8 @@ namespace FilingHostService
             //var dateTime = documentPostDate.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DateTime"))?.FirstOrDefault();
             courtIDElement.Value = courtLocation;
             //dateTime.Value = timestamp.ToString("yyyyMMddTHH:mm:ssZ");
-            Log.Information("GetPolicy: {0}", xml);
+            Log.Information("GetPolicy Request: {0}", xml);
+            
             var service = this.CreateFilingService();
             using (new OperationContextScope(service.InnerChannel))
             {

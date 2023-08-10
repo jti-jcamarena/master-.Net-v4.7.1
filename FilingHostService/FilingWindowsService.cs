@@ -330,6 +330,7 @@ namespace FilingHostService
                             Log.Information("265: Filing Attorney: Bar:{0} First:{1} Last:{2}", eProsCfg.barNumber, eProsCfg.attorneyFirstName, eProsCfg.attorneyLastName);
 
                             var attorneylist = _client.GetAttorneys(userResponse);
+                            Log.Information("TEST");
                             String attorneyID = "";
                             List<FilingHostService.EFMFirmService.AttorneyType> systemAttorneyList = new List<FilingHostService.EFMFirmService.AttorneyType>();
                             if (attorneylist?.Attorney != null)
@@ -990,6 +991,7 @@ namespace FilingHostService
                 // Process/Send exception response message to ePros if needed
                 if( responseObj == null && !String.IsNullOrEmpty(sExceptionFault) )  // exception?
                 {
+                    Log.Information($"sExceptionFault: {sExceptionFault}");
                     responseObj = new FilingResponseObj();
                     responseObj.ePros.submitDocRefId = sSubDocRefID ?? "";
                     responseObj.organizationId = filingLocation;

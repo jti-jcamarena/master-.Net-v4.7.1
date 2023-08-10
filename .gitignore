@@ -40,6 +40,12 @@ Thumbs.db
 *.exe
 *.war
 
+# Visual Stuido config files
+#*.vsidx
+#*.suo
+#*.pdb
+
+
 # Large media files
 *.mp4
 *.tiff
