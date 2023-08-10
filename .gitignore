@@ -41,9 +41,9 @@ Thumbs.db
 *.war
 
 # Visual Stuido config files
-#*.vsidx
-#*.suo
-#*.pdb
+*.vsidx
+*.suo
+*.pdb
 
 
 # Large media files
