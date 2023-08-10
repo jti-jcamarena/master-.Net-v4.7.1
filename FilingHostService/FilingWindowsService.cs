@@ -327,7 +327,7 @@ namespace FilingHostService
                             var getPolicyResponse = _client.GetPolicy(userResponse, courtLocation);
                             Log.Information("263: GetPolicyResponse: {0}", getPolicyResponse);
 
-                            Log.Information("265: Filing Attorney: Bar:{0} First:{1} Last:{2}", eProsCfg.barNumber, eProsCfg.attorneyFirstName, eProsCfg.attorneyLastName);
+                            Log.Information("265: Submitted Filing Attorney: Bar:{0} First:{1} Last:{2}", eProsCfg.barNumber, eProsCfg.attorneyFirstName, eProsCfg.attorneyLastName);
 
                             var attorneylist = _client.GetAttorneys(userResponse);
                             Log.Information("TEST");
