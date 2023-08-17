@@ -369,9 +369,9 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-                Log.Information("GetAttorneyList Request");
+                Log.Information("GetAttorneyList Request1");                
                 var response = firmService.GetAttorneyList();
-
+                Log.Information("GetAttorneyList Request2");
                 return response;
             }
         }
@@ -738,15 +738,15 @@ namespace FilingHostService
                 foreach( var p in pmtType.PaymentAccount)
                 {
                     Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
-                    //Log.Information(" FirmID = " + p.FirmID?.ToString());
-                    //Log.Information(" PaymentAccountTypeCode = " + p.PaymentAccountTypeCode?.ToString());
+                    Log.Information(" FirmID = " + p.FirmID?.ToString());
+                    Log.Information(" PaymentAccountTypeCode = " + p.PaymentAccountTypeCode?.ToString());
                     Log.Information(" AccountName = " + p.AccountName?.ToString());
-                    //Log.Information(" AccountToken = " + p.AccountToken?.ToString());
-                    //Log.Information(" CardType = " + p.CardType?.ToString());
-                    //Log.Information(" CardLast4 = " + p.CardLast4?.ToString());
-                    //Log.Information(" CardName = " + p.CardHolderName?.ToString());
+                    Log.Information(" AccountToken = " + p.AccountToken?.ToString());
+                    Log.Information(" CardType = " + p.CardType?.ToString());
+                    Log.Information(" CardLast4 = " + p.CardLast4?.ToString());
+                    Log.Information(" CardName = " + p.CardHolderName?.ToString());
                     Log.Information(" Active = " + p.Active);
-                    //Log.Information("");
+                    Log.Information("");
                 }
                 return pmtType;
             }
@@ -1334,6 +1334,7 @@ namespace FilingHostService
         protected EFMFirmService.EfmFirmServiceClient CreateFirmService()
         {
             var client = new EFMFirmService.EfmFirmServiceClient();
+            
             client.ClientCredentials.ClientCertificate.Certificate = this.MessageSigningCertificate;
             return client;
         }

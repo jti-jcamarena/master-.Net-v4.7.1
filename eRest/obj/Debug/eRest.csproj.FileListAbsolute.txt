@@ -51,3 +51,10 @@ C:\Users\jcamarena\source\repos\master-.Net-v4.7.1\eRest\obj\Debug\eRest.csproj.
 C:\Users\jcamarena\source\repos\master-.Net-v4.7.1\eRest\obj\Debug\eRest.csproj.CopyComplete
 C:\Users\jcamarena\source\repos\master-.Net-v4.7.1\eRest\obj\Debug\eSuite.Utils.eRest.dll
 C:\Users\jcamarena\source\repos\master-.Net-v4.7.1\eRest\obj\Debug\eSuite.Utils.eRest.pdb
+C:\Users\jcamarena\source\repos\ecfService-master-.Net-v4.7.1\master-.Net-v4.7.1\eRest\bin\Debug\eSuite.Utils.eRest.dll
+C:\Users\jcamarena\source\repos\ecfService-master-.Net-v4.7.1\master-.Net-v4.7.1\eRest\bin\Debug\eSuite.Utils.eRest.pdb
+C:\Users\jcamarena\source\repos\ecfService-master-.Net-v4.7.1\master-.Net-v4.7.1\eRest\obj\Debug\eRest.csproj.AssemblyReference.cache
+C:\Users\jcamarena\source\repos\ecfService-master-.Net-v4.7.1\master-.Net-v4.7.1\eRest\obj\Debug\eRest.csproj.CoreCompileInputs.cache
+C:\Users\jcamarena\source\repos\ecfService-master-.Net-v4.7.1\master-.Net-v4.7.1\eRest\obj\Debug\eRest.csproj.CopyComplete
+C:\Users\jcamarena\source\repos\ecfService-master-.Net-v4.7.1\master-.Net-v4.7.1\eRest\obj\Debug\eSuite.Utils.eRest.dll
+C:\Users\jcamarena\source\repos\ecfService-master-.Net-v4.7.1\master-.Net-v4.7.1\eRest\obj\Debug\eSuite.Utils.eRest.pdb

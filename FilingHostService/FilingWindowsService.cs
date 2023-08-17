@@ -182,6 +182,7 @@ namespace FilingHostService
 
                     var firmUser = _client.GetFirmUser(userResponse);
                     var firmUserID = firmUser.User.UserID;
+                    
                     Log.Information("181: Firm User LastName: {0} ID: {1} firmUserID: {2}", firmUser.User.LastName, firmUser.User.UserID, firmUserID);
 
                         // Get EMFClient user ID
@@ -189,7 +190,13 @@ namespace FilingHostService
                     {
                         UserID = userResponse.UserID
                     }, userResponse);
+
+                    foreach (var role in user.User.Role)
+                    {
+                        Log.Information($"role: {role.RoleName}");
+                    }
                     
+
                     foreach (var file in files)
                     {
                         var fileName = file.Split('\\').Last();
@@ -330,7 +337,7 @@ namespace FilingHostService
                             Log.Information("265: Filing Attorney: Bar:{0} First:{1} Last:{2}", eProsCfg.barNumber, eProsCfg.attorneyFirstName, eProsCfg.attorneyLastName);
 
                             var attorneylist = _client.GetAttorneys(userResponse);
-                            Log.Information("TEST");
+                            Log.Information($"attorneylist:{attorneylist.Attorney.Count()}");
                             String attorneyID = "";
                             List<FilingHostService.EFMFirmService.AttorneyType> systemAttorneyList = new List<FilingHostService.EFMFirmService.AttorneyType>();
                             if (attorneylist?.Attorney != null)
@@ -488,8 +495,11 @@ namespace FilingHostService
                             Log.Information("Filing Court: eProsCfg.caseCourtLocation: {0}", eProsCfg.caseCourtLocation);
 
                             XElement paymentID = xml.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2", "PaymentID"))?.FirstOrDefault();
-                            paymentID.Value = paymentAccounts.Find(x => x.PaymentAccountID != null).PaymentAccountID;
-                            
+                            //Log.Information($"paymentAccounts:{paymentAccounts.Find(x => x.PaymentAccountID.Equals("c2c59ace-283e-4b51-95b4-2955019141ea")).AccountName}");
+                            //paymentID.Value = paymentAccounts.Find(x => x.PaymentAccountID.Equals("c2c59ace-283e-4b51-95b4-2955019141ea")).PaymentAccountID;
+                            paymentID.Value = paymentAccounts.Find(x => x.PaymentAccountTypeCode.Equals("WV") && x.PaymentAccountID != null).PaymentAccountID;
+                            Log.Information($"paymentID: name:{paymentID.Name} value:{paymentID.Value}");
+                            //Log.Information("TEST Payment");
                             if (eProsCfg == null) // missing?
                             {
                                 throw new InvalidOperationException(String.Format("Invalid OFS filing, missing <eProsCfg> element section in {0}", file));
@@ -712,6 +722,7 @@ namespace FilingHostService
 
                             // Send review filing to Odyssey API system
                             Log.Information("Sending review file to EFMClient");
+                            Log.Information("GetFeesCalculation");
                             var feesCalculation = _client.GetFeesCalculation(xml, userResponse);
                             Log.Information("feesCalculation {0}", feesCalculation);
                             Log.Information("xml: {0}", xml.ToString());
@@ -826,7 +837,7 @@ namespace FilingHostService
                                 {
                                     MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
                                 }
-
+                                Log.Information($"ofsResult:{ofsResult}");
                                 XElement messageReceiptMessageCaseId = ofsResult.Descendants().Where(x => x.Name.LocalName.Equals("IdentificationCategoryText") && x.Value.Equals("CASEID"))?.FirstOrDefault().Parent;
                                 Log.Information($"messageReceiptMessageCaseId:{messageReceiptMessageCaseId} caseListCount:{caseList.Count()}");
                                 foreach (var message in messageReceiptMessageCaseId.Descendants().Where(x => x.Name.LocalName.Equals("IdentificationID") && x.Value != null))
