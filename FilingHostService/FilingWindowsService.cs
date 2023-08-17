@@ -528,16 +528,28 @@ namespace FilingHostService
                                 System.Xml.Linq.XElement getCaseListResponse = _client.GetCaseList(userResponse, courtLocation, eProsCfg.caseDocketNumber);
                                 Log.Information("GetCaseList: location: {0}; courtNumber: {1}", courtLocation, eProsCfg.caseDocketNumber);
                                 Log.Information("GetCaseList response: {0}", getCaseListResponse);
-                                
-                                foreach (var caseItem in getCaseListResponse.Descendants().Where(x => x.Name.LocalName.Equals("CriminalCase") || x.Name.LocalName.Equals("CivilCase")).ToList())
+                                List<string> ocfCaseTypes = new List<string>() { "CriminalCase", "CivilCase", "DomesticCase", "CitationCase" };
+                                foreach (var caseItem in getCaseListResponse.Descendants().Where(x => ocfCaseTypes.Contains(x.Name.LocalName)).ToList())
                                 {
+                                    Log.Information($"getCaseListResponse item:{caseItem}");
                                     CourtCase courtCase = new CourtCase();
                                     courtCase.caseTitleText = caseItem?.Descendants()?.Where(x => x.Name.LocalName.Equals("CaseTitleText"))?.FirstOrDefault()?.Value ?? "";
                                     courtCase.caseDocketID = caseItem?.Descendants()?.Where(x => x.Name.LocalName.Equals("CaseDocketID"))?.FirstOrDefault()?.Value ?? "";
                                     courtCase.caseTrackingID = caseItem?.Descendants()?.Where(x => x.Name.LocalName.Equals("CaseTrackingID"))?.FirstOrDefault()?.Value ?? "";
                                     caseList.Add(courtCase);
                                 }
-                                
+
+                                /*
+                                foreach (var caseItem in getCaseListResponse.Descendants().Where(x => x.Name.LocalName.Equals("CriminalCase") || x.Name.LocalName.Equals("CivilCase")).ToList())
+                                {
+                                    Log.Information($"getCaseListResponse item:{caseItem}");
+                                    CourtCase courtCase = new CourtCase();
+                                    courtCase.caseTitleText = caseItem?.Descendants()?.Where(x => x.Name.LocalName.Equals("CaseTitleText"))?.FirstOrDefault()?.Value ?? "";
+                                    courtCase.caseDocketID = caseItem?.Descendants()?.Where(x => x.Name.LocalName.Equals("CaseDocketID"))?.FirstOrDefault()?.Value ?? "";
+                                    courtCase.caseTrackingID = caseItem?.Descendants()?.Where(x => x.Name.LocalName.Equals("CaseTrackingID"))?.FirstOrDefault()?.Value ?? "";
+                                    caseList.Add(courtCase);
+                                }
+                                */
                                 
                                 
                                 Log.Information($"caseListCount: {caseList.Count()}");
@@ -549,8 +561,8 @@ namespace FilingHostService
                                     Log.Information($"defendantCaseTrackingId:{eProsCfg.defendantCaseTrackingID}");
                                     caseResponse = getCaseListResponse.Descendants().Where(x =>
                                     x.Name.LocalName == "CaseTrackingID" && x.Value.Equals(eProsCfg.defendantCaseTrackingID) ||
-                                    x.Name.LocalName == "CaseTitleText" && x.Value == eProsCfg.caseTitle ||                                    
-                                    x.Name.LocalName == "CaseTitleText" && x.Value.Contains(eProsCfg.defendantLastName) && x.Value.Contains(eProsCfg.defendantFirstName) 
+                                    x.Name.LocalName == "CaseTitleText" && x.Value.ToLower() == eProsCfg.caseTitle.ToLower() ||                                    
+                                    x.Name.LocalName == "CaseTitleText" && x.Value.ToLower().Contains(eProsCfg.defendantLastName.ToLower()) && x.Value.ToLower().Contains(eProsCfg.defendantFirstName.ToLower()) 
                                     );
                                     filteredCriminalCaseResponse = caseResponse?.FirstOrDefault()?.Parent;
                                     Log.Information($"filteredCriminalCaseResponse: {filteredCriminalCaseResponse}");
