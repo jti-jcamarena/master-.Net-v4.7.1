@@ -87,17 +87,17 @@ namespace FilingHostService
     {
         // Private Attributes
         private String _VERSION = "1.17";
-        
+
         private string _filingQueuePath;
         private string _filingFailedPath;
         private string _filingSuccessPath;
+        private string _filingInProcessPath;
         private string _filingStatutePath;
         private string _zipFolder;
         private string _codeFolder;
         private string _courtID;
         private List<string> _courtLocations;
         private string courtLocation;
-        
         public string _hourToCheckCodes { get; private set; }
         public string _minutesFrom { get; private set; }
         public string _minutesTo { get; private set; }
@@ -108,7 +108,7 @@ namespace FilingHostService
 
         private EFMClient _client;  // create base EMFClient class
         private ServiceHost _cHost = null;
-               
+
         public FilingWindowsService()
         {
             InitializeComponent();
@@ -142,27 +142,35 @@ namespace FilingHostService
         //
         private void CheckForOutboundMessages()
         {
-            var eProsCfg = (dynamic)null; 
+            var eProsCfg = (dynamic)null;
             try
             {
-                Log.Information("***"); // add gap between log entries
-                
+                Log.Information("***CheckForOutboundMessages***"); // add gap between log entries
+                //Log.Information($"Time UtcNow:{DateTime.UtcNow} Now:{DateTime.Now}");
 
                 // Test for ePros review filings to pick up in the output queue
-                
-                var files = Directory.EnumerateFiles(_filingQueuePath);
-                if (files.Count() > 0)
+                int fileAgeSeconds = int.Parse(ConfigurationManager.AppSettings.Get("fileAgeSeconds"));
+                int limitFilesToProcess = int.Parse(ConfigurationManager.AppSettings.Get("limitFilesToProcess"));
+                var files = Directory.EnumerateFiles(_filingQueuePath).Where(x => File.GetLastAccessTime(x).Subtract(File.GetCreationTime(x)).TotalSeconds <= fileAgeSeconds && File.GetLastWriteTime(x).Subtract(File.GetCreationTime(x)).TotalSeconds <= fileAgeSeconds).OrderBy(x => File.GetCreationTime(x)).Take(limitFilesToProcess);
+                //files.OrderBy(x => File.GetCreationTime(x));
+                List<string> fileNames = new List<string>();
+                Log.Information($"Files to process: {fileNames.Count()}");
+                foreach (var file in files)
                 {
-                    Log.Information(string.Format("Processing {0} OFS review file(s)", files.Count()));
-                    Log.Information("Configuring EFMClient user parameters");
+                    MoveFile(file, string.Format(@"{0}\{1}", _filingInProcessPath, file.Split('\\').Last()));
+                    fileNames.Add(string.Format(@"{0}\{1}", _filingInProcessPath, file.Split('\\').Last()));
+                }
 
+
+                if (fileNames.Count() > 0)
+                {
                     // EMFClient request 
                     var request = new AuthenticateRequestType()
                     {
                         Email = ConfigurationManager.AppSettings.Get("ofsEmail"),
                         Password = ConfigurationManager.AppSettings.Get("ofsPassword")
                     };
-                    
+
                     var userResponse = _client.AuthenticateUser(request);
                     AuthenticateResponseType authFilingUserResponse = new AuthenticateResponseType();
                     AuthenticateResponseType authDefaultFilingUserResponse = new AuthenticateResponseType();
@@ -175,32 +183,37 @@ namespace FilingHostService
                     }
 
 
-                    
+
                     List<FilingHostService.EFMFirmService.UserType> userTypeList = new List<FilingHostService.EFMFirmService.UserType>();
 
 
 
                     var firmUser = _client.GetFirmUser(userResponse);
                     var firmUserID = firmUser.User.UserID;
-                    
-                    Log.Information("181: Firm User LastName: {0} ID: {1} firmUserID: {2}", firmUser.User.LastName, firmUser.User.UserID, firmUserID);
 
-                        // Get EMFClient user ID
-                        var user = _client.GetUser(new GetUserRequestType()
+                    //Log.Information("Firm User LastName: {0} ID: {1} firmUserID: {2}", firmUser.User.LastName, firmUser.User.UserID, firmUserID);
+
+                    // Get EMFClient user ID
+                    var user = _client.GetUser(new GetUserRequestType()
                     {
                         UserID = userResponse.UserID
                     }, userResponse);
 
+                    /*
                     foreach (var role in user.User.Role)
                     {
                         Log.Information($"role: {role.RoleName}");
                     }
-                    
+                    */
 
-                    foreach (var file in files)
+                    foreach (var file in fileNames)
                     {
+                        File.SetLastAccessTime(file, DateTime.Now);
                         var fileName = file.Split('\\').Last();
-                        Log.Information(string.Format("199: Processing reviewFiling {0}",fileName));
+
+                        Log.Information(string.Format("Processing File prefix: {0}", fileName.Substring(0, fileName.IndexOf("_"))));
+                        Log.Information(string.Format("Processing File name: {0}", fileName));
+
                         String caseTitleText = "";
                         String filingDocumentsGUIDLeadDoc = "";
                         String defendantFullName = "";
@@ -291,26 +304,26 @@ namespace FilingHostService
                                                     }).ToList()
                                         }).FirstOrDefault();
                             courtLocation = eProsCfg.caseCourtLocation;
-                            
+
                             Log.Information($"Authenticating filerFirstName:{eProsCfg.filerFirstName} filerLastName:{eProsCfg.filerLastName}");
                             Log.Information($"Authenticating defaultFilerEmail:{eProsCfg.defaultFilerEmail}");
-                            
+
                             /**************************FilingUser********************************/
 
                             if (!string.IsNullOrEmpty(eProsCfg.filerEmail) && !string.IsNullOrEmpty(eProsCfg.filerPassword))
+                            {
+                                var authRequestResponse = new AuthenticateRequestType()
                                 {
-                                    var authRequestResponse = new AuthenticateRequestType()
-                                    {
-                                        Email = eProsCfg.filerEmail,
-                                        Password = eProsCfg.filerPassword
-                                    };
-                                    
-                                    if (authRequestResponse != null && authRequestResponse.Password != null)
-                                    {
-                                        authFilingUserResponse = _client.AuthenticateUser(authRequestResponse);
-                                        Log.Information($"Filing User Auth: {authFilingUserResponse?.Email}");
-                                    }
+                                    Email = eProsCfg.filerEmail,
+                                    Password = eProsCfg.filerPassword
+                                };
+
+                                if (authRequestResponse != null && authRequestResponse.Password != null)
+                                {
+                                    authFilingUserResponse = _client.AuthenticateUser(authRequestResponse);
+                                    //Log.Information($"Filing User Auth: {authFilingUserResponse?.Email}");
                                 }
+                            }
 
                             /**************************DefaultFilingUser********************************/
                             if (!string.IsNullOrEmpty(eProsCfg.defaultFilerEmail) && !string.IsNullOrEmpty(eProsCfg.defaultFilerPassword))
@@ -324,20 +337,20 @@ namespace FilingHostService
                                 if (authDefaultRequestResponse != null && authDefaultRequestResponse.Password != null)
                                 {
                                     authDefaultFilingUserResponse = _client.AuthenticateUser(authDefaultRequestResponse);
-                                    Log.Information($"Default Filing User Auth: {authDefaultFilingUserResponse?.Email}");
+                                    //Log.Information($"Default Filing User Auth: {authDefaultFilingUserResponse?.Email}");
                                 }
                             }
 
-                            
+
 
 
                             var getPolicyResponse = _client.GetPolicy(userResponse, courtLocation);
-                            Log.Information("263: GetPolicyResponse: {0}", getPolicyResponse);
+                            Log.Information("GetPolicyResponse: {0}", getPolicyResponse);
 
-                            Log.Information("265: Filing Attorney: Bar:{0} First:{1} Last:{2}", eProsCfg.barNumber, eProsCfg.attorneyFirstName, eProsCfg.attorneyLastName);
+                            Log.Information("Filing Attorney: Bar:{0} First:{1} Last:{2}", eProsCfg.barNumber, eProsCfg.attorneyFirstName, eProsCfg.attorneyLastName);
 
                             var attorneylist = _client.GetAttorneys(userResponse);
-                            Log.Information($"attorneylist:{attorneylist.Attorney.Count()}");
+                            //Log.Information($"attorneylist:{attorneylist.Attorney.Count()}");
                             String attorneyID = "";
                             List<FilingHostService.EFMFirmService.AttorneyType> systemAttorneyList = new List<FilingHostService.EFMFirmService.AttorneyType>();
                             if (attorneylist?.Attorney != null)
@@ -365,10 +378,10 @@ namespace FilingHostService
 
                                 var caseParticipant = xml.Descendants()
                                                     .Where(x => x.Name == string.Format("{{{0}}}{1}", participantNamespace, "CaseParticipant"))?.FirstOrDefault();
-                                
+
                                 if (caseParticipant != null)
                                 {
-                                    
+
                                     XElement xElement = caseParticipant.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID"))?.FirstOrDefault();
                                     if (xElement != null)
                                     {
@@ -378,10 +391,10 @@ namespace FilingHostService
                                         }
                                     }
                                 }
-                                
+
                                 foreach (XElement xElement1 in xml.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0", "FilingAttorneyID")))
                                 {
-                                    
+
                                     XElement attorneyIdentificationID = xElement1.Elements().Where(e => e.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID"))?.FirstOrDefault();
                                     if (string.IsNullOrEmpty(attorneyIdentificationID.Value))
                                     {
@@ -393,10 +406,10 @@ namespace FilingHostService
                             {
                                 var defaultAttorneyID = systemAttorneyList.Find(x => x.BarNumber != null).AttorneyID;
                                 var participantNamespace = "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0";
-                                
+
                                 var caseParticipant = xml.Descendants()
                                                     .Where(x => x.Name == string.Format("{{{0}}}{1}", participantNamespace, "CaseParticipant"))?.FirstOrDefault();
-                                
+
                                 if (caseParticipant != null)
                                 {
                                     XElement xElement = caseParticipant.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID"))?.FirstOrDefault();
@@ -405,15 +418,15 @@ namespace FilingHostService
                                         xElement.Value = defaultAttorneyID;
                                     }
                                 }
-                                
+
                                 foreach (XElement xElement1 in xml.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0", "FilingAttorneyID")))
                                 {
-                                    
+
                                     XElement attorneyIdentificationID = xElement1.Elements().Where(e => e.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID"))?.FirstOrDefault();
                                     attorneyIdentificationID.Value = defaultAttorneyID;
                                 }
                             }
-                            
+
                             List<EFMFirmService.ServiceContactType> serviceContacts = new List<EFMFirmService.ServiceContactType>();
                             if (_client?.GetContactList(userResponse)?.ServiceContact != null)
                             {
@@ -425,7 +438,7 @@ namespace FilingHostService
                             var filedContacts = xml.Descendants()
                                  .Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "eProsCfg"))?.FirstOrDefault();
                             var svcContacts = filedContacts.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "svcContact"));
-                            
+
                             List<EFMFirmService.ServiceContactType> publicServiceContacts = new List<EFMFirmService.ServiceContactType>();
                             List<EFMFirmService.ServiceContactType> attachServiceContacts = new List<EFMFirmService.ServiceContactType>();
                             foreach (XElement contact in svcContacts)
@@ -443,7 +456,7 @@ namespace FilingHostService
                                 var svcIsPublic = contact.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "svcIsPublic"))?.FirstOrDefault()?.Value;
                                 var svcAdminCopy = contact.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "svcAdminCopy"))?.FirstOrDefault()?.Value;
                                 var firmID = systemAttorneyList.Find(x => x.BarNumber != null).FirmID;
-                                
+
                                 svcMiddleName = string.IsNullOrEmpty(svcMiddleName) ? "" : svcMiddleName;
                                 Log.Information("Contact FML: {0} {1} {2} Address1: {3} Email: {4}", svcFirstName, svcMiddleName, svcLastName, svcAddress1, svcEmail);
                                 var findContact = serviceContacts.Find(sc => sc.FirstName == svcFirstName && sc.LastName == svcLastName && sc.Email == svcEmail && sc.Address.AddressLine1 == svcAddress1 && sc.Address.ZipCode == svcZip);
@@ -465,7 +478,7 @@ namespace FilingHostService
                                 {
                                     svcContactID = _client.CreateServiceContact(userResponse, svcFirstName, svcMiddleName, svcLastName, svcPhoneNumber, svcEmail, svcAddress1, svcAddress2, svcCity, svcZip, svcState, svcIsPublic, svcAdminCopy, firmID);
                                     var getContactResponse = _client.GetServiceContact(userResponse, svcContactID);
-                                   
+
                                 }
                                 else
                                 {
@@ -498,22 +511,22 @@ namespace FilingHostService
                             //Log.Information($"paymentAccounts:{paymentAccounts.Find(x => x.PaymentAccountID.Equals("c2c59ace-283e-4b51-95b4-2955019141ea")).AccountName}");
                             //paymentID.Value = paymentAccounts.Find(x => x.PaymentAccountID.Equals("c2c59ace-283e-4b51-95b4-2955019141ea")).PaymentAccountID;
                             paymentID.Value = paymentAccounts.Find(x => x.PaymentAccountTypeCode.Equals("WV") && x.PaymentAccountID != null).PaymentAccountID;
-                            Log.Information($"paymentID: name:{paymentID.Name} value:{paymentID.Value}");
+                            //Log.Information($"paymentID: name:{paymentID.Name} value:{paymentID.Value}");
                             //Log.Information("TEST Payment");
                             if (eProsCfg == null) // missing?
                             {
                                 throw new InvalidOperationException(String.Format("Invalid OFS filing, missing <eProsCfg> element section in {0}", file));
                             }
-                            else 
+                            else
                             {
                                 Log.Information("Complete, removing eProsCfg section from filing");
                                 eProsCfg.element.Remove();
                             }
 
                             var filingQueryParams = filedContacts.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:wsdl:WebServicesProfile-Definitions-4.0", "filingQueryParams"))?.FirstOrDefault();
-                            
 
-                            
+
+
                             if (!string.IsNullOrWhiteSpace(eProsCfg?.caseDocketNumber)) // valid CaseDocketNumber?
                             {
                                 Log.Information(string.Format(@"test-CaseDocketNbr({0}) found in xml- quering caseTrackingID from OFS", eProsCfg.caseDocketNumber));
@@ -527,11 +540,11 @@ namespace FilingHostService
                                 defendantFullName = String.Format("{0} {1} {2}", firstName_, middleName_, lastName_) ?? "";
                                 System.Xml.Linq.XElement getCaseListResponse = _client.GetCaseList(userResponse, courtLocation, eProsCfg.caseDocketNumber);
                                 Log.Information("GetCaseList: location: {0}; courtNumber: {1}", courtLocation, eProsCfg.caseDocketNumber);
-                                Log.Information("GetCaseList response: {0}", getCaseListResponse);
+                                Log.Information("GetCaseList: response: {0}", getCaseListResponse);
                                 List<string> ocfCaseTypes = new List<string>() { "CriminalCase", "CivilCase", "DomesticCase", "CitationCase" };
                                 foreach (var caseItem in getCaseListResponse.Descendants().Where(x => ocfCaseTypes.Contains(x.Name.LocalName)).ToList())
                                 {
-                                    Log.Information($"getCaseListResponse item:{caseItem}");
+                                    Log.Information($"GetCaseListResponse: item:{caseItem}");
                                     CourtCase courtCase = new CourtCase();
                                     courtCase.caseTitleText = caseItem?.Descendants()?.Where(x => x.Name.LocalName.Equals("CaseTitleText"))?.FirstOrDefault()?.Value ?? "";
                                     courtCase.caseDocketID = caseItem?.Descendants()?.Where(x => x.Name.LocalName.Equals("CaseDocketID"))?.FirstOrDefault()?.Value ?? "";
@@ -550,9 +563,9 @@ namespace FilingHostService
                                     caseList.Add(courtCase);
                                 }
                                 */
-                                
-                                
-                                Log.Information($"caseListCount: {caseList.Count()}");
+
+
+                                Log.Information($"CaseListCount: {caseList.Count()}");
                                 IEnumerable<XElement> caseResponse;
                                 XElement filteredCriminalCaseResponse;
                                 if (!string.IsNullOrEmpty(eProsCfg.caseTitle) || !string.IsNullOrEmpty(eProsCfg.defendantCaseTrackingID) || (!string.IsNullOrEmpty(eProsCfg.defendantLastName) && !string.IsNullOrEmpty(eProsCfg.defendantFirstName)))
@@ -561,8 +574,8 @@ namespace FilingHostService
                                     Log.Information($"defendantCaseTrackingId:{eProsCfg.defendantCaseTrackingID}");
                                     caseResponse = getCaseListResponse.Descendants().Where(x =>
                                     x.Name.LocalName == "CaseTrackingID" && x.Value.Equals(eProsCfg.defendantCaseTrackingID) ||
-                                    x.Name.LocalName == "CaseTitleText" && x.Value.ToLower() == eProsCfg.caseTitle.ToLower() ||                                    
-                                    x.Name.LocalName == "CaseTitleText" && x.Value.ToLower().Contains(eProsCfg.defendantLastName.ToLower()) && x.Value.ToLower().Contains(eProsCfg.defendantFirstName.ToLower()) 
+                                    x.Name.LocalName == "CaseTitleText" && x.Value.ToLower() == eProsCfg.caseTitle.ToLower() ||
+                                    x.Name.LocalName == "CaseTitleText" && x.Value.ToLower().Contains(eProsCfg.defendantLastName.ToLower()) && x.Value.ToLower().Contains(eProsCfg.defendantFirstName.ToLower())
                                     );
                                     filteredCriminalCaseResponse = caseResponse?.FirstOrDefault()?.Parent;
                                     Log.Information($"filteredCriminalCaseResponse: {filteredCriminalCaseResponse}");
@@ -575,7 +588,7 @@ namespace FilingHostService
                                     }
                                     Log.Information($"caseTitleText:{caseTitleText} caseTrackingID:{caseTrackingId}");
                                 }
-                                
+
                                 Log.Information("caseTrackingId {0} isNullOrEmpty: {1}", caseTrackingId, string.IsNullOrWhiteSpace(caseTrackingId));
                                 System.Xml.Linq.XElement getCaseResponse = _client.GetCase(userResponse, courtLocation, caseTrackingId, true);
                                 Log.Information("GetCase response: {0}", getCaseResponse);
@@ -593,12 +606,12 @@ namespace FilingHostService
                                     {
                                         defParticipant = par;
                                         var defParticipantEntityPerson = defParticipant.Descendants().Where(x => x.Name.LocalName == "EntityPerson")?.FirstOrDefault();
-                                        
+
                                         var defParticipantPersonName = defParticipantEntityPerson?.Element("{http://niem.gov/niem/niem-core/2.0}PersonName");
                                         var defParticipantFirstName = defParticipantPersonName?.Element("{http://niem.gov/niem/niem-core/2.0}PersonGivenName")?.Value ?? "";
                                         var defParticipantMiddleName = defParticipantPersonName?.Element("{http://niem.gov/niem/niem-core/2.0}PersonMiddleName")?.Value ?? "";
                                         var defParticipantLastName = defParticipantPersonName?.Element("{http://niem.gov/niem/niem-core/2.0}PersonSurName")?.Value ?? "";
-                                        
+
                                         defendantFullName = $"{defParticipantLastName}, {defParticipantMiddleName} {defParticipantFirstName}";
                                         Log.Information($"DefParticipant: {defParticipant}; defendantFullName: {defendantFullName}");
                                         var defParticipantID = defParticipant.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault()?.Value ?? "";
@@ -607,20 +620,20 @@ namespace FilingHostService
 
 
 
-                                        
+
                                         if (!string.IsNullOrEmpty(defParticipantID))
                                         {
                                             defParticipantIDTest = defParticipantID;
-                                            
+
                                             foreach (XElement xElement1 in xml.Descendants().Where(x => x.Name == string.Format("{{{0}}}{1}", "urn:oasis:names:tc:legalxml-courtfiling:schema:xsd:CommonTypes-4.0", "FilingPartyID")))
                                             {
-                                                
+
                                                 XElement partyIdentificationID = xElement1.Elements().Where(e => e.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationID"))?.FirstOrDefault();
                                                 XElement partyIdentificationCategoryText = xElement1.Elements().Where(e => e.Name == string.Format("{{{0}}}{1}", "http://niem.gov/niem/niem-core/2.0", "IdentificationCategoryText"))?.FirstOrDefault();
                                                 partyIdentificationID.Value = defParticipantID;
                                                 partyIdentificationCategoryText.Value = "IDENTIFICATION";
                                             }
-                                            
+
                                         }
                                     }
 
@@ -635,9 +648,9 @@ namespace FilingHostService
                                     Log.Information("SendEProsResponseMessage:1");
                                     String errMsg = string.Format(@"OFS GetCaseList error - could not find matching caseTrackingID for caseDocketNbr({0})", eProsCfg.caseDocketNumber);
                                     Log.Error(errMsg);
-                                    
+
                                     // Send ePros exception fault response message and move file to failed folder
-                                    SendEProsResponseMessage("", courtLocation,eProsCfg?.filingDocID, null, errMsg, "", filedDocuments, "", caseList, "");
+                                    SendEProsResponseMessage("", courtLocation, eProsCfg?.filingDocID, null, errMsg, "", filedDocuments, "", caseList, "");
                                     MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
                                     continue;
                                 }
@@ -654,7 +667,7 @@ namespace FilingHostService
                                             _client.DetachServiceContact(userResponse, caseTrackingId, "", serviceContactType.ServiceContactID);
                                         }
                                     }
-                                    
+
                                     var ncNamespace = "http://niem.gov/niem/niem-core/2.0";
                                     var jNamespace = "http://niem.gov/niem/domains/jxdm/4.0";
                                     var caseElm = xml.Descendants()
@@ -730,26 +743,36 @@ namespace FilingHostService
                             //defendantFullName = String.Format("{0}, {1} {2}", lastName, firstName, middleName) ?? "";
                             defendantFullName = string.IsNullOrEmpty(defendantFullName) ? $"{lastName}, {firstName} {middleName}" : defendantFullName;
                             Log.Information("765: defendantFullName {0}", defendantFullName);
-                            
+
 
                             // Send review filing to Odyssey API system
                             Log.Information("Sending review file to EFMClient");
-                            Log.Information("GetFeesCalculation");
-                            var feesCalculation = _client.GetFeesCalculation(xml, userResponse);
-                            Log.Information("feesCalculation {0}", feesCalculation);
-                            Log.Information("xml: {0}", xml.ToString());
+                            //Log.Information("GetFeesCalculation");
+                            //var feesCalculation = _client.GetFeesCalculation(xml, userResponse);
+                            //Log.Information("feesCalculation {0}", feesCalculation);
+
+                            Log.Information("Review filing begin: DocID:{0}", eProsCfg.filingDocID);
+                            //Log.Information("Review filing: xml:{0}", xml.ToString());
                             XElement ofsResult;
                             if (authFilingUserResponse != null && !string.IsNullOrEmpty(authFilingUserResponse.Email) && !string.IsNullOrEmpty(authFilingUserResponse.UserID))
                             {
                                 Log.Information($"Authenticated User Filing Email: {authFilingUserResponse.Email}");
-                                authenticatedFilingUser += $"{authFilingUserResponse.FirstName} { authFilingUserResponse.LastName}";
+                                authenticatedFilingUser = $"{authFilingUserResponse.FirstName} {authFilingUserResponse.LastName}";
+                                Log.Information("Review filing request: DocID:{0}", eProsCfg.filingDocID);
                                 ofsResult = _client.ReviewFiling(xml, authFilingUserResponse);
+                                Log.Information("Review filing response: DocID:{0}", eProsCfg.filingDocID);
+                                File.SetLastAccessTime(file, DateTime.Now);
+                                File.SetLastWriteTime(file, DateTime.Now);
                             }
                             else if (authDefaultFilingUserResponse != null && !string.IsNullOrEmpty(authDefaultFilingUserResponse.Email) && !string.IsNullOrEmpty(authDefaultFilingUserResponse.UserID))
                             {
-                                Log.Information($"Authenticated User Filing Email: {authDefaultFilingUserResponse.Email}");
-                                authenticatedFilingUser += $"{authDefaultFilingUserResponse.Email}";
+                                Log.Information($"Default Authenticated User Filing Email: {authDefaultFilingUserResponse.Email}");
+                                authenticatedFilingUser = $"{authDefaultFilingUserResponse.Email}";
+                                Log.Information("Review filing request: DocID:{0}", eProsCfg.filingDocID);
                                 ofsResult = _client.ReviewFiling(xml, authDefaultFilingUserResponse);
+                                Log.Information("Review filing response: DocID:{0}", eProsCfg.filingDocID);
+                                File.SetLastAccessTime(file, DateTime.Now);
+                                File.SetLastWriteTime(file, DateTime.Now);
                             }
                             else
                             {
@@ -760,7 +783,7 @@ namespace FilingHostService
                                 ofsResult = _client.ReviewFiling(xml, userResponse);
                                 */
                             }
-                            Log.Information("Review filing complete : {0}", ofsResult);
+                            Log.Information("Review filing complete: DocID:{0}", eProsCfg.filingDocID);
                             //Log.Information("Filed Documents {0}", xml.Descendants().Where(x => x.Name.LocalName == "DocumentFileControlID"));
 
                             var filingObjects = ofsResult.Elements("{http://niem.gov/niem/niem-core/2.0}DocumentIdentification")?.Where(x => (string)x?.Element("{http://niem.gov/niem/niem-core/2.0}IdentificationCategoryText") == "FILINGID");
@@ -800,13 +823,14 @@ namespace FilingHostService
                                     if (documentSequent != null && documentSequent?.Value?.ToString() == "0" && documentIdentification?.Element(ncNamespace + "IdentificationCategoryText")?.Value == "FILINGID")
                                     {
                                         Log.Information("751:documentIdentification: {0}", documentIdentification);
-                                        if (!string.IsNullOrEmpty(documentIdentification?.Element(ncNamespace + "IdentificationID")?.Value)) {
+                                        if (!string.IsNullOrEmpty(documentIdentification?.Element(ncNamespace + "IdentificationID")?.Value))
+                                        {
                                             filingDocumentsGUIDLeadDoc = documentIdentification?.Element(ncNamespace + "IdentificationID")?.Value ?? "";
                                             Log.Information("755:filingDocumentsGUIDLeadDoc: {0}", filingDocumentsGUIDLeadDoc);
                                         }
                                     }
                                 }
-                                
+
                                 if (string.IsNullOrEmpty(caseTitleText))
                                 {
                                     var testCaseTitleText = getFilingStatusRestponse.Descendants().Where(x => x.Name.LocalName == "CaseTitleText")?.FirstOrDefault().Value ?? "";
@@ -845,7 +869,8 @@ namespace FilingHostService
                                 {
                                     Log.Information("Ofs Review Filing was successful, no errors reported");
                                     MoveFile(file, string.Format(@"{0}\{1}", _filingSuccessPath, fileName));
-                                } else
+                                }
+                                else
                                 {
                                     MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
                                 }
@@ -892,10 +917,10 @@ namespace FilingHostService
                         {
                             Log.Information($"SendEProsResponseMessage:4; caseListCount:{caseList.Count()}");
                             Log.Fatal(ex, "Exception::CheckForOutboundMessages - review file processing error");
-                            
+
                             // Send ePros exception fault reponse message
                             SendEProsResponseMessage(authenticatedFilingUser, courtLocation, eProsCfg?.filingDocID, null, caseTitleText, filingDocumentsGUIDLeadDoc, filedDocuments, defendantFullName, caseList, ex.Message);
-                                
+
                             // On failure, move to 'failed' folder
                             MoveFile(file, string.Format(@"{0}\{1}", _filingFailedPath, fileName));
                         }
@@ -905,7 +930,9 @@ namespace FilingHostService
                 {
                     Log.Information("No ofs reviewFilings found to process");
                 }
-            } catch ( Exception ex ) {
+            }
+            catch (Exception ex)
+            {
                 Log.Fatal(ex, "Exception::CheckForOutboundMessages - Error processing outbound messages");
             }
         }
@@ -917,7 +944,8 @@ namespace FilingHostService
         // @param sExceptionFault = Exception response message
         // @return true if successful, else false if error
         //
-        private Boolean SendEProsResponseMessage(String authenticatedFilingUser, String filingLocation, String sSubDocRefID, XElement xOfsResponse, String caseTitleText, String filingDocumentsGUIDLeadDoc, List<String> filedDocuments, String defendantFullName, List<CourtCase> caseListQuery, String sExceptionFault = "" ) {
+        private Boolean SendEProsResponseMessage(String authenticatedFilingUser, String filingLocation, String sSubDocRefID, XElement xOfsResponse, String caseTitleText, String filingDocumentsGUIDLeadDoc, List<String> filedDocuments, String defendantFullName, List<CourtCase> caseListQuery, String sExceptionFault = "")
+        {
 
             try
             {
@@ -951,7 +979,7 @@ namespace FilingHostService
                       }
                     }
                 */
-                
+
                 FilingResponseObj responseObj = null;
 
                 // Create XML namespaces for xml linq search
@@ -962,7 +990,7 @@ namespace FilingHostService
                 // Load all response xml fields into responseLog
                 if (String.IsNullOrEmpty(sExceptionFault) && xOfsResponse != null)     // non-exception?
                 {
-                    Log.Information("xOfsResponse: {0}", xOfsResponse);
+                    //Log.Information("xOfsResponse: {0}", xOfsResponse);
                     responseObj = (from el in xOfsResponse.DescendantsAndSelf()  // use DescendantsAndSelf since xml doesn't have a root node
                                    select new FilingResponseObj
                                    {
@@ -988,33 +1016,34 @@ namespace FilingHostService
                                            })?.ToList(),
                                    })?.FirstOrDefault();
                     //Log.Information($"TEST: responseObj.caseListResponse:{responseObj.caseListResponse}");
-                    if ( responseObj != null ) // invalid object?
-                        {
-                            // The subDocRefID is the ePros document.id used by response interface as a ref to the submitting case/doc mainly for first time filing
-                            responseObj.ePros.submitDocRefId = sSubDocRefID ?? "";
-                            responseObj.reviewFilingResponse = true;    // indicate sync response message
-                            responseObj.caseListResponse = caseListQuery;
-                            responseObj.organizationId = filingLocation;
+                    if (responseObj != null) // invalid object?
+                    {
+                        // The subDocRefID is the ePros document.id used by response interface as a ref to the submitting case/doc mainly for first time filing
+                        responseObj.ePros.submitDocRefId = sSubDocRefID ?? "";
+                        responseObj.reviewFilingResponse = true;    // indicate sync response message
+                        responseObj.caseListResponse = caseListQuery;
+                        responseObj.organizationId = filingLocation;
 
                         // Remove any '\' characters in the error description
-                        if ( responseObj.statusErrorList != null )
+                        if (responseObj.statusErrorList != null)
+                        {
+                            foreach (var error in responseObj.statusErrorList)
                             {
-                                foreach (var error in responseObj.statusErrorList)
-                                {
-                                    Regex regex = new Regex(@"[\\]+");
-                                    error.statusText = regex.Replace(error.statusText, "");
-                                }
+                                Regex regex = new Regex(@"[\\]+");
+                                error.statusText = regex.Replace(error.statusText, "");
                             }
-                    }
-                    else {
-                            sExceptionFault = "Exception:SendEProsResponseMessage - Service error processing ofs submit response filing json";
                         }
+                    }
+                    else
+                    {
+                        sExceptionFault = "Exception:SendEProsResponseMessage - Service error processing ofs submit response filing json";
+                    }
                 }
 
                 // Process/Send exception response message to ePros if needed
-                if( responseObj == null && !String.IsNullOrEmpty(sExceptionFault) )  // exception?
+                if (responseObj == null && !String.IsNullOrEmpty(sExceptionFault))  // exception?
                 {
-                    Log.Information($"sExceptionFault: {sExceptionFault}");
+                    //Log.Information($"sExceptionFault: {sExceptionFault}");
                     responseObj = new FilingResponseObj();
                     responseObj.ePros.submitDocRefId = sSubDocRefID ?? "";
                     responseObj.organizationId = filingLocation;
@@ -1077,7 +1106,7 @@ namespace FilingHostService
 
                 // Serialize response obj into standard json and submit to eSuite REST services.
                 string eProsjson = Newtonsoft.Json.JsonConvert.SerializeObject(eProsRuleRespJson, Newtonsoft.Json.Formatting.None);
-                
+
 
                 var token = eRest.GetUserAuthToken(@ConfigurationManager.AppSettings.Get("eSuiteRestAPI_login"),
                                                    @ConfigurationManager.AppSettings.Get("eSuiteRestAPI_pwd"));
@@ -1091,7 +1120,7 @@ namespace FilingHostService
                 var request = new eRestRequest(@ConfigurationManager.AppSettings.Get("eSuiteRestAPI_url"), token, eRestRequestTypes.Post, eProsjson);
                 var sResults = eRest.SubmitRequest(request);
                 Log.Information("Complete");
-                
+
                 // Deserialize eSuite rule REST structure response json
                 var eRespRule = Newtonsoft.Json.JsonConvert.DeserializeAnonymousType(sResults, eSuiteRuleDef);
                 if (eRespRule.@params != null)   // valid rule param containing interface rest message?
@@ -1120,7 +1149,8 @@ namespace FilingHostService
         // Returns - nothing
         // 
         // 
-        private void WriteSubmitFilingResponse(String sSubDocRefID, XElement xOfsResponse) {
+        private void WriteSubmitFilingResponse(String sSubDocRefID, XElement xOfsResponse)
+        {
             try
             {
                 // Save xml notify message to network, if path is missing it's disabled
@@ -1141,7 +1171,7 @@ namespace FilingHostService
                     Log.Information("No valid OfsReponse message, submit review filing response not saved");
 
             }
-                catch (Exception ex)
+            catch (Exception ex)
             {
                 Log.Fatal(ex, "Exception::WriteSubmitResponse - Error writing submit filing repsonse");
             }
@@ -1221,18 +1251,21 @@ namespace FilingHostService
         //
         // Method to move file and overwrite if existing file found
         //
-        private void MoveFile( String sSrcPath, String sDestPath )
+        private void MoveFile(String sSrcPath, String sDestPath)
         {
-            Log.Information(string.Format("Moving {0} file to {1}", sSrcPath, sDestPath));
-            try
+            if (sSrcPath != sDestPath)
             {
-                if (File.Exists(sDestPath)) // file exists?
-                    File.Delete(sDestPath);
-                File.Move(sSrcPath, sDestPath);
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex, string.Format("Exception::MoveFile - Error moving file {0}", sDestPath));
+                Log.Information(string.Format("Moving {0} file to {1}", sSrcPath, sDestPath));
+                try
+                {
+                    if (File.Exists(sDestPath)) // file exists?
+                        File.Delete(sDestPath);
+                    File.Move(sSrcPath, sDestPath);
+                }
+                catch (Exception ex)
+                {
+                    Log.Fatal(ex, string.Format("Exception::MoveFile - Error moving file {0}", sDestPath));
+                }
             }
         }
 
@@ -1250,7 +1283,7 @@ namespace FilingHostService
         //
         protected override void OnStop()
         {
-            if (_cHost != null )
+            if (_cHost != null)
                 _cHost.Close();
         }
 
@@ -1266,6 +1299,7 @@ namespace FilingHostService
                 _filingQueuePath = @ConfigurationManager.AppSettings.Get("filingQueueFolder");
                 _filingFailedPath = @ConfigurationManager.AppSettings.Get("filingFailedFolder");
                 _filingSuccessPath = @ConfigurationManager.AppSettings.Get("filingSuccessFolder");
+                _filingInProcessPath = @ConfigurationManager.AppSettings.Get("inProcessFolder");
                 //_filingStatutePath = @ConfigurationManager.AppSettings.Get("filingStatuteFolder");
                 _zipFolder = @ConfigurationManager.AppSettings.Get("zipFile");
                 _codeFolder = @ConfigurationManager.AppSettings.Get("codeFolder");
@@ -1282,11 +1316,12 @@ namespace FilingHostService
                 Directory.CreateDirectory(_filingFailedPath);
                 Log.Information("creating success");
                 Directory.CreateDirectory(_filingSuccessPath);
-                //Directory.CreateDirectory(_filingStatutePath);
+                Log.Information("creating inProcess");
+                Directory.CreateDirectory(_filingInProcessPath);
                 Log.Information("Court Locations: {0}", _courtLocations.Count);
                 Log.Information("creating zipFolder at: " + _zipFolder);
                 Directory.CreateDirectory(_zipFolder);
-                Log.Information("creating codeFolder at: "+ _codeFolder);
+                Log.Information("creating codeFolder at: " + _codeFolder);
                 _pfxFilePath = ConfigurationManager.AppSettings.Get("pfxFilePath");
                 _privateKeyPassword = ConfigurationManager.AppSettings.Get("privateKeyPassword");
                 _client = new EFMClient(_pfxFilePath, _privateKeyPassword);
@@ -1311,11 +1346,11 @@ namespace FilingHostService
                         Log.Information("Test: _courtID: {0}; courtLocation: {1}", _courtID, courtId);
                     }
                 }*/
-               /* // Get EFMClient certificate info
-                _pfxFilePath = ConfigurationManager.AppSettings.Get("pfxFilePath");
-                _privateKeyPassword = ConfigurationManager.AppSettings.Get("privateKeyPassword");
-                _client = new EFMClient(_pfxFilePath, _privateKeyPassword);
-               */
+                /* // Get EFMClient certificate info
+                 _pfxFilePath = ConfigurationManager.AppSettings.Get("pfxFilePath");
+                 _privateKeyPassword = ConfigurationManager.AppSettings.Get("privateKeyPassword");
+                 _client = new EFMClient(_pfxFilePath, _privateKeyPassword);
+                */
                 /*if (System.DateTime.Now.Hour == int.Parse(_hourToCheckCodes) && System.DateTime.Now.Minute >= int.Parse(_minutesFrom) && System.DateTime.Now.Minute <= int.Parse(_minutesTo))
                 {
                     _client.GetTylerCodes(_courtID);
@@ -1333,10 +1368,16 @@ namespace FilingHostService
                 _timer.Enabled = true;
 
                 // Check for messages if console execution, else wait for timer interval if deployed
-                if (Environment.UserInteractive) // console mode?
+                if (Environment.UserInteractive)
+                { // console mode?
+                    //Log.Information("CheckForOutboundMessages method call");
                     CheckForOutboundMessages();
 
-            } catch ( Exception ex) { 
+                }
+
+            }
+            catch (Exception ex)
+            {
                 Log.Fatal(ex, "Exception::RunSetup - Setup parameter error");
             }
 
@@ -1352,7 +1393,7 @@ namespace FilingHostService
             // Test for valid path to cleanup
             try
             {
-                if ( !(sPath != null && Directory.Exists(sPath)) )  // invalid path?
+                if (!(sPath != null && Directory.Exists(sPath)))  // invalid path?
                     return;
             }
             catch (Exception) // fail siliently
@@ -1364,7 +1405,7 @@ namespace FilingHostService
             {
                 if (iDayDelAge != 0) // enabled?
                 {
-                    Log.Information(String.Format("Checking {0} for files older than {1} day(s)", sPath, iDayDelAge));
+                    //Log.Information(String.Format("Checking {0} for files older than {1} day(s)", sPath, iDayDelAge));
 
                     // Check for aged files to remove
                     foreach (String file in Directory.GetFiles(sPath))
@@ -1372,7 +1413,7 @@ namespace FilingHostService
                         FileInfo fi = new FileInfo(file);
                         if (fi.LastWriteTime < DateTime.Now.AddDays(iDayDelAge * -1))  // overdue?
                         {
-                            Log.Information(String.Format("Removing file {0}", fi.FullName));
+                            //Log.Information(String.Format("Removing file {0}", fi.FullName));
                             fi.Delete();
                         }
                     }
@@ -1420,11 +1461,11 @@ namespace FilingHostService
                 string locationsText = System.IO.File.ReadAllText(string.Concat(ConfigurationManager.AppSettings.Get("CodeFolder")) + @"\locations.xml");
                 var xmlData = XElement.Parse(locationsText);
                 //Log.Information("xmlData {0}", xmlData);
-                var xmlLocationRows = xmlData.Descendants().Where(x => x.Name.LocalName == "Row" );
+                var xmlLocationRows = xmlData.Descendants().Where(x => x.Name.LocalName == "Row");
 
                 //Log.Information("ROW {0}", xmlLocationRows);
                 List<string> allCourtLocations = new List<string>();
-                foreach( var xmlRow in xmlLocationRows)
+                foreach (var xmlRow in xmlLocationRows)
                 {
                     var simpleValue = xmlRow.Elements().Where(attr => attr.Attribute("ColumnRef")?.Value == "code")?.FirstOrDefault()?.Element("SimpleValue")?.Value ?? "";
                     Log.Information("simpleValue {0}", simpleValue);
@@ -1457,6 +1498,8 @@ namespace FilingHostService
             }
 
             // Test for odyssey filings to process
+
+            Log.Information("Timer:CheckForOutboundMessages");
             CheckForOutboundMessages();
         }
 
