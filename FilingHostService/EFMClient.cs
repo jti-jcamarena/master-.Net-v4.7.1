@@ -51,15 +51,15 @@ namespace FilingHostService
 
         public AuthenticateResponseType AuthenticateUser(AuthenticateRequestType request)
         {
-            Log.Information("AuthenticateUser 1");
+            //Log.Information("AuthenticateUser 1");
             EfmUserServiceClient userService = this.CreateUserService();
-            Log.Information("AuthenticateUser 2");
+            //Log.Information("AuthenticateUser 2");
             userService.Open();
-            Log.Information($"AuthenticateUser 3");
+            //Log.Information($"AuthenticateUser 3");
             AuthenticateResponseType response = userService.AuthenticateUser(request);
-            Log.Information("AuthenticateUser 4");
+            //Log.Information("AuthenticateUser 4");
             userService.Close();
-            Log.Information("AuthenticateUser 5");
+            //Log.Information("AuthenticateUser 5");
             return response;
         }
 
@@ -76,9 +76,9 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-                Log.Information("79: GetUserList 1");
+                //Log.Information("79: GetUserList 1");
                 var response = firmService.GetUserList();
-                Log.Information("79: GetUserList 2");
+                //Log.Information("79: GetUserList 2");
                 return response;
             }
         }
@@ -170,9 +170,9 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-                Log.Information("99: GetUserList 1");
+                //Log.Information("99: GetUserList 1");
                 var response = firmService.GetUserListAsync();
-                Log.Information("101: GetUserList 2");
+                //Log.Information("101: GetUserList 2");
                 return response;
             }
         }
@@ -240,7 +240,7 @@ namespace FilingHostService
                 attachServiceContactRequestType.CasePartyID = casePartyID;
                 attachServiceContactRequestType.ServiceContactID = svcContactID;
                 var response = firmService.AttachServiceContact(attachServiceContactRequestType);
-                Log.Information("AttachServiceContact {0} to {1}", svcContactID, caseID);
+                //Log.Information("AttachServiceContact {0} to {1}", svcContactID, caseID);
             }
         }
 
@@ -262,7 +262,7 @@ namespace FilingHostService
                 detachServiceContactRequestType.CasePartyID = casePartyID;
                 detachServiceContactRequestType.ServiceContactID = svcContactID;
                 var response = firmService.DetachServiceContact(detachServiceContactRequestType);
-                Log.Information("DetachServiceContact {0} to {1}", svcContactID, caseID);
+                //Log.Information("DetachServiceContact {0} to {1}", svcContactID, caseID);
             }
         }
 
@@ -281,7 +281,7 @@ namespace FilingHostService
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
 
                 var response = firmService.GetServiceContactList();
-                Log.Information("firmService.GetServiceContactList: response {0}", response);
+                //Log.Information("firmService.GetServiceContactList: response {0}", response);
                 return response;
             }
         }
@@ -369,9 +369,9 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-                Log.Information("GetAttorneyList Request1");                
+                //Log.Information("GetAttorneyList Request1");                
                 var response = firmService.GetAttorneyList();
-                Log.Information("GetAttorneyList Request2");
+                //Log.Information("GetAttorneyList Request2");
                 return response;
             }
         }
@@ -458,11 +458,11 @@ namespace FilingHostService
                 // Execute request and parse response
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-                Log.Information("GetCaseListRequest {0}", xml);
+                //Log.Information("GetCaseListRequest {0}", xml);
                 System.Xml.Linq.XElement response = service.GetCaseList(xml);
-                Log.Information("GetCaseList Response:{0} ", response.ToString());
+                //Log.Information("GetCaseList Response:{0} ", response.ToString());
                 var caseTrackingId = response.Descendants().Where(x => x.Name.LocalName.ToLower() == "casetrackingid")?.FirstOrDefault();
-                Log.Information("case tracking id: {0}", caseTrackingId.Value);
+                //Log.Information("case tracking id: {0}", caseTrackingId.Value);
                 return caseTrackingId?.Value ?? null;
             }
         }
@@ -542,7 +542,7 @@ namespace FilingHostService
     </CaseListQueryTimeRange>
 </CaseListQueryMessage>
 ";
-            Log.Information("GetCaseList 1");
+            //Log.Information("GetCaseList 1");
             // Update xml message with the appropriate values
             XElement xml = XElement.Parse(caseListReqXml);
             var ncNamespace = "http://niem.gov/niem/niem-core/2.0";
@@ -551,11 +551,11 @@ namespace FilingHostService
             var caseList = xml.Elements().Where(x => x.Name.LocalName.ToLower() == "caselistquerycase")?.FirstOrDefault();
             var courtIDElement = caseCourt.Descendants().Where(x => x.Name.LocalName.ToLower() == "identificationid")?.FirstOrDefault();
             var caseNumberElement = caseList.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "CaseDocketID"))?.FirstOrDefault();
-            Log.Information("GetCaseList 2");
+            //Log.Information("GetCaseList 2");
             // Add search criteria fields
             courtIDElement.Value = courtID;
             caseNumberElement.Value = caseDocketNbr;
-            Log.Information("GetCaseList 3");
+            //Log.Information("GetCaseList 3");
             // Setup message header for getCaseList request
             var service = this.CreateRecordService();
             using (new OperationContextScope(service.InnerChannel))
@@ -569,7 +569,7 @@ namespace FilingHostService
                 // Execute request and parse response
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-                Log.Information("GetCaseListRequest {0}", xml);
+                //Log.Information("GetCaseListRequest {0}", xml);
                 System.Xml.Linq.XElement response = service.GetCaseList(xml);
                 return response;
             }
@@ -604,7 +604,7 @@ namespace FilingHostService
 </CaseListQueryCaseParticipant>
 </CaseListQueryMessage>
 ";
-            Log.Information("GetCaseList 1");
+            //Log.Information("GetCaseList 1");
             // Update xml message with the appropriate values
             XElement xml = XElement.Parse(caseListReqXml);
             var ncNamespace = "http://niem.gov/niem/niem-core/2.0";
@@ -620,7 +620,7 @@ namespace FilingHostService
             courtIDElement.Value = courtID;
             personGivenName.Value = firstname;
             personSurName.Value = lastname;
-            Log.Information("xml request {0}", xml);
+            //Log.Information("xml request {0}", xml);
 
             
             // Setup message header for getCaseList request
@@ -636,7 +636,7 @@ namespace FilingHostService
                 // Execute request and parse response
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-                Log.Information("GetCaseListRequest {0}", xml);
+                //Log.Information("GetCaseListRequest {0}", xml);
                 System.Xml.Linq.XElement response = service.GetCaseList(xml);
                 return response;
             }
@@ -696,7 +696,7 @@ namespace FilingHostService
             //var dateTime = documentPostDate.Elements().Where(x => x.Name == string.Format("{{{0}}}{1}", ncNamespace, "DateTime"))?.FirstOrDefault();
             courtIDElement.Value = courtLocation;
             //dateTime.Value = timestamp.ToString("yyyyMMddTHH:mm:ssZ");
-            Log.Information("GetPolicy Request: {0}", xml);
+            //Log.Information("GetPolicy Request: {0}", xml);
             
             var service = this.CreateFilingService();
             using (new OperationContextScope(service.InnerChannel))
@@ -734,8 +734,8 @@ namespace FilingHostService
 
                 EFMFirmService.PaymentAccountListResponseType pmtType = service.GetPaymentAccountList();
 
-                Log.Information("GetPaymentAccountList Results:");
-                foreach( var p in pmtType.PaymentAccount)
+                //Log.Information("GetPaymentAccountList Results:");
+                /*foreach( var p in pmtType.PaymentAccount)
                 {
                     Log.Information(" AccountID = " + p.PaymentAccountID?.ToString());
                     Log.Information(" FirmID = " + p.FirmID?.ToString());
@@ -747,7 +747,7 @@ namespace FilingHostService
                     Log.Information(" CardName = " + p.CardHolderName?.ToString());
                     Log.Information(" Active = " + p.Active);
                     Log.Information("");
-                }
+                }*/
                 return pmtType;
             }
         }
@@ -839,13 +839,13 @@ namespace FilingHostService
         {
             var zipFilePath = ConfigurationManager.AppSettings.Get("zipFile");
             var folderPath = string.Concat(ConfigurationManager.AppSettings.Get("CodeFolder"));
-            Log.Information("Code Folder Path: {0}", folderPath);
+            //Log.Information("Code Folder Path: {0}", folderPath);
             var fileNames = new List<string>();
             fileNames.Add("location");
             var urls = new List<string>();
             var zips = new List<string>();
             var xmls = new List<string>();
-            Log.Information("For Loop: fileNames size {0} ", fileNames.Count);
+            //Log.Information("For Loop: fileNames size {0} ", fileNames.Count);
             foreach (string fileName in fileNames)
             {
                 //Log.Information("Start Loop");
@@ -863,15 +863,15 @@ namespace FilingHostService
                 xmls.Add(codeFilePath);
                 //Log.Information("End Loop");
             }
-            Log.Information("Encoding data");
+            //Log.Information("Encoding data");
             var _data = Encoding.UTF8.GetBytes(DateTime.Now.ToString("o"));
-            Log.Information("ContentInfo");
+            //Log.Information("ContentInfo");
             ContentInfo _info = new ContentInfo(_data);
-            Log.Information("SignedCms");
+            //Log.Information("SignedCms");
             SignedCms _cms = new SignedCms(_info, false);
             CmsSigner _signer = new CmsSigner(this.MessageSigningCertificate);
-            Log.Information("CmsSigner {0}", _signer);
-            Log.Information("ComputeSignature");
+            //Log.Information("CmsSigner {0}", _signer);
+            //Log.Information("ComputeSignature");
             try
             {
                 _cms.ComputeSignature(_signer, false);
@@ -880,21 +880,21 @@ namespace FilingHostService
             {
                 Log.Information("Exception signing: {0}", exsig.Message);
             }
-            Log.Information("Signed");
+            //Log.Information("Signed");
             var _signed = _cms.Encode();
-            Log.Information("Convert b64String");
+            //Log.Information("Convert b64String");
             var _b64 = Convert.ToBase64String(_signed);
-            Log.Information("Web Client call");
+            //Log.Information("Web Client call");
             using (WebClient _client = new WebClient())
             {
                 _client.Headers["tyl-efm-api"] = _b64;
                 for (int i = 0; i < urls.Count; i++)
                 {
-                    Log.Information(urls[i]);
-                    Log.Information(zips[i]);
+                    //Log.Information(urls[i]);
+                    //Log.Information(zips[i]);
                     try
                     {
-                        Log.Information("Try block: downloading");
+                        //Log.Information("Try block: downloading");
                         _client.DownloadFile(urls[i], zips[i]);
                     }
                     catch (Exception ex)
@@ -904,7 +904,7 @@ namespace FilingHostService
                     }
                 }
             }
-            Log.Information("extracting zip files");
+            //Log.Information("extracting zip files");
             for (int i = 0; i < xmls.Count; i++)
             {
                 // Download and extract zip file               
@@ -912,10 +912,10 @@ namespace FilingHostService
                 {
                     if (File.Exists(xmls[i]))
                     {
-                        Log.Information("deleting previous files from codes directory");
+                        //Log.Information("deleting previous files from codes directory");
                         File.Delete(xmls[i]);
                     }
-                    Log.Information("zip found ready to extract");
+                    //Log.Information("zip found ready to extract");
                     ZipFile.ExtractToDirectory(zips[i], folderPath);
                     //File.Delete(zips[i]);
                 }
@@ -930,12 +930,12 @@ namespace FilingHostService
         {
             var zipFilePath = ConfigurationManager.AppSettings.Get("zipFile");
             var folderPath = string.Concat(ConfigurationManager.AppSettings.Get("CodeFolder"), @"\" , courtID.Replace(":", ""));
-            Log.Information("Code Folder Path: {0}", folderPath);
+            //Log.Information("Code Folder Path: {0}", folderPath);
             var fileNames = new List<string>(ConfigurationManager.AppSettings.Get("fileList").Split(new char[] { ';' }));
             var urls = new List<string>();
             var zips = new List<string>();
             var xmls = new List<string>();
-            Log.Information("For Loop: fileNames size {0} ", fileNames.Count);
+            //Log.Information("For Loop: fileNames size {0} ", fileNames.Count);
             foreach (string fileName in fileNames)
             {
                 //Log.Information("Start Loop");
@@ -954,15 +954,15 @@ namespace FilingHostService
                 xmls.Add(codeFilePath);
                 //Log.Information("End Loop");
             }
-            Log.Information("Encoding data");
+            //Log.Information("Encoding data");
             var _data = Encoding.UTF8.GetBytes(DateTime.Now.ToString("o"));
-            Log.Information("ContentInfo");
+            //Log.Information("ContentInfo");
             ContentInfo _info = new ContentInfo(_data);
-            Log.Information("SignedCms");
+            //Log.Information("SignedCms");
             SignedCms _cms = new SignedCms(_info, false);
             CmsSigner _signer = new CmsSigner(this.MessageSigningCertificate);
-            Log.Information("CmsSigner {0}", _signer);
-            Log.Information("ComputeSignature");
+            //Log.Information("CmsSigner {0}", _signer);
+            //Log.Information("ComputeSignature");
             try
             {
                 _cms.ComputeSignature(_signer, false);
@@ -970,21 +970,21 @@ namespace FilingHostService
             {
                 Log.Information("Exception signing: {0}", exsig.Message);
             }
-            Log.Information("Signed");
+            //Log.Information("Signed");
             var _signed = _cms.Encode();
-            Log.Information("Convert b64String");
+            //Log.Information("Convert b64String");
             var _b64 = Convert.ToBase64String(_signed);
-            Log.Information("Web Client call");
+            //Log.Information("Web Client call");
             using (WebClient _client = new WebClient())
             {
                 _client.Headers["tyl-efm-api"] = _b64;
                 for (int i = 0; i < urls.Count; i++)
                 {
-                    Log.Information(urls[i]);
-                    Log.Information(zips[i]);
+                    //Log.Information(urls[i]);
+                    //Log.Information(zips[i]);
                     try
                     {
-                        Log.Information("Try block: downloading");
+                        //Log.Information("Try block: downloading");
                         _client.DownloadFile(urls[i], zips[i]);
                     }
                     catch (Exception ex)
@@ -994,7 +994,7 @@ namespace FilingHostService
                     }
                 }
             }
-            Log.Information("extracting zip files");
+            //Log.Information("extracting zip files");
             for (int i = 0; i < xmls.Count; i++)
             {
                 // Download and extract zip file               
@@ -1002,10 +1002,10 @@ namespace FilingHostService
                 {
                     if (File.Exists(xmls[i]))
                     {
-                        Log.Information("deleting previous files from codes directory");
+                        //Log.Information("deleting previous files from codes directory");
                         File.Delete(xmls[i]);
                     }
-                    Log.Information("zip found ready to extract");
+                    //Log.Information("zip found ready to extract");
                     ZipFile.ExtractToDirectory(zips[i], folderPath);
                     //File.Delete(zips[i]);
                 }
@@ -1208,7 +1208,7 @@ namespace FilingHostService
 
                 var messageHeader = MessageHeader.CreateHeader("UserNameHeader", "urn:tyler:efm:services", userInfo);
                 OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
-                Log.Information("GetFilingStatus Request {0}", xml);
+                //Log.Information("GetFilingStatus Request {0}", xml);
                 var response = service.GetFilingStatus(xml);
                 return response;
             }
